@@ -10,8 +10,6 @@ import Home from '../Home';
 import PrivateRoute from '../Navigation/PrivateRoute.js';
 
 
-
-
 class App extends Component {
   constructor(props) {
     super(props);
