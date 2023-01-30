@@ -7,6 +7,8 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 
+import Appbar from '../Appbar';
+
 
 //Dev mode
 const serverURL = ""; //enable for dev mode
@@ -156,6 +158,9 @@ class Home extends Component {
           <Paper
             className={classes.paper}
           >
+
+            <Appbar> </Appbar>
+
             {mainMessage}
           </Paper>
 
