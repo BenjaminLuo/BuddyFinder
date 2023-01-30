@@ -9,7 +9,6 @@ import Paper from "@material-ui/core/Paper";
 
 import Appbar from '../Appbar';
 
-
 //Dev mode
 const serverURL = ""; //enable for dev mode
 
@@ -137,10 +136,7 @@ class Home extends Component {
           >
             {this.state.mode === 0 ? (
               <React.Fragment>
-
-                Welcome to anyka MSci342: Software Design! Here are some changes to our app!
-
-             
+                Welcome to Matching!
               </React.Fragment>
             ) : (
               <React.Fragment>
@@ -161,8 +157,7 @@ class Home extends Component {
           <Paper
             className={classes.paper}
           >
-
-            <Appbar> </Appbar>
+              <Appbar> </Appbar>
 
             {mainMessage}
           </Paper>

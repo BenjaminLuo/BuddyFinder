@@ -137,10 +137,7 @@ class Home extends Component {
           >
             {this.state.mode === 0 ? (
               <React.Fragment>
-
-                Welcome to anyka MSci342: Software Design! Here are some changes to our app!
-
-             
+                Welcome to Statistics! I made some chnges...
               </React.Fragment>
             ) : (
               <React.Fragment>
@@ -155,6 +152,9 @@ class Home extends Component {
 
 
     return (
+
+
+
       <MuiThemeProvider theme={theme}>
         <div className={classes.root}>
           <CssBaseline />
