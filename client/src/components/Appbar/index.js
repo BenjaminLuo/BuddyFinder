@@ -55,22 +55,11 @@ const Appbar = () => {
              onClick={() => history.push('/')}
              sx={{ my: 2, color: 'white', display: 'block' }}
            >
-             Landing
+             Home
            </Button>
          
        </Box>
 
-       <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-           
-           <Button
-             // key={page}
-             onClick={() => history.push('/Home')}
-             sx={{ my: 2, color: 'white', display: 'block' }}
-           >
-            Home
-           </Button>
-         
-       </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }} >
            
