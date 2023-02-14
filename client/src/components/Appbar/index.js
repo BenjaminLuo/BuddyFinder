@@ -64,6 +64,18 @@ const Appbar = () => {
            
            <Button
              // key={page}
+             onClick={() => history.push('/Calendar')}
+             sx={{ my: 2, color: 'white', display: 'block' }}
+           >
+             Calendar
+           </Button>
+         
+       </Box>
+
+       <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+           
+           <Button
+             // key={page}
              onClick={() => history.push('/Home')}
              sx={{ my: 2, color: 'white', display: 'block' }}
            >
