@@ -6,7 +6,8 @@ import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
-
+import FullCalendar from "@fullcalendar/react";
+import daygridPlugin from "@fullcalendar/daygrid";
 import Appbar from '../Appbar';
 
 
@@ -116,41 +117,18 @@ class Home extends Component {
   render() {
     const { classes } = this.props;
 
-
-
-    const mainMessage = (
-      <Grid
-        container
-        spacing={0}
-        direction="column"
-        justify="flex-start"
-        alignItems="flex-start"
-        style={{ minHeight: '100vh' }}
-        className={classes.mainMessageContainer}
-      >
-        <Grid item>
-
-          <Typography
-            variant={"h3"}
-            className={classes.mainMessage}
-            align="flex-start"
-          >
-            {this.state.mode === 0 ? (
-              <React.Fragment>
-                Welcome to Calendar!
-              </React.Fragment>
-            ) : (
-              <React.Fragment>
-                Welcome back!
-              </React.Fragment>
-            )}
-          </Typography>
-
-        </Grid>
-      </Grid>
+    const calendarView = (
+      <div>
+      <FullCalendar
+      headerToolbar={{
+      start: "today prev next",
+      end: "dayGridDay dayGridWeek dayGridMonth",
+      }}
+      plugins={[daygridPlugin]}
+      views={["dayGridDay", "dayGridWeek", "dayGridMonth"]} />
+      </div>
     )
-
-
+    
     return (
       <MuiThemeProvider theme={theme}>
         <div className={classes.root}>
@@ -159,9 +137,12 @@ class Home extends Component {
             className={classes.paper}
           >
 
-            <Appbar> </Appbar>
-
-            {mainMessage}
+            <Appbar> 
+            </Appbar>
+            <h1>
+            Calendar Page
+            </h1> 
+            {calendarView}
           </Paper>
 
         </div>
