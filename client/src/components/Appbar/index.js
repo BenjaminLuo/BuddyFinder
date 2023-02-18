@@ -21,25 +21,25 @@ import MenuItem from '@material-ui/core/MenuItem';
 const Appbar = () => {
 
   const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-  
-  
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const [anchorElUser, setAnchorElUser] = React.useState(null);
-  
-    const handleOpenNavMenu = (event) => {
-      setAnchorElNav(event.currentTarget);
-    };
-    const handleOpenUserMenu = (event) => {
-      setAnchorElUser(event.currentTarget);
-    };
-  
-    const handleCloseNavMenu = () => {
-      setAnchorElNav(null);
-    };
-  
-    const handleCloseUserMenu = () => {
-      setAnchorElUser(null);
-    };
+
+
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
 
   return (
 
@@ -48,86 +48,83 @@ const Appbar = () => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
 
-        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-           
-           <Button
-             // key={page}
-             onClick={() => history.push('/')}
-             sx={{ my: 2, color: 'white', display: 'block' }}
-           >
-             Home
-           </Button>
-         
-       </Box>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 
-<<<<<<< HEAD
-=======
-       <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-           
-           <Button
-             // key={page}
-             onClick={() => history.push('/Calendar')}
-             sx={{ my: 2, color: 'white', display: 'block' }}
-           >
-             Calendar
-           </Button>
-         
-       </Box>
+            <Button
+              // key={page}
+              onClick={() => history.push('/')}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+              Home
+            </Button>
 
-       <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-           
-           <Button
-             // key={page}
-             onClick={() => history.push('/Home')}
-             sx={{ my: 2, color: 'white', display: 'block' }}
-           >
-            Home
-           </Button>
-         
-       </Box>
->>>>>>> 4d8f954917cc71f21658ee5a794d74f94682d2fd
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }} >
-           
-              <Button
-                // key={page}
-                onClick={() => history.push('/Statistics')}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                Stats
-              </Button>
-            
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-           
-           <Button
-             // key={page}
-             onClick={() => history.push('/Discussion')}
-             sx={{ my: 2, color: 'white', display: 'block' }}
-           >
-             Discussion
-           </Button>
 
-           </Box>
+            <Button
+              // key={page}
+              onClick={() => history.push('/Calendar')}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+              Calendar
+            </Button>
 
-           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-           
-           <Button
-             // key={page}
-             onClick={() => history.push('/Matching')}
-             sx={{ my: 2, color: 'white', display: 'block' }}
-           >
-             Matching
-           </Button>
-         
-       </Box>
+          </Box>
+
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+
+            <Button
+              // key={page}
+              onClick={() => history.push('/Home')}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+              Home
+            </Button>
+
+          </Box>
+
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }} >
+
+            <Button
+              // key={page}
+              onClick={() => history.push('/Statistics')}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+              Stats
+            </Button>
+
+          </Box>
+
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+
+            <Button
+              // key={page}
+              onClick={() => history.push('/Discussion')}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+              Discussion
+            </Button>
+
+          </Box>
+
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+
+            <Button
+              // key={page}
+              onClick={() => history.push('/Matching')}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+              Matching
+            </Button>
+
+          </Box>
 
         </Toolbar>
       </Container>
     </AppBar>
 
-    
+
   )
 }
 

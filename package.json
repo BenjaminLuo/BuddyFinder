@@ -16,6 +16,7 @@
     "yarn": "^1.22.19"
   },
   "devDependencies": {
-    "concurrently": "^4.0.1"
+    "concurrently": "^4.0.1",
+    "cypress": "^10.9.0"
   }
 }
