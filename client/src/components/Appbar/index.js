@@ -1,18 +1,34 @@
 import * as React from 'react';
-import './index.css'
-
 import history from '../Navigation/history';
 
 import {
   AppBar,
   Toolbar,
   Button,
-  Grid
+  Grid,
+  Menu,
+  MenuItem
 } from '@material-ui/core';
 
 
 // Navigation Bar (appears on all pages)
 export default function NavBar() {
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const dropdownClick = (redirect) => {
+    handleClose();
+    history.push(redirect);
+  }
+
 
   return (
     <div>
@@ -21,14 +37,34 @@ export default function NavBar() {
 
           {/* Grid to organize redirects */}
           <Grid container spacing={2}>
-            <NavButton size={1} redirect={"/"} linkText={"Landing"} />
+            <NavButton redirect={"/"} linkText={"Home"} />
             <Grid xs={6} item></Grid> {/* Empty space for right-aligning the NavButtons*/}
 
-            <NavButton size={1} redirect={"/Matching"} linkText={"Matching"} />
-            <NavButton size={1} redirect={"/Discussion"} linkText={"Discussion"} />
-            <NavButton size={1} redirect={"/Calendar"} linkText={"Calendar"} />
-            <NavButton size={1} redirect={"/Statistics"} linkText={"Statistics"} />
-            <NavButton size={1} redirect={"/Profile"} linkText={"Profile"} />
+            <NavButton redirect={"/Matching"} linkText={"Matching"} />
+            <NavButton redirect={"/Discussion"} linkText={"Discussion"} />
+            <NavButton redirect={"/Calendar"} linkText={"Calendar"} />
+            <NavButton redirect={"/Statistics"} linkText={"Statistics"} />
+
+            {/* Dropdown element for profile components */}
+            <Grid
+              item xs={1}
+              sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+              <Button onClick={handleMenu}>
+                User ▼
+              </Button>
+              <Menu
+                anchorEl={anchorEl}
+                getContentAnchorEl={null}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}>
+                <MenuItem onClick={() => dropdownClick("Profile")}>Profile</MenuItem>
+                <MenuItem onClick={() => dropdownClick("Settings")}>Settings</MenuItem>
+              </Menu>
+            </Grid>
+
           </Grid>
 
         </Toolbar>
@@ -41,13 +77,16 @@ export default function NavBar() {
 const NavButton = (props) => {
   return (
 
-    <Grid sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+    <Grid item
+      xs={1}
+      sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 
       <Button
         onClick={() => history.push(props.redirect)}
-        sx={{ my: 2, color: 'white', display: 'block' }}
-      >
+        sx={{ my: 2, color: 'white', display: 'block' }}>
+
         {props.linkText}
+
       </Button>
 
     </Grid>
