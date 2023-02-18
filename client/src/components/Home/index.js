@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import CssBaseline from "@material-ui/core/CssBaseline";
 import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
+import PropTypes from 'prop-types';
+import {
+  Paper,
+  Typography,
+  Grid,
+  CssBaseline,
+  withStyles
+} from "@material-ui/core";
 
 import Appbar from '../Appbar';
 
@@ -140,7 +142,7 @@ class Home extends Component {
 
                 Welcome to anyka MSci342: Software Design! Here are some changes to our app!
 
-             
+
               </React.Fragment>
             ) : (
               <React.Fragment>

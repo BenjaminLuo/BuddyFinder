@@ -19,8 +19,9 @@
     "react-gsap": "^1.2.0",
     "react-hot-loader": "^4.12.19",
     "react-redux": "^7.1.0",
-    "react-router-dom": "^5.0.1",
+    "react-router-dom": "^5.3.4",
     "react-scripts": "^3.4.0",
+    "react-test-renderer": "^17.0.2",
     "react-with-firebase-auth": "^1.0.3",
     "recompose": "^0.30.0",
     "typeface-roboto": "^0.0.54",
@@ -29,12 +30,33 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest",
-    "cypress": "cypress open",
-    "eject": "react-scripts eject"
+    "test": "jest --config ./jest.config.js",
+    "eject": "react-scripts eject",
+    "lint": "eslint src",
+    "cypress": "cypress open"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "react-app/jest",
+      "prettier"
+    ],
+    "plugins": [
+      "prettier",
+      "cypress"
+    ],
+    "env": {
+      "cypress/globals": true
+    },
+    "rules": {
+      "prettier/prettier": "warn"
+    }
+  },
+  "prettier": {
+    "arrowParens": "avoid",
+    "bracketSpacing": false,
+    "singleQuote": true,
+    "trailingComma": "all"
   },
   "browserslist": {
     "production": [

@@ -6,6 +6,8 @@ import Calendar from '../Calendar';
 import Statistics from '../Statistics';
 import Discussion from '../Discussion';
 import Mactching from '../Matching';
+
+
 import SignIn from '../SignIn';
 import Landing from '../Landing';
 
@@ -23,7 +25,9 @@ export default function PrivateRoute({
       <Route path="/Discussion" exact component={Discussion} /> 
       <Route path="/Matching" exact component={Mactching} />     
       <Route path="/SignIn" exact component={SignIn} />
-      <Route path="/" exact component={Landing} />
+
+
+      <Route path="/Landing" exact component={Landing} />
 
       </Switch>
     </Router>
