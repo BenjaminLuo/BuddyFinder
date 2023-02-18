@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './index.css'
 
 import history from '../Navigation/history';
 
@@ -20,13 +21,14 @@ export default function NavBar() {
 
           {/* Grid to organize redirects */}
           <Grid container spacing={2}>
-            <NavButton size={1} redirect={"/"} linkText={"Home"} />
-            <Grid xs={7} item></Grid> {/* Empty space for right-aligning the NavButtons*/}
+            <NavButton size={1} redirect={"/"} linkText={"Landing"} />
+            <Grid xs={6} item></Grid> {/* Empty space for right-aligning the NavButtons*/}
 
             <NavButton size={1} redirect={"/Matching"} linkText={"Matching"} />
             <NavButton size={1} redirect={"/Discussion"} linkText={"Discussion"} />
             <NavButton size={1} redirect={"/Calendar"} linkText={"Calendar"} />
             <NavButton size={1} redirect={"/Statistics"} linkText={"Statistics"} />
+            <NavButton size={1} redirect={"/Profile"} linkText={"Profile"} />
           </Grid>
 
         </Toolbar>
