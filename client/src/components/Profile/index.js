@@ -13,6 +13,9 @@ import {
     makeStyles,
 } from '@material-ui/core';
 
+import Avatar from '@material-ui/core/Avatar';
+
+
 // --------------------------------------------------- /\ Imports
 // --------------------------------------------------- \/ Styles
 
@@ -25,8 +28,22 @@ const useStyles = makeStyles((theme) => {
             padding: '40px',
             paddingTop: '120px'
         },
+        rightContainer: {
+            height: 'calc(100vh - 144px)',
+            display: 'table'
+        },
+        rightSubContainer: {
+            display: 'table-row'
+        }
     }
 })
+
+
+const user = {
+    display_name: 'Ephei Tea',
+    user_id: '20890448',
+    bio: 'A struggling student'
+}
 
 
 export default function Profile(props) {
@@ -38,60 +55,53 @@ export default function Profile(props) {
 
             <Grid container spacing={2}>
 
-                {/* Left Container: About the site */}
-                <Grid item xs={6}>
-                    <Typography gutterBottom variant="h4" align="center">
-                        Contact Us
-                    </Typography>
-                    <hr style={{ align: 'center', width: '10%', borderColor: 'darkgrey' }} />
+                {/* Left Container: User Account Information */}
+                <Grid item xs={3}>
 
-                    <Typography style={{ padding: '50px' }}>
+                    <Avatar style={{ height: '150px', width: '150px', fontSize: '70px', margin: '40px auto 40px auto' }}>ET</Avatar>
 
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. At tellus at urna condimentum mattis pellentesque id nibh. Scelerisque viverra mauris in aliquam sem fringilla ut. Mi sit amet mauris commodo quis imperdiet massa tincidunt nunc. In tellus integer feugiat scelerisque varius. Eu ultrices vitae auctor eu augue ut lectus arcu. Euismod quis viverra nibh cras pulvinar mattis nunc sed blandit. Tempor orci dapibus ultrices in iaculis nunc sed. Id diam maecenas ultricies mi eget mauris pharetra. Molestie nunc non blandit massa enim nec dui nunc mattis. Commodo odio aenean sed adipiscing diam.
+                    <Container style={{ marginLeft: '10px' }}>
 
-                    </Typography>
+                        <Typography variant="h4" style={{ marginBottom: '8px' }}>
+                            {user.display_name}
+                        </Typography>
+                        <Typography style={{ fontSize: '20px', fontStyle: 'italic', marginBottom: '10px', color: '#333333' }}>
+                            ID: {user.user_id}
+                        </Typography>
+                        <Typography style={{ fontSize: '16px', color: '#333333' }}>
+                            {user.bio}
+                        </Typography>
+
+                    </Container>
 
                 </Grid>
 
 
-                {/* Right Container: Contact form */}
-                <Grid item xs={6}>
-                    <Card style={{ maxWidth: 450, margin: "0 auto", padding: "20px 5px" }}>
-                        <CardContent>
+                {/* Right Container: User Activity */}
+                <Grid item xs={9} className={classes.rightContainer}>
 
-                            <TextField
-                                label="Name"
-                                placeholder="Name"
-                                variant="outlined"
-                                fullWidth
-                                style={{ marginBottom: "20px" }}
-                            />
-                            <TextField
-                                label="Email"
-                                placeholder="Email"
-                                variant="outlined"
-                                fullWidth
-                                style={{ marginBottom: "20px" }}
-                            />
-                            <TextField
-                                label="Review"
-                                inputProps={{ maxLength: 200 }}
-                                multiline minRows={5}
-                                placeholder="How can we help you?"
-                                variant="outlined"
-                                fullWidth
-                                style={{ marginBottom: "20px" }}
-                            />
-                            <Button
-                                type="submit"
-                                variant="contained"
-                                color="primary"
-                                fullWidth>
-                                Send message
-                            </Button>
+                    <container className={classes.rightSubContainer}>
 
-                        </CardContent>
-                    </Card>
+                        <Typography variant="h6">
+                            Interests
+                        </Typography>
+
+                    </container>
+                    <container className={classes.rightSubContainer}>
+
+                        <Typography variant="h6">
+                            Posts
+                        </Typography>
+
+                    </container>
+                    <container className={classes.rightSubContainer}>
+
+                        <Typography variant="h6">
+                            Comments
+                        </Typography>
+
+                    </container>
+
                 </Grid>
 
             </Grid>
