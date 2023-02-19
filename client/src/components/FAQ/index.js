@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => {
             backgroundSize: 'cover',
             opacity: 0.9,
             minHeight: '100vh',
-            padding: '40px',
             padding: '120px 100px 40px 100px'
         }
     }

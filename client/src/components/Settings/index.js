@@ -4,13 +4,10 @@ import React from 'react';
 
 import {
     Typography,
-    Container,
     TextField,
     makeStyles,
     Button,
     Grid,
-    Card,
-    CardContent,
     Box,
     Tabs,
     Tab
@@ -56,7 +53,6 @@ export default function Settings() {
                 <Tab label="General" />
                 <Tab label="Account" />
                 <Tab label="Privacy" />
-                <Tab label="Blocked Users" />
             </Tabs>
 
             {/* Settings for General (Public information) */}
@@ -89,14 +85,6 @@ export default function Settings() {
 
                 <InputField field={"Private Account"} label={"No"} />
                 <InputField field={"Searchable Account"} label={"Yes"} />
-
-            </TabPanel>
-
-            {/* List of blocked users */}
-            <TabPanel value={value} index={3}>
-
-                <BlockedUser name={"Ephei Tea"} userID={"20890448"} year={"3A"} program={"Management Engineering"} />
-                <BlockedUser name={"Yi Fei"} userID={"00000000"} year={"4A"} program={"Civil Engineering"} />
 
             </TabPanel>
 
@@ -149,32 +137,3 @@ const InputField = (props) => {
     )
 }
 
-const BlockedUser = (props) => {
-    return (
-        <Card style={{ marginLeft: '50px', marginBottom: '12px' }}>
-            <CardContent style={{ backgroundColor: 'white', width: '400px', padding: '8px 8px 8px 50px' }}>
-                <Grid container spacing={2}>
-                    <Grid item xs={8}>
-                        <Typography style={{ fontWeight: '500', display: 'inline' }}>
-                            {props.name + " / "}
-                        </Typography>
-                        <Typography style={{ display: 'inline' }}>
-                            ({props.userID})
-                        </Typography>
-                        <Typography style={{ fontStyle: 'italic', fontSize: '12px' }}>
-                            {props.year + " " + props.program}
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={3}>
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            color="primary">
-                            Unblock
-                        </Button>
-                    </Grid>
-                </Grid>
-            </CardContent>
-        </Card>
-    )
-}
