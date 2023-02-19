@@ -71,7 +71,7 @@ export default function Search(props) {
 
                     {/* Returned results */}
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                        <Tabs value={value} onChange={handleChange}>
                             <Tab label="All" />
                             <Tab label="Friends" />
                             <Tab label="Blocked" />
@@ -80,7 +80,14 @@ export default function Search(props) {
                     <TabPanel value={value} index={0}>
                         <UserCard
                             name={"Ephei Tea"}
-                            program={"3A Management Engineering"} />
+                            userID={"20890448"}
+                            year={"3A"}
+                            program={"Management Engineering"} />
+                        <UserCard
+                            name={"Yi Fei"}
+                            userID={"00000000"}
+                            year={"4A"}
+                            program={"Civil Engineering"} />
                     </TabPanel>
                     <TabPanel value={value} index={1}>
                         Item Two
@@ -99,16 +106,31 @@ export default function Search(props) {
 
 const UserCard = (props) => {
     return (
-        <Card>
-            <CardContent style={{ backgroundColor: 'lightgrey' }}>
-                <Typography style={{ fontWeight: '500' }}>
-                    {props.name}
-                </Typography>
-                <Typography style={{ fontStyle: 'italic', fontSize: '12px' }}>
-                    {props.program}
-                </Typography>
+        <Card style={{ marginBottom: '12px' }}>
+            <CardContent style={{ backgroundColor: 'lightgrey', padding: '8px 8px 8px 30px' }}>
+                <Grid container spacing={2}>
+                    <Grid item xs={9}>
+                        <Typography style={{ fontWeight: '500', display: 'inline' }}>
+                            {props.name + " / "}
+                        </Typography>
+                        <Typography style={{ display: 'inline' }}>
+                            ({props.userID})
+                        </Typography>
+                        <Typography style={{ fontStyle: 'italic', fontSize: '12px' }}>
+                            {props.year + " " + props.program}
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={3}>
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            color="primary">
+                            Profile
+                        </Button>
+                    </Grid>
+                </Grid>
             </CardContent>
-        </Card>
+        </Card >
     )
 }
 
