@@ -9,6 +9,7 @@ import Mactching from '../Matching';
 import Landing from '../Landing';
 import Contact from '../Contact';
 import Settings from '../Settings';
+import FAQ from '../FAQ';
 
 export default function PrivateRoute({
   //authenticated,
@@ -25,6 +26,7 @@ export default function PrivateRoute({
         <Route path="/Matching" exact component={Mactching} />
         <Route path="/Contact" exact component={Contact} />
         <Route path="/Settings" exact component={Settings} />
+        <Route path="/FAQ" exact component={FAQ} />
       </Switch>
     </Router>
   );
