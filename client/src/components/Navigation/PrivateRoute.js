@@ -7,6 +7,8 @@ import Statistics from '../Statistics';
 import Discussion from '../Discussion';
 import Mactching from '../Matching';
 import Landing from '../Landing';
+import Contact from '../Contact';
+import Settings from '../Settings';
 
 export default function PrivateRoute({
   //authenticated,
@@ -21,7 +23,8 @@ export default function PrivateRoute({
         <Route path="/Statistics" exact component={Statistics} />
         <Route path="/Discussion" exact component={Discussion} />
         <Route path="/Matching" exact component={Mactching} />
-
+        <Route path="/Contact" exact component={Contact} />
+        <Route path="/Settings" exact component={Settings} />
       </Switch>
     </Router>
   );
