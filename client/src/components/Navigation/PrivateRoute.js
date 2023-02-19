@@ -10,7 +10,10 @@ import Contact from '../Contact';
 import Settings from '../Settings';
 import FAQ from '../FAQ';
 import Search from '../Search';
+import Profile from '../Profile';
 
+
+// eslint-disable-next-line
 export default function PrivateRoute({
   //authenticated,
   //...rest
@@ -28,6 +31,7 @@ export default function PrivateRoute({
         <Route path="/Settings" exact component={Settings} />
         <Route path="/FAQ" exact component={FAQ} />
         <Route path="/Search" exact component={Search} />
+        <Route path="/Profile" exact component={Profile} />
       </Switch>
     </Router>
   );
