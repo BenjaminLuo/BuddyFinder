@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => {
 })
 
 
-export default function Contact(props) {
+export default function FAQ(props) {
     const classes = useStyles();
 
 
@@ -66,7 +66,7 @@ const FAQContent = (props) => {
 
             <AccordionSummary
                 expandIcon={"▼"}
-                style={{ paddingRight: '20px', paddingLeft: '40px' }}>
+                style={{ paddingRight: '20px', paddingLeft: '40px', backgroundColor: '#6AAB8E' }}>
                 <Typography>{props.question}</Typography>
             </AccordionSummary>
 

@@ -64,7 +64,6 @@ export default function Contact(props) {
                                 placeholder="Name"
                                 variant="outlined"
                                 fullWidth
-                                name={"reviewTitle"}
                                 style={{ marginBottom: "20px" }}
                             />
                             <TextField
@@ -72,7 +71,6 @@ export default function Contact(props) {
                                 placeholder="Email"
                                 variant="outlined"
                                 fullWidth
-                                name={"reviewTitle"}
                                 style={{ marginBottom: "20px" }}
                             />
                             <TextField
