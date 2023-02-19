@@ -38,12 +38,13 @@ export default function NavBar() {
           {/* Grid to organize redirects */}
           <Grid container spacing={2}>
             <NavButton redirect={"/"} linkText={"Home"} />
-            <Grid xs={6} item></Grid> {/* Empty space for right-aligning the NavButtons*/}
+            <Grid xs={5} item></Grid> {/* Empty space for right-aligning the NavButtons*/}
 
             <NavButton redirect={"/Matching"} linkText={"Matching"} />
             <NavButton redirect={"/Discussion"} linkText={"Discussion"} />
             <NavButton redirect={"/Calendar"} linkText={"Calendar"} />
             <NavButton redirect={"/Statistics"} linkText={"Statistics"} />
+            <NavButton redirect={"/Search"} linkText={"Search"} />
 
             {/* Dropdown element for profile components */}
             <Grid

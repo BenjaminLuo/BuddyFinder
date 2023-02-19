@@ -1,6 +1,5 @@
 import React from "react";
 import { Router, Switch, Route } from "react-router-dom";
-import Home from '../Home';
 import history from './history';
 import Calendar from '../Calendar';
 import Statistics from '../Statistics';
@@ -10,6 +9,7 @@ import Landing from '../Landing';
 import Contact from '../Contact';
 import Settings from '../Settings';
 import FAQ from '../FAQ';
+import Search from '../Search';
 
 export default function PrivateRoute({
   //authenticated,
@@ -27,6 +27,7 @@ export default function PrivateRoute({
         <Route path="/Contact" exact component={Contact} />
         <Route path="/Settings" exact component={Settings} />
         <Route path="/FAQ" exact component={FAQ} />
+        <Route path="/Search" exact component={Search} />
       </Switch>
     </Router>
   );
