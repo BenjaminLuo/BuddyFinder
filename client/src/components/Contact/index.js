@@ -10,16 +10,7 @@ import {
     Grid,
     TextField,
     Button,
-    Box,
-    MenuItem,
-    Radio,
-    RadioGroup,
-    FormControlLabel,
-    FormControl,
-    FormLabel,
-    FormHelperText,
     makeStyles,
-    Modal
 } from '@material-ui/core';
 
 // --------------------------------------------------- /\ Imports
@@ -38,11 +29,7 @@ const useStyles = makeStyles((theme) => {
 })
 
 
-// --------------------------------------------------- /\ Styles
-// --------------------------------------------------- \/ Main Function
-// Main function: Aggregating components into a user form
-
-export default function Review(props) {
+export default function Contact(props) {
     const classes = useStyles();
 
 
@@ -56,7 +43,7 @@ export default function Review(props) {
                     <Typography gutterBottom variant="h4" align="center">
                         Contact Us
                     </Typography>
-                    <hr style={{ align: 'center', width: '10%', borderColor: 'black' }} />
+                    <hr style={{ align: 'center', width: '10%', borderColor: 'darkgrey' }} />
 
                     <Typography style={{ padding: '50px' }}>
 
@@ -67,7 +54,7 @@ export default function Review(props) {
                 </Grid>
 
 
-                {/* RIght Container: Contact form */}
+                {/* Right Container: Contact form */}
                 <Grid item xs={6}>
                     <Card style={{ maxWidth: 450, margin: "0 auto", padding: "20px 5px" }}>
                         <CardContent>
