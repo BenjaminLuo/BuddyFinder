@@ -62,6 +62,7 @@ export default function NavBar() {
                 onClose={handleClose}>
                 <MenuItem onClick={() => dropdownClick("Profile")}>Profile</MenuItem>
                 <MenuItem onClick={() => dropdownClick("Settings")}>Settings</MenuItem>
+                <MenuItem onClick={() => dropdownClick("Contact")}>Contact</MenuItem>
               </Menu>
             </Grid>
 
