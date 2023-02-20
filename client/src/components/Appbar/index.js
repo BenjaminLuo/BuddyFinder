@@ -1,131 +1,98 @@
 import * as React from 'react';
-
-import Typography from "@material-ui/core/Typography";
-import Link from '@material-ui/core/Link';
 import history from '../Navigation/history';
 
-import AppBar from '@material-ui/core/AppBar';
-import Box from '@material-ui/core/Box';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
+import {
+  AppBar,
+  Toolbar,
+  Button,
+  Grid,
+  Menu,
+  MenuItem
+} from '@material-ui/core';
 
-import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/core/Menu';
-import Container from '@material-ui/core/Container';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import Tooltip from '@material-ui/core/Tooltip';
-import MenuItem from '@material-ui/core/MenuItem';
-//import AdbIcon from '@material-ui/core/Adb';
 
-const Appbar = () => {
+// Navigation Bar (appears on all pages)
+export default function NavBar() {
 
-  const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-  
-  
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const [anchorElUser, setAnchorElUser] = React.useState(null);
-  
-    const handleOpenNavMenu = (event) => {
-      setAnchorElNav(event.currentTarget);
-    };
-    const handleOpenUserMenu = (event) => {
-      setAnchorElUser(event.currentTarget);
-    };
-  
-    const handleCloseNavMenu = () => {
-      setAnchorElNav(null);
-    };
-  
-    const handleCloseUserMenu = () => {
-      setAnchorElUser(null);
-    };
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const dropdownClick = (redirect) => {
+    handleClose();
+    history.push(redirect);
+  }
+
 
   return (
+    <div>
+      <AppBar>
+        <Toolbar>
 
+          {/* Grid to organize redirects */}
+          <Grid container spacing={2}>
+            <NavButton redirect={"/"} linkText={"Home"} />
+            <Grid xs={5} item></Grid> {/* Empty space for right-aligning the NavButtons*/}
 
-    <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
+            <NavButton redirect={"/Matching"} linkText={"Matching"} />
+            <NavButton redirect={"/Discussion"} linkText={"Discussion"} />
+            <NavButton redirect={"/Calendar"} linkText={"Calendar"} />
+            <NavButton redirect={"/Statistics"} linkText={"Statistics"} />
+            <NavButton redirect={"/Search"} linkText={"Search"} />
 
-        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-           
-           <Button
-             // key={page}
-             onClick={() => history.push('/')}
-             sx={{ my: 2, color: 'white', display: 'block' }}
-           >
-             Landing
-           </Button>
-         
-       </Box>
-
-       <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-           
-           <Button
-             // key={page}
-             onClick={() => history.push('/Calendar')}
-             sx={{ my: 2, color: 'white', display: 'block' }}
-           >
-             Calendar
-           </Button>
-         
-       </Box>
-
-       <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-           
-           <Button
-             // key={page}
-             onClick={() => history.push('/Home')}
-             sx={{ my: 2, color: 'white', display: 'block' }}
-           >
-            Home
-           </Button>
-         
-       </Box>
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }} >
-           
-              <Button
-                // key={page}
-                onClick={() => history.push('/Statistics')}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                Stats
+            {/* Dropdown element for profile components */}
+            <Grid
+              item xs={1}
+              sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+              <Button onClick={handleMenu}>
+                User ▼
               </Button>
-            
-          </Box>
+              <Menu
+                anchorEl={anchorEl}
+                getContentAnchorEl={null}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}>
+                <MenuItem onClick={() => dropdownClick("Profile")}>Profile</MenuItem>
+                <MenuItem onClick={() => dropdownClick("Settings")}>Settings</MenuItem>
+                <MenuItem onClick={() => dropdownClick("Contact")}>Contact</MenuItem>
+                <MenuItem onClick={() => dropdownClick("FAQ")}>FAQ</MenuItem>
+              </Menu>
+            </Grid>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-           
-           <Button
-             // key={page}
-             onClick={() => history.push('/Discussion')}
-             sx={{ my: 2, color: 'white', display: 'block' }}
-           >
-             Discussion
-           </Button>
-
-           </Box>
-
-           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-           
-           <Button
-             // key={page}
-             onClick={() => history.push('/Matching')}
-             sx={{ my: 2, color: 'white', display: 'block' }}
-           >
-             Matching
-           </Button>
-         
-       </Box>
+          </Grid>
 
         </Toolbar>
-      </Container>
-    </AppBar>
-
-    
-  )
+      </AppBar>
+    </div>
+  );
 }
 
-export default Appbar;
+
+const NavButton = (props) => {
+  return (
+
+    <Grid item
+      xs={1}
+      sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+
+      <Button
+        onClick={() => history.push(props.redirect)}
+        sx={{ my: 2, color: 'white', display: 'block' }}>
+
+        {props.linkText}
+
+      </Button>
+
+    </Grid>
+
+  )
+}

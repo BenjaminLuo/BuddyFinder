@@ -1,14 +1,19 @@
 import React from "react";
 import { Router, Switch, Route } from "react-router-dom";
-import Home from '../Home';
 import history from './history';
 import Calendar from '../Calendar';
 import Statistics from '../Statistics';
 import Discussion from '../Discussion';
 import Mactching from '../Matching';
-import SignIn from '../SignIn';
 import Landing from '../Landing';
+import Contact from '../Contact';
+import Settings from '../Settings';
+import FAQ from '../FAQ';
+import Search from '../Search';
+import Profile from '../Profile';
 
+
+// eslint-disable-next-line
 export default function PrivateRoute({
   //authenticated,
   //...rest
@@ -17,14 +22,16 @@ export default function PrivateRoute({
 
     <Router history={history}>
       <Switch>
-      <Route path="/" exact component={Home} />
-      <Route path="/Calendar" exact component={Calendar} />
-      <Route path="/Statistics" exact component={Statistics} />
-      <Route path="/Discussion" exact component={Discussion} /> 
-      <Route path="/Matching" exact component={Mactching} />     
-      <Route path="/SignIn" exact component={SignIn} />
-      <Route path="/" exact component={Landing} />
-
+        <Route path="/" exact component={Landing} />
+        <Route path="/Calendar" exact component={Calendar} />
+        <Route path="/Statistics" exact component={Statistics} />
+        <Route path="/Discussion" exact component={Discussion} />
+        <Route path="/Matching" exact component={Mactching} />
+        <Route path="/Contact" exact component={Contact} />
+        <Route path="/Settings" exact component={Settings} />
+        <Route path="/FAQ" exact component={FAQ} />
+        <Route path="/Search" exact component={Search} />
+        <Route path="/Profile" exact component={Profile} />
       </Switch>
     </Router>
   );
