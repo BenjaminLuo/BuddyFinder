@@ -6,8 +6,6 @@ import daygridPlugin from "@fullcalendar/daygrid";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
-import FullCalendar from "@fullcalendar/react";
-import daygridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction"
 import Appbar from '../Appbar';
@@ -52,13 +50,7 @@ class Home extends Component {
     const calendarView = (
       
       <div>
-        <FullCalendar
-          headerToolbar={{
-            start: "today prev next",
-            end: "dayGridDay dayGridWeek dayGridMonth",
-          }}
-          plugins={[daygridPlugin]}
-          views={["dayGridDay", "dayGridWeek", "dayGridMonth"]} />
+ 
       <FullCalendar
       plugins={[daygridPlugin, interactionPlugin, timeGridPlugin]}
       intialView= {"timeGridWeek"}
