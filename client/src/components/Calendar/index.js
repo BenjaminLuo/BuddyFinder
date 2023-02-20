@@ -8,8 +8,6 @@ import FullCalendar from "@fullcalendar/react";
 import daygridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction"
-import useState from 'react';
-import { v4 as uuid } from "uuid";
 import Appbar from '../Appbar';
 
 
