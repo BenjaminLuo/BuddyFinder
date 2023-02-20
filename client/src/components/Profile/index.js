@@ -54,7 +54,10 @@ export default function Profile(props) {
                 {/* Left Container: User Account Information */}
                 <Grid item xs={3}>
 
-                    <Avatar style={{ height: '150px', width: '150px', fontSize: '70px', margin: '40px auto 40px auto' }}>ET</Avatar>
+                    {/* Avatar icon with first 1-2 letters of the name */}
+                    <Avatar style={{ height: '150px', width: '150px', fontSize: '70px', margin: '40px auto 40px auto' }}>
+                        {user.display_name.match(/\b(\w)/g).slice(0, 2)}
+                    </Avatar>
 
                     <Container style={{ marginLeft: '10px' }}>
 

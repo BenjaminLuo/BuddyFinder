@@ -1,6 +1,6 @@
 // --------------------------------------------------- \/ Imports
 
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import {
     Typography,
@@ -96,7 +96,7 @@ export default function Contact(props) {
                         <CardContent>
 
                             {/* If the user has already submitted the form, then confirm it */}
-                            {submitted == true ?
+                            {submitted === true ?
 
                                 <div>
                                     <Typography variant="h5">

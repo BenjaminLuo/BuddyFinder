@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => {
       opacity: 0.9,
       padding: '40px',
       paddingTop: '120px',
-      height: '100vh',
+      minHeight: '100vh',
     },
   }
 })
@@ -37,6 +37,34 @@ const useStyles = makeStyles((theme) => {
 
 export default function Statistics(props) {
   const classes = useStyles();
+
+  const [extraToDoItems, updateExtraToDoItems] = React.useState(<ToDoItem />)
+  const [goalObject, updateGoalObject] = React.useState([
+    {
+      id: 1,
+      goal: "To pass 3A with 86%+",
+      date: "",
+      completed: false
+    },
+    {
+      id: 2,
+      goal: "To go on exchange",
+      date: "",
+      completed: false
+    },
+    {
+      id: 3,
+      goal: "To finish sprint 1 on time",
+      date: "",
+      completed: true
+    }
+  ]);
+
+
+
+  function AddToDoItem(props) {
+    updateExtraToDoItems([extraToDoItems, <ToDoItem />]);
+  }
 
 
   return (
@@ -51,9 +79,20 @@ export default function Statistics(props) {
             My To-Do List
           </Typography>
 
-          <ToDoItem label="Set a goal..." />
-          <ToDoItem label="Set a goal..." />
-          <ToDoItem label="Set a goal..." />
+          {goalObject ? goalObject.map((item) => (
+            <ToDoItem key={item.id} value={item.goal} disabled={true} />
+          )) : null}
+
+          {extraToDoItems}
+
+          <Button
+            type="submit"
+            onClick={AddToDoItem}
+            variant="contained"
+            color="primary"
+            style={{ height: '30px', marginTop: '3px' }}>
+            Add another task...
+          </Button>
 
         </Grid>
 
@@ -110,21 +149,34 @@ const rows = [
 
 const ToDoItem = (props) => {
   return (
-    <div>
+    <div id={props.key}>
       <TextField
-        placeholder={props.label}
+        placeholder={'Set a goal'}
+        disabled={props.disabled}
+        focused={!props.disabled}
+        value={props.value}
         variant="outlined"
+        key={'tf' + props.key}
         fullWidth
         size="small"
+        color="primary"
         style={{ marginBottom: "20px", width: '50%' }} />
 
       <Button
-        type="submit"
         variant="contained"
+        key={'b' + props.key}
         color="primary"
+        // onClick={RemoveItem(1)}
         style={{ height: '30px', marginLeft: '15px', marginTop: '3px' }}>
         Done
       </Button>
     </div>
   )
 }
+
+
+// const RemoveItem = (id) => {
+//   return (
+//     document.getElementById(id).value = ''
+//   )
+// }
