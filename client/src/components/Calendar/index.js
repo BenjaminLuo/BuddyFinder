@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import FullCalendar from "@fullcalendar/react";
 import daygridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import interactionPlugin from "@fullcalendar/interaction"
+import useState from 'react';
+import { v4 as uuid } from "uuid";
 import Appbar from '../Appbar';
 
 
@@ -114,21 +116,41 @@ class Home extends Component {
     return body;
   }
 
+  
+
+  
+
+
   render() {
+
+    
+    const events = [{
+      title: "test",
+      start: "2023-02-25T12:00:00+00:00",
+      end: "2023-02-27"
+  }]
+
     const { classes } = this.props;
 
     const calendarView = (
+      
       <div>
       <FullCalendar
+      plugins={[daygridPlugin, interactionPlugin, timeGridPlugin]}
+      intialView= {"timeGridWeek"}
+      editable
+      selectable
+      //select = {handleSelect}
+      events = {events}
       headerToolbar={{
       start: "today prev next",
       end: "dayGridDay dayGridWeek dayGridMonth",
+      right: "dayGridMonth,timeGridWeek,timeGridDay"
       }}
-      plugins={[daygridPlugin]}
       views={["dayGridDay", "dayGridWeek", "dayGridMonth"]} />
       </div>
     )
-    
+
     return (
       <MuiThemeProvider theme={theme}>
         <div className={classes.root}>
