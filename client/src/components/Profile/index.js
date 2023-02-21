@@ -1,6 +1,6 @@
 // --------------------------------------------------- \/ Imports
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import './index.css';
 
 import {
@@ -35,7 +35,8 @@ const useStyles = makeStyles((theme) => {
 })
 
 
-const user = {
+
+const userStub = {
     display_name: 'Ephei Tea',
     user_id: '20890448',
     bio: 'A struggling student',
@@ -80,11 +81,28 @@ const user = {
             value: "I'm also looking for a project team, let's work together"
         }
     ]
-}
+};
 
 
 export default function Profile(props) {
     const classes = useStyles();
+
+    const [user, setUser] = React.useState({
+        display_name: 'Anonymous User',
+        user_id: 'N/A',
+        bio: '',
+        interests: ['None'],
+        posts: ['None'],
+        comments: ['None']
+    });
+
+    useEffect(() => {
+        if (props.user) {
+            setUser(props.user)
+        } else {
+            setUser(userStub)
+        }
+    }, [])
 
     // Adjusting top padding due to NavBar; this component is used by the Search component in a modal
     const paddingTop = props.paddingTop ? props.paddingTop : '100px'
