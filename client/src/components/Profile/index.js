@@ -1,6 +1,7 @@
 // --------------------------------------------------- \/ Imports
 
 import React from 'react';
+import './index.css';
 
 import {
     Typography,
@@ -20,11 +21,9 @@ import Avatar from '@material-ui/core/Avatar';
 const useStyles = makeStyles((theme) => {
     return {
         page: {
-            backgroundColor: 'lightgrey',
             backgroundSize: 'cover',
             opacity: 0.9,
             padding: '40px',
-            paddingTop: '120px'
         },
         rightContainer: {
             minHeight: '100vh'
@@ -87,91 +86,89 @@ const user = {
 export default function Profile(props) {
     const classes = useStyles();
 
+    // Adjusting top padding due to NavBar; this component is used by the Search component in a modal
+    const paddingTop = props.paddingTop ? props.paddingTop : '100px'
 
     return (
-        <Container maxWidth={false} className={classes.page}>
+        <Container maxWidth={false} className={classes.page} style={{ paddingTop: paddingTop }}>
 
-            <Grid container spacing={2}>
+            {/* Left Container: User Account Information */}
+            <Grid item xs={3} style={{ position: 'fixed' }}>
 
-                {/* Left Container: User Account Information */}
-                <Grid item xs={3}>
+                {/* Avatar icon with first 1-2 letters of the name */}
+                <Avatar style={{ height: '150px', width: '150px', fontSize: '70px', margin: '40px auto 40px auto' }}>
+                    {user.display_name.match(/\b(\w)/g).slice(0, 2)}
+                </Avatar>
 
-                    {/* Avatar icon with first 1-2 letters of the name */}
-                    <Avatar style={{ height: '150px', width: '150px', fontSize: '70px', margin: '40px auto 40px auto' }}>
-                        {user.display_name.match(/\b(\w)/g).slice(0, 2)}
-                    </Avatar>
+                <Container style={{ marginLeft: '10px' }}>
 
-                    <Container style={{ marginLeft: '10px' }}>
+                    <Typography variant="h4" style={{ marginBottom: '8px' }}>
+                        {user.display_name}
+                    </Typography>
+                    <Typography style={{ fontSize: '20px', fontStyle: 'italic', marginBottom: '10px', color: '#333333' }}>
+                        ID: {user.user_id}
+                    </Typography>
+                    <Typography style={{ fontSize: '16px', color: '#333333' }}>
+                        {user.bio}
+                    </Typography>
 
-                        <Typography variant="h4" style={{ marginBottom: '8px' }}>
-                            {user.display_name}
-                        </Typography>
-                        <Typography style={{ fontSize: '20px', fontStyle: 'italic', marginBottom: '10px', color: '#333333' }}>
-                            ID: {user.user_id}
-                        </Typography>
-                        <Typography style={{ fontSize: '16px', color: '#333333' }}>
-                            {user.bio}
-                        </Typography>
-
-                    </Container>
-
-                </Grid>
-
-
-                {/* Right Container: User Activity */}
-                <Grid item xs={9} className={classes.rightContainer}>
-
-                    <container className={classes.rightSubContainer}>
-
-                        <Typography variant="h6" style={{ marginBottom: '12px' }}>
-                            Interests
-                        </Typography>
-
-                        {user ? user.interests.map((item) => (
-                            <Button variant="contained" size="small" color="primary" style={{ margin: '6px' }}>
-                                {item}
-                            </Button>
-                        )) : null}
-
-                    </container>
-                    <container className={classes.rightSubContainer}>
-
-                        <Typography variant="h6" style={{ marginBottom: '12px' }}>
-                            Posts
-                        </Typography>
-
-                        <Grid container spacing={2}>
-                            {user ? user.posts.map((item) => (
-                                <Paper color="primary" style={{ margin: '6px', width: '150px', padding: '6px', verticalAlign: 'top', display: 'flex' }}>
-                                    <Grid item xs>
-                                        {item.title}
-                                    </Grid>
-                                </Paper>
-                            )) : null}
-                        </Grid>
-
-                    </container>
-                    <container className={classes.rightSubContainer}>
-
-                        <Typography variant="h6" style={{ marginBottom: '12px' }}>
-                            Comments
-                        </Typography>
-
-                        <Grid container spacing={2}>
-                            {user ? user.comments.map((item) => (
-                                <Paper color="primary" style={{ margin: '6px', width: '150px', padding: '6px', verticalAlign: 'top', display: 'flex' }}>
-                                    <Grid item xs>
-                                        {item.value}
-                                    </Grid>
-                                </Paper>
-                            )) : null}
-                        </Grid>
-
-                    </container>
-
-                </Grid>
+                </Container>
 
             </Grid>
+
+
+            {/* Right Container: User Activity */}
+            <Grid item xs={9} className={classes.rightContainer} style={{ float: 'right' }}>
+
+                <container className={classes.rightSubContainer}>
+
+                    <Typography variant="h6" style={{ marginBottom: '12px' }}>
+                        Interests
+                    </Typography>
+
+                    {user ? user.interests.map((item) => (
+                        <Button variant="contained" size="small" color="primary" style={{ margin: '6px' }}>
+                            {item}
+                        </Button>
+                    )) : null}
+
+                </container>
+                <container className={classes.rightSubContainer}>
+
+                    <Typography variant="h6" style={{ margin: '12px 0px 12px 0px' }}>
+                        Posts
+                    </Typography>
+
+                    <Grid container spacing={2} styles={{ marginBottom: '12px' }}>
+                        {user ? user.posts.map((item) => (
+                            <Paper color="primary" style={{ margin: '6px', width: '150px', padding: '6px', verticalAlign: 'top', display: 'flex' }}>
+                                <Grid item xs>
+                                    {item.title}
+                                </Grid>
+                            </Paper>
+                        )) : null}
+                    </Grid>
+
+                </container>
+                <container className={classes.rightSubContainer}>
+
+                    <Typography variant="h6" style={{ margin: '12px 0px 12px 0px' }}>
+                        Comments
+                    </Typography>
+
+                    <Grid container spacing={2}>
+                        {user ? user.comments.map((item) => (
+                            <Paper color="primary" style={{ margin: '6px', width: '150px', padding: '6px', verticalAlign: 'top', display: 'flex' }}>
+                                <Grid item xs>
+                                    {item.value}
+                                </Grid>
+                            </Paper>
+                        )) : null}
+                    </Grid>
+
+                </container>
+            </Grid>
+
         </Container>
     );
 

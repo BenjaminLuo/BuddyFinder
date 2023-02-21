@@ -13,8 +13,11 @@ import {
     CardContent,
     Box,
     Tabs,
-    Tab
+    Tab,
+    Modal
 } from '@material-ui/core';
+
+import Profile from '../Profile'
 
 // --------------------------------------------------- /\ Imports
 // --------------------------------------------------- \/ Styles
@@ -27,6 +30,19 @@ const useStyles = makeStyles((theme) => {
             opacity: 0.9,
             minHeight: '100vh',
             padding: '120px 100px 40px 100px'
+        },
+        modal: {
+            position: 'absolute',
+            overflowY: 'auto',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '80%',
+            maxHeight: '70%',
+            backgroundColor: 'lightgrey',
+            border: '0px',
+            padding: '40px',
+            zoom: '0.8'
         }
     }
 })
@@ -35,6 +51,11 @@ const useStyles = makeStyles((theme) => {
 export default function Search(props) {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
+
+    // Modal triggers
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -60,12 +81,27 @@ export default function Search(props) {
                         <Grid item xs={2}>
                             <Button
                                 type="submit"
+                                onClick={handleOpen}
                                 variant="contained"
                                 color="primary">
                                 Search
                             </Button>
                         </Grid>
                     </Grid>
+
+                    {/* Modal to display review */}
+                    <Modal
+                        open={open}
+                        onClose={handleClose}
+                    >
+                        <Box className={classes.modal}>
+                            {/* <Typography>
+                                Test
+                            </Typography> */}
+                            <Profile paddingTop={'0px'} />
+                        </Box>
+                    </Modal>
+
 
 
                     {/* Returned results */}
