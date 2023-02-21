@@ -1,6 +1,7 @@
 // --------------------------------------------------- \/ Imports
 
 import React, { useEffect } from 'react';
+import './index.css'
 
 import {
     Typography,
@@ -29,7 +30,7 @@ const useStyles = makeStyles((theme) => {
             backgroundSize: 'cover',
             opacity: 0.9,
             minHeight: '100vh',
-            padding: '120px 100px 40px 100px'
+            padding: '100px 100px 40px 100px'
         },
         modal: {
             position: 'absolute',
@@ -194,7 +195,13 @@ var userStub = {
 
 export default function Search(props) {
     const classes = useStyles();
+
+    // For tabbers
     const [value, setValue] = React.useState(0);
+
+    // For search
+    const [search, setQuery] = React.useState('');
+    const query = filterData(accounts, search)
 
     // Modal triggers
     const [open, setOpen] = React.useState(false);
@@ -208,6 +215,14 @@ export default function Search(props) {
     const handleProfile = (e) => {
         userStub = accounts[accounts.findIndex(item => item.user_id == e.target.id)]
         handleOpen();
+    }
+
+    function filterData(data, query) {
+        if (!query) {
+            return data;
+        } else {
+            return data.filter((d) => d.user_id.includes(query) || d.display_name.toLowerCase().includes(query));
+        }
     }
 
     const UserCard = (props) => {
@@ -233,6 +248,7 @@ export default function Search(props) {
                                 type="submit"
                                 variant="contained"
                                 color="primary"
+                                className={classes.button}
                                 id={props.userID}
                                 onClick={(e) => handleProfile(e)}
                                 disabled={props.disabled ? true : false}>
@@ -257,6 +273,7 @@ export default function Search(props) {
                             <TextField
                                 label="Find a user"
                                 placeholder="Search for a user..."
+                                onInput={(e) => { setQuery(e.target.value) }}
                                 variant="outlined"
                                 fullWidth
                                 size="small"
@@ -266,7 +283,7 @@ export default function Search(props) {
                         <Grid item xs={2}>
                             <Button
                                 type="submit"
-                                // onClick={handleOpen}
+                                // onClick={(e) => setQuery(e)}
                                 variant="contained"
                                 color="primary">
                                 Search
@@ -277,16 +294,11 @@ export default function Search(props) {
                     {/* Modal to display review */}
                     <Modal
                         open={open}
-                        onClose={handleClose}
-                    >
+                        onClose={handleClose}>
                         <Box className={classes.modal}>
-                            {/* <Typography>
-                                Test
-                            </Typography> */}
                             <Profile user={userStub} paddingTop={'0px'} />
                         </Box>
                     </Modal>
-
 
                     {/* Returned results */}
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -296,9 +308,11 @@ export default function Search(props) {
                             <Tab label="Blocked" />
                         </Tabs>
                     </Box>
+
+                    {/* Returned results: All */}
                     <TabPanel value={value} index={0}>
 
-                        {accounts ? accounts.map((item) => (
+                        {query ? query.map((item) => (
                             item.searchable ?
                                 <UserCard
                                     name={item.display_name}
@@ -310,9 +324,11 @@ export default function Search(props) {
                         )) : null}
 
                     </TabPanel>
+
+                    {/* Returned results: Friends */}
                     <TabPanel value={value} index={1}>
 
-                        {accounts ? accounts.map((item) => (
+                        {query ? query.map((item) => (
                             item.friend ?
                                 <UserCard
                                     name={item.display_name}
@@ -324,9 +340,11 @@ export default function Search(props) {
                         )) : null}
 
                     </TabPanel>
+
+                    {/* Returned results: Blocked */}
                     <TabPanel value={value} index={2}>
 
-                        {accounts ? accounts.map((item) => (
+                        {query ? query.map((item) => (
                             item.blocked ?
                                 <UserCard
                                     name={item.display_name}
@@ -341,7 +359,7 @@ export default function Search(props) {
 
                 </CardContent>
             </Card>
-        </Container>
+        </Container >
     );
 
 }
@@ -356,7 +374,8 @@ function TabPanel(props) {
                 <Box sx={{ p: 3 }}>
                     <Typography>{children}</Typography>
                 </Box>
-            )}
-        </div>
+            )
+            }
+        </div >
     );
 }
