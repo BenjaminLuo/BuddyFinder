@@ -6,6 +6,8 @@ import {
     Typography,
     Container,
     Grid,
+    Paper,
+    Button,
     makeStyles,
 } from '@material-ui/core';
 
@@ -25,11 +27,10 @@ const useStyles = makeStyles((theme) => {
             paddingTop: '120px'
         },
         rightContainer: {
-            height: 'calc(100vh - 144px)',
-            display: 'table'
+            minHeight: '100vh'
         },
         rightSubContainer: {
-            display: 'table-row'
+            padding: '50px'
         }
     }
 })
@@ -38,7 +39,48 @@ const useStyles = makeStyles((theme) => {
 const user = {
     display_name: 'Ephei Tea',
     user_id: '20890448',
-    bio: 'A struggling student'
+    bio: 'A struggling student',
+    interests: ['NodeJS', 'ReactJS', 'MUI', 'Mathematics', 'AWS', 'Research', 'Games', 'Hackathons', 'Sleeping'],
+    posts: [
+        {
+            postID: 132,
+            title: "Looking for friends in MGMT25"
+        },
+        {
+            postID: 136,
+            title: "Help with MSCI 342 project"
+        },
+        {
+            postID: 156,
+            title: "How do I solve this problem?"
+        },
+        {
+            postID: 132,
+            title: "Hi."
+        },
+        {
+            postID: 136,
+            title: "Why is this code breaking? What do I dooooooo"
+        },
+        {
+            postID: 156,
+            title: "Why won't you compile AHHHHHH, I quit, I'm done with this project, why is this course required to graduate?!"
+        }
+    ],
+    comments: [
+        {
+            commentID: 253,
+            value: "Hi"
+        },
+        {
+            commentID: 342,
+            value: "I'm a 3rd year management engineering student"
+        },
+        {
+            commentID: 554,
+            value: "I'm also looking for a project team, let's work together"
+        }
+    ]
 }
 
 
@@ -54,7 +96,10 @@ export default function Profile(props) {
                 {/* Left Container: User Account Information */}
                 <Grid item xs={3}>
 
-                    <Avatar style={{ height: '150px', width: '150px', fontSize: '70px', margin: '40px auto 40px auto' }}>ET</Avatar>
+                    {/* Avatar icon with first 1-2 letters of the name */}
+                    <Avatar style={{ height: '150px', width: '150px', fontSize: '70px', margin: '40px auto 40px auto' }}>
+                        {user.display_name.match(/\b(\w)/g).slice(0, 2)}
+                    </Avatar>
 
                     <Container style={{ marginLeft: '10px' }}>
 
@@ -78,23 +123,49 @@ export default function Profile(props) {
 
                     <container className={classes.rightSubContainer}>
 
-                        <Typography variant="h6">
+                        <Typography variant="h6" style={{ marginBottom: '12px' }}>
                             Interests
                         </Typography>
 
+                        {user ? user.interests.map((item) => (
+                            <Button variant="contained" size="small" color="primary" style={{ margin: '6px' }}>
+                                {item}
+                            </Button>
+                        )) : null}
+
                     </container>
                     <container className={classes.rightSubContainer}>
 
-                        <Typography variant="h6">
+                        <Typography variant="h6" style={{ marginBottom: '12px' }}>
                             Posts
                         </Typography>
 
+                        <Grid container spacing={2}>
+                            {user ? user.posts.map((item) => (
+                                <Paper color="primary" style={{ margin: '6px', width: '150px', padding: '6px', verticalAlign: 'top', display: 'flex' }}>
+                                    <Grid item xs>
+                                        {item.title}
+                                    </Grid>
+                                </Paper>
+                            )) : null}
+                        </Grid>
+
                     </container>
                     <container className={classes.rightSubContainer}>
 
-                        <Typography variant="h6">
+                        <Typography variant="h6" style={{ marginBottom: '12px' }}>
                             Comments
                         </Typography>
+
+                        <Grid container spacing={2}>
+                            {user ? user.comments.map((item) => (
+                                <Paper color="primary" style={{ margin: '6px', width: '150px', padding: '6px', verticalAlign: 'top', display: 'flex' }}>
+                                    <Grid item xs>
+                                        {item.value}
+                                    </Grid>
+                                </Paper>
+                            )) : null}
+                        </Grid>
 
                     </container>
 
