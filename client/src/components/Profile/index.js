@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme) => {
             backgroundSize: 'cover',
             opacity: 0.9,
             padding: '40px',
-            paddingTop: '120px',
         },
         rightContainer: {
             minHeight: '100vh'
@@ -87,9 +86,11 @@ const user = {
 export default function Profile(props) {
     const classes = useStyles();
 
+    // Adjusting top padding due to NavBar; this component is used by the Search component in a modal
+    const paddingTop = props.paddingTop ? props.paddingTop : '100px'
 
     return (
-        <Container maxWidth={false} className={classes.page}>
+        <Container maxWidth={false} className={classes.page} style={{ paddingTop: paddingTop }}>
 
             {/* Left Container: User Account Information */}
             <Grid item xs={3} style={{ position: 'fixed' }}>
@@ -134,11 +135,11 @@ export default function Profile(props) {
                 </container>
                 <container className={classes.rightSubContainer}>
 
-                    <Typography variant="h6" style={{ marginBottom: '12px' }}>
+                    <Typography variant="h6" style={{ margin: '12px 0px 12px 0px' }}>
                         Posts
                     </Typography>
 
-                    <Grid container spacing={2}>
+                    <Grid container spacing={2} styles={{ marginBottom: '12px' }}>
                         {user ? user.posts.map((item) => (
                             <Paper color="primary" style={{ margin: '6px', width: '150px', padding: '6px', verticalAlign: 'top', display: 'flex' }}>
                                 <Grid item xs>
@@ -151,7 +152,7 @@ export default function Profile(props) {
                 </container>
                 <container className={classes.rightSubContainer}>
 
-                    <Typography variant="h6" style={{ marginBottom: '12px' }}>
+                    <Typography variant="h6" style={{ margin: '12px 0px 12px 0px' }}>
                         Comments
                     </Typography>
 
