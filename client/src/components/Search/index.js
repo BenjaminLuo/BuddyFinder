@@ -201,37 +201,58 @@ export default function Search(props) {
 
     // For search
     const [search, setQuery] = React.useState('');
-    const query = filterData(accounts, search)
+    let query = filterData(accounts, search);
+
 
     // Modal triggers
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    // Tabbers
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
 
+    // Preview user profile through a modal
     const handleProfile = (e) => {
         userStub = accounts[accounts.findIndex(item => item.user_id == e.target.id)]
         handleOpen();
     }
 
+    // Add/remove a friend
+    function handleFriend(e) {
+        const thisIndex = accounts.findIndex(item => "friend" + item.user_id == e.target.id)
+        accounts[thisIndex].friend = !accounts[thisIndex].friend
+        setQuery(search + ' ')
+    }
+
+    // Block/unblock
+    const handleBlock = (e) => {
+        const thisIndex = accounts.findIndex(item => "block" + item.user_id == e.target.id)
+        accounts[thisIndex].blocked = !accounts[thisIndex].blocked
+        setQuery(search + ' ')
+    }
+
+    // Filter the list of accounts based on the search query
     function filterData(data, query) {
-        if (!query) {
+        if (!query || query == '') {
             return data;
         } else {
-            return data.filter((d) => d.user_id.includes(query) || d.display_name.toLowerCase().includes(query));
+            return data.filter((d) => d.user_id.includes(query.trim()) || d.display_name.toLowerCase().includes(query.trim()));
         }
     }
 
+    // Each search query is contained inside one of these
     const UserCard = (props) => {
         return (
             <Card style={{ marginBottom: '12px' }}>
                 <CardContent style={{ backgroundColor: 'lightgrey', padding: '8px 8px 8px 30px' }}>
 
                     <Grid container spacing={2}>
-                        <Grid item xs={9}>
+
+                        {/* User Information */}
+                        <Grid item xs={7}>
                             <Typography style={{ fontWeight: '500', display: 'inline' }}>
                                 {props.name + " / "}
                             </Typography>
@@ -243,12 +264,37 @@ export default function Search(props) {
                             </Typography>
                         </Grid>
 
+                        {/* Add/remove Friend */}
+                        <Grid item xs={1}>
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                color="primary"
+                                style={{ maxWidth: '25px', padding: '3px', minWidth: '25px', marginTop: '3px' }}
+                                id={'friend' + props.userID}
+                                onClick={(e) => handleFriend(e)}>
+                                {props.friend ? '-' : '+'}
+                            </Button>
+                        </Grid>
+
+                        {/* Block/unblock */}
+                        <Grid item xs={1}>
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                color="primary"
+                                style={{ maxWidth: '25px', padding: '3px', minWidth: '25px', marginTop: '3px' }}
+                                id={'block' + props.userID}
+                                onClick={(e) => handleBlock(e)}>
+                                {props.blocked ? 'U' : 'B'}
+                            </Button>
+                        </Grid>
+
                         <Grid item xs={3}>
                             <Button
                                 type="submit"
                                 variant="contained"
                                 color="primary"
-                                className={classes.button}
                                 id={props.userID}
                                 onClick={(e) => handleProfile(e)}
                                 disabled={props.disabled ? true : false}>
@@ -283,7 +329,6 @@ export default function Search(props) {
                         <Grid item xs={2}>
                             <Button
                                 type="submit"
-                                // onClick={(e) => setQuery(e)}
                                 variant="contained"
                                 color="primary">
                                 Search
@@ -319,7 +364,9 @@ export default function Search(props) {
                                     userID={item.user_id}
                                     year={item.term}
                                     program={item.program}
-                                    disabled={item.private} />
+                                    disabled={item.private}
+                                    friend={item.friend}
+                                    blocked={item.blocked} />
                                 : null
                         )) : null}
 
@@ -335,7 +382,9 @@ export default function Search(props) {
                                     userID={item.user_id}
                                     year={item.term}
                                     program={item.program}
-                                    disabled={item.private} />
+                                    disabled={item.private}
+                                    friend={item.friend}
+                                    blocked={item.blocked} />
                                 : null
                         )) : null}
 
@@ -351,7 +400,9 @@ export default function Search(props) {
                                     userID={item.user_id}
                                     year={item.term}
                                     program={item.program}
-                                    disabled={item.private} />
+                                    disabled={item.private}
+                                    friend={item.friend}
+                                    blocked={item.blocked} />
                                 : null
                         )) : null}
 
