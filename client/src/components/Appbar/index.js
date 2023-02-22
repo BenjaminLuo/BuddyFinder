@@ -50,7 +50,7 @@ export default function NavBar() {
             <Grid
               item xs={1}
               sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              <Button onClick={handleMenu}>
+              <Button title="dropbutton" data-testid="dropdownButton" onClick={handleMenu}>
                 User ▼
               </Button>
               <Menu
@@ -61,10 +61,10 @@ export default function NavBar() {
                 keepMounted
                 open={Boolean(anchorEl)}
                 onClose={handleClose}>
-                <MenuItem onClick={() => dropdownClick("Profile")}>Profile</MenuItem>
-                <MenuItem onClick={() => dropdownClick("Settings")}>Settings</MenuItem>
-                <MenuItem onClick={() => dropdownClick("Contact")}>Contact</MenuItem>
-                <MenuItem onClick={() => dropdownClick("FAQ")}>FAQ</MenuItem>
+                <MenuItem data-testid={'profile'} onClick={() => dropdownClick("Profile")}>Profile</MenuItem>
+                <MenuItem data-testid={'settings'} onClick={() => dropdownClick("Settings")}>Settings</MenuItem>
+                <MenuItem data-testid={'contact'} onClick={() => dropdownClick("Contact")}>Contact</MenuItem>
+                <MenuItem data-testid={'faq'} onClick={() => dropdownClick("FAQ")}>FAQ</MenuItem>
               </Menu>
             </Grid>
 
