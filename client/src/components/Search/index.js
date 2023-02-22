@@ -11,7 +11,6 @@ import {
     Button,
     Grid,
     Card,
-    CardContent,
     Box,
     Tabs,
     Tab,
@@ -247,63 +246,66 @@ export default function Search(props) {
     const UserCard = (props) => {
         return (
             <Card style={{ marginBottom: '12px' }}>
-                <CardContent style={{ backgroundColor: 'lightgrey', padding: '8px 8px 8px 30px' }}>
 
-                    <Grid container spacing={2}>
 
-                        {/* User Information */}
-                        <Grid item xs={7}>
-                            <Typography style={{ fontWeight: '500', display: 'inline' }}>
-                                {props.name + " / "}
-                            </Typography>
-                            <Typography style={{ display: 'inline' }}>
-                                ({props.userID})
-                            </Typography>
-                            <Typography style={{ fontStyle: 'italic', fontSize: '12px' }}>
-                                {props.year + " " + props.program}
-                            </Typography>
-                        </Grid>
+                <Grid container spacing={2} style={{ backgroundColor: 'lightgrey', padding: '8px 8px 8px 30px' }}>
 
-                        {/* Add/remove Friend */}
-                        <Grid item xs={1}>
-                            <Button
-                                type="submit"
-                                variant="contained"
-                                color="primary"
-                                style={{ maxWidth: '25px', padding: '3px', minWidth: '25px', marginTop: '3px' }}
-                                id={'friend' + props.userID}
-                                onClick={(e) => handleFriend(e)}>
-                                {props.friend ? '-' : '+'}
-                            </Button>
-                        </Grid>
-
-                        {/* Block/unblock */}
-                        <Grid item xs={1}>
-                            <Button
-                                type="submit"
-                                variant="contained"
-                                color="primary"
-                                style={{ maxWidth: '25px', padding: '3px', minWidth: '25px', marginTop: '3px' }}
-                                id={'block' + props.userID}
-                                onClick={(e) => handleBlock(e)}>
-                                {props.blocked ? 'U' : 'B'}
-                            </Button>
-                        </Grid>
-
-                        <Grid item xs={3}>
-                            <Button
-                                type="submit"
-                                variant="contained"
-                                color="primary"
-                                id={props.userID}
-                                onClick={(e) => handleProfile(e)}
-                                disabled={props.disabled ? true : false}>
-                                {props.disabled ? 'Private' : 'Profile'}
-                            </Button>
-                        </Grid>
-
+                    {/* User Information */}
+                    <Grid item xs={7}>
+                        <Typography style={{ fontWeight: '500', display: 'inline' }}>
+                            {props.name + " / "}
+                        </Typography>
+                        <Typography style={{ display: 'inline' }}>
+                            ({props.userID})
+                        </Typography>
+                        <Typography style={{ fontStyle: 'italic', fontSize: '12px' }}>
+                            {props.year + " " + props.program}
+                        </Typography>
                     </Grid>
-                </CardContent>
+
+                    {/* Add/remove Friend */}
+                    <Grid item xs={1}>
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            color="primary"
+                            style={{ maxWidth: '25px', padding: '3px', minWidth: '25px', marginTop: '3px' }}
+                            id={'friend' + props.userID}
+                            onClick={(e) => handleFriend(e)}>
+                            {props.friend ? '-' : '+'}
+                        </Button>
+                    </Grid>
+
+                    {/* Block/unblock */}
+                    <Grid item xs={1}>
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            color="primary"
+                            style={{ maxWidth: '25px', padding: '3px', minWidth: '25px', marginTop: '3px' }}
+                            id={'block' + props.userID}
+                            onClick={(e) => handleBlock(e)}>
+                            {props.blocked ? 'U' : 'B'}
+                        </Button>
+                    </Grid>
+
+                    {/* View profile */}
+                    <Grid item xs={3}>
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            data-testid={'profile_' + props.userID}
+                            color="primary"
+                            id={props.userID}
+                            key={'profbutton_' + props.userID}
+                            onClick={(e) => handleProfile(e)}
+                            disabled={props.disabled ? true : false}>
+                            {props.disabled ? 'Private' : 'Profile'}
+                        </Button>
+                    </Grid>
+
+                </Grid>
+
             </Card >
         )
     }
@@ -311,104 +313,105 @@ export default function Search(props) {
     return (
         <Container maxWidth={false} className={classes.page}>
             <Card style={{ maxWidth: 550, margin: "0 auto", padding: "20px 5px", minHeight: "65vh" }}>
-                <CardContent>
 
-                    {/* Search for a user */}
-                    <Grid container spacing={2}>
-                        <Grid item xs={9}>
-                            <TextField
-                                label="Find a user"
-                                placeholder="Search for a user..."
-                                onInput={(e) => { setQuery(e.target.value) }}
-                                variant="outlined"
-                                fullWidth
-                                size="small"
-                                style={{ marginBottom: "30px" }}
-                            />
-                        </Grid>
-                        <Grid item xs={2}>
-                            <Button
-                                type="submit"
-                                variant="contained"
-                                color="primary">
-                                Search
-                            </Button>
-                        </Grid>
+                {/* Search for a user */}
+                <Grid container spacing={0}>
+                    <Grid item xs={8} style={{ margin: '0 auto' }}>
+                        <TextField
+                            label="Find a user"
+                            placeholder="Search for a user..."
+                            onInput={(e) => { setQuery(e.target.value) }}
+                            variant="outlined"
+                            fullWidth
+                            size="small"
+                            style={{ marginBottom: "30px" }}
+                        />
                     </Grid>
+                    <Grid item xs={2}>
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            color="primary">
+                            Search
+                        </Button>
+                    </Grid>
+                    <Grid item xs={1}>
+                    </Grid>
+                </Grid>
 
-                    {/* Modal to display review */}
-                    <Modal
-                        open={open}
-                        onClose={handleClose}>
-                        <Box className={classes.modal}>
-                            <Profile user={userStub} paddingTop={'0px'} />
-                        </Box>
-                    </Modal>
-
-                    {/* Returned results */}
-                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                        <Tabs value={value} onChange={handleChange}>
-                            <Tab label="All" />
-                            <Tab label="Friends" />
-                            <Tab label="Blocked" />
-                        </Tabs>
+                {/* Modal to display review */}
+                <Modal
+                    open={open}
+                    onClose={handleClose}>
+                    <Box className={classes.modal}>
+                        <Profile user={userStub} paddingTop={'0px'} />
                     </Box>
+                </Modal>
 
-                    {/* Returned results: All */}
-                    <TabPanel value={value} index={0}>
+                {/* Returned results */}
+                <Box sx={{ borderBottom: 1, borderColor: 'divider', marginLeft: '25px' }}>
+                    <Tabs value={value} onChange={handleChange}>
+                        <Tab label="All" />
+                        <Tab label="Friends" />
+                        <Tab label="Blocked" />
+                    </Tabs>
+                </Box>
 
-                        {query ? query.map((item) => (
-                            item.searchable ?
-                                <UserCard
-                                    name={item.display_name}
-                                    userID={item.user_id}
-                                    year={item.term}
-                                    program={item.program}
-                                    disabled={item.private}
-                                    friend={item.friend}
-                                    blocked={item.blocked} />
-                                : null
-                        )) : null}
+                {/* Returned results: All */}
+                <TabPanel value={value} index={0}>
 
-                    </TabPanel>
+                    {query ? query.map((item) => (
+                        item.searchable ?
+                            <UserCard
+                                name={item.display_name}
+                                userID={item.user_id}
+                                year={item.term}
+                                program={item.program}
+                                disabled={item.private}
+                                friend={item.friend}
+                                blocked={item.blocked} />
+                            : null
+                    )) : null}
 
-                    {/* Returned results: Friends */}
-                    <TabPanel value={value} index={1}>
+                </TabPanel>
 
-                        {query ? query.map((item) => (
-                            item.friend ?
-                                <UserCard
-                                    name={item.display_name}
-                                    userID={item.user_id}
-                                    year={item.term}
-                                    program={item.program}
-                                    disabled={item.private}
-                                    friend={item.friend}
-                                    blocked={item.blocked} />
-                                : null
-                        )) : null}
+                {/* Returned results: Friends */}
+                <TabPanel value={value} index={1}>
 
-                    </TabPanel>
+                    {query ? query.map((item) => (
+                        item.friend ?
+                            <UserCard
+                                name={item.display_name}
+                                userID={item.user_id}
+                                year={item.term}
+                                program={item.program}
+                                disabled={item.private}
+                                friend={item.friend}
+                                blocked={item.blocked} />
+                            : null
+                    )) : null}
 
-                    {/* Returned results: Blocked */}
-                    <TabPanel value={value} index={2}>
+                </TabPanel>
 
-                        {query ? query.map((item) => (
-                            item.blocked ?
-                                <UserCard
-                                    name={item.display_name}
-                                    userID={item.user_id}
-                                    year={item.term}
-                                    program={item.program}
-                                    disabled={item.private}
-                                    friend={item.friend}
-                                    blocked={item.blocked} />
-                                : null
-                        )) : null}
+                {/* Returned results: Blocked */}
+                <TabPanel value={value} index={2}>
 
-                    </TabPanel>
+                    {query ? query.map((item) => (
+                        item.blocked ?
+                            <UserCard
+                                name={item.display_name}
+                                userID={item.user_id}
+                                year={item.term}
+                                program={item.program}
+                                disabled={item.private}
+                                friend={item.friend}
+                                blocked={item.blocked} />
+                            : null
+                    )) : null}
 
-                </CardContent>
+                </TabPanel>
+
+
             </Card>
         </Container >
     );
