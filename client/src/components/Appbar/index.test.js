@@ -7,6 +7,7 @@ describe('Appbar', () => {
         render(<NavBar />);
     }
 
+    // Tests if the dropdown is functional and its elements exist
     it('dropdown', () => {
 
         renderComponent();
