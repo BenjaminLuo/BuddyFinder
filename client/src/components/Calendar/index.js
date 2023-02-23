@@ -80,9 +80,25 @@ const eventClick = ({event}) => {
 
 return(
   <div>
+    <p>
+
+    </p>
+    <p>
+      
+    </p>
         <h1>
           Calendar Page
         </h1>
+
+        <button onClick={() => setIsFormOpen(true)}>Add Event</button>
+        <AddEventForm onSubmit={addEvent} isOpen={isFormOpen} onClose={closeForm}
+      />
+       <p>
+
+</p>
+<p>
+  
+</p>
         <FullCalendar
       plugins={[dayGridPlugin, timeGridPlugin]}
       intialView={"timeGridWeek"}
@@ -98,9 +114,6 @@ return(
       }}
       views={["dayGridDay", "dayGridWeek", "dayGridMonth"]} />
 
-        <button onClick={() => setIsFormOpen(true)}>Add Event</button>
-        <AddEventForm onSubmit={addEvent} isOpen={isFormOpen} onClose={closeForm}
-      />
       </div>
 );
 }
