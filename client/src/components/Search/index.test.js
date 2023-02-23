@@ -1,4 +1,4 @@
-import { render, screen, toBeDisabled } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import Search from "./index.js";
 import * as React from 'react';
 

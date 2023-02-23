@@ -271,6 +271,7 @@ export default function Search(props) {
                             color="primary"
                             style={{ maxWidth: '25px', padding: '3px', minWidth: '25px', marginTop: '3px' }}
                             id={'friend' + props.userID}
+                            data-testid={'test_friend_' + props.userID}
                             onClick={(e) => handleFriend(e)}>
                             {props.friend ? '-' : '+'}
                         </Button>
