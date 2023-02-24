@@ -23,9 +23,9 @@ ___
 
 ```bash
 git clone https://github.com/BenjaminLuo/BuddyFinder.git
-npm install
+npm install --legacy-peer-deps
 cd client
-npm install
+npm install --legacy-peer-deps
 ```
 
 **Running**: Run using `yarn dev` in the root directory
@@ -36,4 +36,7 @@ npm install
 
 ___
 
-...
+```bash
+cd client
+yarn test
+```
