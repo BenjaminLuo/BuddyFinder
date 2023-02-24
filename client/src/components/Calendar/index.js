@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-// import FullCalendar from "@fullcalendar/react";
-// import daygridPlugin from "@fullcalendar/daygrid";
-// import timeGridPlugin from "@fullcalendar/timegrid";
-// import interactionPlugin from "@fullcalendar/interaction"
+import FullCalendar from "@fullcalendar/react";
+import daygridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import interactionPlugin from "@fullcalendar/interaction"
 
 
 const styles = theme => ({
@@ -28,47 +28,42 @@ const styles = theme => ({
 
 class Home extends Component {
 
+return(
+  <div>
+    <p>
 
-
-
-
-
-  render() {
-
-    const events = [{
-      title: "test",
-      start: "2023-02-25T12:00:00+00:00",
-      end: "2023-02-27"
-    }]
-
-    const { classes } = this.props;
-
-    // const calendarView = (
-
-    //   <div>
-
-    //     <FullCalendar
-    //       plugins={[daygridPlugin, interactionPlugin, timeGridPlugin]}
-    //       intialView={"timeGridWeek"}
-    //       editable
-    //       selectable
-    //       //select = {handleSelect}
-    //       events={events}
-    //       headerToolbar={{
-    //         start: "today prev next",
-    //         end: "dayGridDay dayGridWeek dayGridMonth",
-    //         right: "dayGridMonth,timeGridWeek,timeGridDay"
-    //       }}
-    //       views={["dayGridDay", "dayGridWeek", "dayGridMonth"]} />
-    //   </div>
-    // )
-
-    return (
-      <div>
+    </p>
+    <p>
+      
+    </p>
         <h1>
           Calendar Page
         </h1>
-        {/* {calendarView} */}
+
+        <button onClick={() => setIsFormOpen(true)}>Add Event</button>
+        <AddEventForm onSubmit={addEvent} isOpen={isFormOpen} onClose={closeForm}
+      />
+       <p>
+
+</p>
+<p>
+  
+</p>
+        <FullCalendar
+      plugins={[dayGridPlugin, timeGridPlugin]}
+      intialView={"timeGridWeek"}
+      editable
+      selectable
+      eventClick = {eventClick}
+      events={events}
+      headerToolbar={{
+        start: "today prev next",
+        center: "title",
+        end: "dayGridDay dayGridWeek dayGridMonth",
+        right: "dayGridMonth,timeGridWeek,timeGridDay"
+      }}
+      views={["dayGridDay", "dayGridWeek", "dayGridMonth"]} />
+      
       </div>
     );
   }
