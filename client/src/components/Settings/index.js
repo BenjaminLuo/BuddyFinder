@@ -31,13 +31,30 @@ const useStyles = makeStyles((theme) => {
 })
 
 
+// Validation parameters
+const validation_init = {
+    "display_name": false,
+    "user_id": false,
+    "bio": false,
+    "username": false,
+    "password": false,
+    "email": false,
+    "year": false,
+    "program": false
+}
+
+
 export default function Settings() {
+    const classes = useStyles();
 
     // Temporary JSON file to simulate database
     const init_data = require('../../user.json');
 
-    const classes = useStyles();
+    // State variable for storing user data
     const [data, changeData] = React.useState(init_data);
+
+    // State variable for storing validation check parameters (by default they're all false)
+    const [validate, invalidate] = React.useState(validation_init);
 
     // Tabber toggles
     const [value, setValue] = React.useState(0);
@@ -49,9 +66,14 @@ export default function Settings() {
         const userInput = document.getElementById(e.target.id + '_info').value
 
         // Validation checks
-        if (userInput === '') {
+        if (userInput.trim() === "") {
+            validate[e.target.id] = true
+            invalidate({ ...validate })
 
         } else {
+            validate[e.target.id] = false
+            invalidate({ ...validate })
+
             // Input: Array (interests)
             if (e.target.id === 'interests') {
                 data[e.target.id] = userInput.split(', ')
@@ -85,8 +107,8 @@ export default function Settings() {
                         label={props.label}
                         placeholder={"Enter new " + props.field.toLowerCase()}
                         variant="outlined"
-                        helperText={props.err ? "This field cannot be blank" : ""}
-                        error={props.err}
+                        helperText={validate[props.id] ? "This field cannot be blank" : ""}
+                        error={validate[props.id]}
                         id={props.id + '_info'}
                         style={{ width: "300px" }}
                         multiline minRows={props.paragraph ? 5 : 1}
@@ -152,11 +174,11 @@ export default function Settings() {
             {/* Display Name, Bio, Program, Academic Year, Interests */}
             <TabPanel value={value} index={0}>
 
-                <InputField field={"Display Name"} label={data.display_name} err={data.error} id={'display_name'} />
-                <InputField field={"Program"} label={data.program} err={data.error} id={'program'} />
-                <InputField field={"Academic Year"} label={data.year} err={data.error} id={'year'} />
-                <InputField field={"Bio"} label={data.bio} err={data.error} id={'bio'} paragraph />
-                <InputField field={"Interests"} label={data.interests.join(', ')} err={data.error} id={'interests'} paragraph />
+                <InputField field={"Display Name"} label={data.display_name} id={'display_name'} />
+                <InputField field={"Program"} label={data.program} id={'program'} />
+                <InputField field={"Academic Year"} label={data.year} id={'year'} />
+                <InputField field={"Bio"} label={data.bio} id={'bio'} paragraph />
+                <InputField field={"Interests"} label={data.interests.join(', ')} id={'interests'} paragraph />
 
             </TabPanel>
 
@@ -164,10 +186,10 @@ export default function Settings() {
             {/* User ID, Username, Password, Email */}
             <TabPanel value={value} index={1}>
 
-                <InputField field={"User ID"} label={data.user_id} err={data.error} id={'user_id'} />
-                <InputField field={"Username"} label={data.username} err={data.error} id={'username'} />
-                <InputField field={"Password"} label={data.password} err={data.error} id={'password'} />
-                <InputField field={"Email"} label={data.email} err={data.error} id={'email'} />
+                <InputField field={"User ID"} label={data.user_id} id={'user_id'} />
+                <InputField field={"Username"} label={data.username} id={'username'} />
+                <InputField field={"Password"} label={data.password} id={'password'} />
+                <InputField field={"Email"} label={data.email} id={'email'} />
 
             </TabPanel>
 
