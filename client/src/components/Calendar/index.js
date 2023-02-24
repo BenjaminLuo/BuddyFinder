@@ -1,108 +1,81 @@
 import React, { Component } from 'react';
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import { useState } from 'react';
-import Grid from "@material-ui/core/Grid";
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+// import FullCalendar from "@fullcalendar/react";
+// import daygridPlugin from "@fullcalendar/daygrid";
+// import timeGridPlugin from "@fullcalendar/timegrid";
+// import interactionPlugin from "@fullcalendar/interaction"
 
 
-const AddEventForm = ({ isOpen, onClose, onSubmit }) =>{
-  const [eventName, setEventName] = useState('');
-  const [startTime, setStartTime] = useState('');
-  const [endTime, setEndTime] = useState('');
+const styles = theme => ({
+  mainMessageContainer: {
+    marginTop: "20vh",
+    marginLeft: theme.spacing(20),
+    [theme.breakpoints.down('xs')]: {
+      marginLeft: theme.spacing(4),
+    },
+  },
+  paper: {
+    overflow: "hidden",
+  },
+  message: {
+    maxWidth: 250,
+    paddingBottom: theme.spacing(2),
+  },
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    onSubmit({ eventName, startTime, endTime });
-    onClose();
-    setEventName('');
-    setStartTime('');
-    setEndTime('');
-  };
+});
 
-  return isOpen ? (
-    <div className="popup-form">
-      <form onSubmit={handleSubmit}>
-        <Grid>
-        <label htmlFor="eventName">Enter your event name:</label>
-        <input
-          id="eventName"
-          type="text"
-          value={eventName}
-          onChange={(event) => setEventName(event.target.value)}
-        />
-        </Grid>
 
-        <Grid>
-        <label htmlFor="startTime">Enter your start time -- YYYY-MM-DD, HH:MM AM/PM:</label>
-        <input
-          id="startTime"
-          type="datetime-local"
-          value={startTime}
-          onChange={(event) => setStartTime(event.target.value)}
-        />
-        </Grid>
+class Home extends Component {
 
-        <Grid>
-        <label htmlFor="endTime">Enter your end time -- YYYY-MM-DD, HH:MM AM/PM:</label>
-        <input
-          id="endTime"
-          type="datetime-local"
-          value={endTime}
-          onChange={(event) => setEndTime(event.target.value)}
-        />
-        </Grid>
-        <button type="submit">Submit</button>
-      </form>
-    </div>
-  ) : null;
-}
 
-const Calendar = () => {
-const [isFormOpen, setIsFormOpen] = useState(false);
-const [events, setEvents] = useState([]);
-const addEvent = (newEvent) => {
-  setEvents([...events, {
-    title: newEvent.eventName,
-    start: newEvent.startTime,
-    end: newEvent.endTime,
-  }]);}
 
-const closeForm = () => {
-  setIsFormOpen(false);
-};
 
-const eventClick = ({event}) => {
-  if (window.confirm("Are you sure you want to delete this event from your calendar?")) {
-    event.remove();
-  }
-};
 
-return(
-  <div>
+
+  render() {
+
+    const events = [{
+      title: "test",
+      start: "2023-02-25T12:00:00+00:00",
+      end: "2023-02-27"
+    }]
+
+    const { classes } = this.props;
+
+    // const calendarView = (
+
+    //   <div>
+
+    //     <FullCalendar
+    //       plugins={[daygridPlugin, interactionPlugin, timeGridPlugin]}
+    //       intialView={"timeGridWeek"}
+    //       editable
+    //       selectable
+    //       //select = {handleSelect}
+    //       events={events}
+    //       headerToolbar={{
+    //         start: "today prev next",
+    //         end: "dayGridDay dayGridWeek dayGridMonth",
+    //         right: "dayGridMonth,timeGridWeek,timeGridDay"
+    //       }}
+    //       views={["dayGridDay", "dayGridWeek", "dayGridMonth"]} />
+    //   </div>
+    // )
+
+    return (
+      <div>
         <h1>
           Calendar Page
         </h1>
-        <FullCalendar
-      plugins={[dayGridPlugin, timeGridPlugin]}
-      intialView={"timeGridWeek"}
-      editable
-      selectable
-      eventClick = {eventClick}
-      events={events}
-      headerToolbar={{
-        start: "today prev next",
-        center: "title",
-        end: "dayGridDay dayGridWeek dayGridMonth",
-        right: "dayGridMonth,timeGridWeek,timeGridDay"
-      }}
-      views={["dayGridDay", "dayGridWeek", "dayGridMonth"]} />
-
-        <button onClick={() => setIsFormOpen(true)}>Add Event</button>
-        <AddEventForm onSubmit={addEvent} isOpen={isFormOpen} onClose={closeForm}
-      />
+        {/* {calendarView} */}
       </div>
-);
+    );
+  }
 }
 
-export default Calendar;
+Home.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(Home);

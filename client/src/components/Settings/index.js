@@ -14,6 +14,7 @@ import {
     Switch
 } from '@material-ui/core';
 
+
 // --------------------------------------------------- /\ Imports
 // --------------------------------------------------- \/ Styles
 
@@ -30,38 +31,13 @@ const useStyles = makeStyles((theme) => {
 })
 
 
-const user = {
-    display_name: 'Ephei Tea',
-    program: 'Management Engineering',
-    year: '3A',
-    bio: 'About me',
-    interests: ['A', 'B', 'C'],
-    user_id: 20890448,
-    username: 'epheitea',
-    password: 'myPassword',
-    email: 'ephei@outlook.com',
-    private: false,
-    searchable: true
-}
-
-const user2 = {
-    display_name: 'Yi Fei',
-    program: 'Civil Engineering',
-    year: '4B',
-    bio: 'Nothing to know',
-    interests: ['A', 'B', 'C'],
-    user_id: '00000000',
-    username: 'yifei',
-    password: 'password123',
-    email: 'yifei@outlook.com',
-    private: false,
-    searchable: true
-}
-
-
 export default function Settings() {
+
+    // Temporary JSON file to simulate database
+    const init_data = require('../../user.json');
+
     const classes = useStyles();
-    const [data, changeData] = React.useState(user);
+    const [data, changeData] = React.useState(init_data);
 
     // Tabber toggles
     const [value, setValue] = React.useState(0);
@@ -69,11 +45,32 @@ export default function Settings() {
 
     // Update user account information
     const handleSubmit = (e) => {
-        data[e.target.id] = document.getElementById(e.target.id + '_info').value
+
+        const userInput = document.getElementById(e.target.id + '_info').value
+
+        // Validation checks
+        if (userInput === '') {
+
+        } else {
+            // Input: Array (interests)
+            if (e.target.id === 'interests') {
+                data[e.target.id] = userInput.split(', ')
+            } else {
+                data[e.target.id] = userInput
+            }
+        }
+        changeData({ ...data })
+
+    }
+
+    const handleSwitch = (e) => {
+        // Input: Switches (private/searchable)
+        data[e.target.id] = document.getElementById(e.target.id).checked
         changeData({ ...data })
     }
 
 
+    // For input fields iwht text values
     const InputField = (props) => {
         return (
             <Grid container spacing={2} style={{ padding: '10px 40px 10px 40px' }}>
@@ -82,13 +79,17 @@ export default function Settings() {
                         {props.field}
                     </Typography>
                 </Grid>
+
                 <Grid item xs={3}>
                     <TextField
                         label={props.label}
                         placeholder={"Enter new " + props.field.toLowerCase()}
                         variant="outlined"
+                        helperText={props.err ? "This field cannot be blank" : ""}
+                        error={props.err}
                         id={props.id + '_info'}
                         style={{ width: "300px" }}
+                        multiline minRows={props.paragraph ? 5 : 1}
                         fullWidth
                         size="small" />
                 </Grid>
@@ -103,10 +104,31 @@ export default function Settings() {
                         Change
                     </Button>
                 </Grid>
+
             </Grid>
         )
     }
 
+
+    // For input fields with true/false values (ie. private/searchable)
+    const SwitchField = (props) => {
+        return (
+            <Grid container spacing={2} style={{ padding: '10px 40px 10px 40px' }}>
+                <Grid item xs={9}>
+                    <Typography style={{ marginTop: '5px', textAlign: 'right' }}>
+                        {props.field}
+                    </Typography>
+                </Grid>
+                <Grid item xs={3}>
+                    <Switch
+                        defaultChecked={props.toggled}
+                        onChange={handleSwitch}
+                        color='primary'
+                        id={props.id} />
+                </Grid>
+            </Grid >
+        )
+    }
 
     return (
 
@@ -130,11 +152,11 @@ export default function Settings() {
             {/* Display Name, Bio, Program, Academic Year, Interests */}
             <TabPanel value={value} index={0}>
 
-                <InputField field={"Display Name"} label={data.display_name} id={'display_name'} />
-                <InputField field={"Program"} label={data.program} id={'program'} />
-                <InputField field={"Academic Year"} label={data.year} id={'year'} />
-                <InputField field={"Bio"} label={data.bio} id={'bio'} />
-                <InputField field={"Interests"} label={data.interests.toString()} id={'interests'} />
+                <InputField field={"Display Name"} label={data.display_name} err={data.error} id={'display_name'} />
+                <InputField field={"Program"} label={data.program} err={data.error} id={'program'} />
+                <InputField field={"Academic Year"} label={data.year} err={data.error} id={'year'} />
+                <InputField field={"Bio"} label={data.bio} err={data.error} id={'bio'} paragraph />
+                <InputField field={"Interests"} label={data.interests.join(', ')} err={data.error} id={'interests'} paragraph />
 
             </TabPanel>
 
@@ -142,10 +164,10 @@ export default function Settings() {
             {/* User ID, Username, Password, Email */}
             <TabPanel value={value} index={1}>
 
-                <InputField field={"User ID"} label={data.user_id} id={'user_id'} />
-                <InputField field={"Username"} label={data.username} id={'username'} />
-                <InputField field={"Password"} label={data.password} id={'password'} />
-                <InputField field={"Email"} label={data.email} id={'email'} />
+                <InputField field={"User ID"} label={data.user_id} err={data.error} id={'user_id'} />
+                <InputField field={"Username"} label={data.username} err={data.error} id={'username'} />
+                <InputField field={"Password"} label={data.password} err={data.error} id={'password'} />
+                <InputField field={"Email"} label={data.email} err={data.error} id={'email'} />
 
             </TabPanel>
 
@@ -153,9 +175,8 @@ export default function Settings() {
             {/* Hide name from search, Private account */}
             <TabPanel value={value} index={2}>
 
-                {/* <Switch checked={data.private ? true : false} onChange={handleRadioChange} /> */}
-                <InputField field={"Private Account"} label={data.private ? 'Yes' : 'No'} id={'private'} />
-                <InputField field={"Searchable Account"} label={data.searchable ? 'Yes' : 'No'} id={'searchable'} />
+                <SwitchField field={"Private Account"} toggled={data.private} id={'private'} />
+                <SwitchField field={"Searchable Account"} toggled={data.searchable} id={'searchable'} />
 
             </TabPanel>
 

@@ -65,13 +65,13 @@ export default function Statistics(props) {
 
 
   const handleChange = (e) => {
-    goalObject[goalObject.findIndex(item => "tf" + item.id == e.target.id)].goal = e.target.value
+    goalObject[goalObject.findIndex(item => "tf" + item.id === e.target.id)].goal = e.target.value
     updateGoalObject([...goalObject])
   }
 
   // Find index then remove it
   const removeItem = (e) => {
-    goalObject[goalObject.findIndex(item => "button" + item.id == e.target.id)].completed = true
+    goalObject[goalObject.findIndex(item => "button" + item.id === e.target.id)].completed = true
     updateGoalObject(goalObject.filter((value, index) => value.completed !== true))
   }
 
