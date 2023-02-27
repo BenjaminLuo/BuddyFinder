@@ -192,5 +192,3 @@ const rows = [
   createData('Scheduled Events', 12),
   createData('Scheduled Events (hours)', 43),
 ];
-
-
