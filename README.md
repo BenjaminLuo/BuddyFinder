@@ -24,8 +24,10 @@ ___
 ```bash
 git clone https://github.com/BenjaminLuo/BuddyFinder.git
 npm install --legacy-peer-deps
+npm install @fullcalendar/react @fullcalendar/core @fullcalendar/daygrid
 cd client
 npm install --legacy-peer-deps
+npm install @fullcalendar/react @fullcalendar/core @fullcalendar/daygrid
 ```
 
 **Running**: Run using `yarn dev` in the root directory
