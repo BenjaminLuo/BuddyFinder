@@ -14,23 +14,18 @@ import {
 
 const useStyles = makeStyles((theme) => {
   return {
-      page: {
-          backgroundColor: 'lightgrey',
-          backgroundSize: 'cover',
-          opacity: 0.9,
-          padding: '40px',
-          paddingTop: '120px'
-      },
+    page: {
+      backgroundColor: 'lightgrey',
+      backgroundSize: 'cover',
+      opacity: 0.9,
+      padding: '40px',
+      paddingTop: '120px'
+    },
   }
 })
 
-const txt1 = document.getElementById('fullWidth');
-const btn1 = document.getElementById('btn1');
-const out1 = document.getElementById('output1');
 
-function fun1() {
-  out1.innerHTML = txt1.value; 
-}
+const textfield = null;
 
 export default function Discussion(props) {
   const classes = useStyles();
@@ -41,10 +36,9 @@ export default function Discussion(props) {
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Typography gutterBottom variant="h4" align="center">
-            Discussion Forum
+            News feed
           </Typography>
           <hr style={{ align: 'center', width: '10%', borderColor: 'black' }} />
-
           <h2 style={{ padding: '50px' }} align="left">
             Drop your latest feed below!
           </h2>
@@ -61,8 +55,13 @@ export default function Discussion(props) {
         <Stack spacing={2} direction="column">
           <Button id='btn1' variant="outlined">Share</Button>
         </Stack>
-        <p className='output' id='output1'></p>
       </Grid>
+      <Typography gutterBottom variant="h5" align="right">
+        Here is what is on your feed:
+      </Typography>
+      <Typography gutterBottom variant="h5" align="right">
+        {textfield}
+      </Typography>
     </Container>
   )
 

@@ -11,7 +11,7 @@ import Settings from '../Settings';
 import FAQ from '../FAQ';
 import Search from '../Search';
 import Profile from '../Profile';
-
+import QA from '../QA';
 
 // eslint-disable-next-line
 export default function PrivateRoute({
@@ -32,6 +32,7 @@ export default function PrivateRoute({
         <Route path="/FAQ" exact component={FAQ} />
         <Route path="/Search" exact component={Search} />
         <Route path="/Profile" exact component={Profile} />
+        <Route path="/QA" exact component={QA} />
       </Switch>
     </Router>
   );
