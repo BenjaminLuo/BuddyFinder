@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => {
 })
 
 
-const textfield = null;
+const textfield = 2;
 
 export default function Discussion(props) {
   const classes = useStyles();
