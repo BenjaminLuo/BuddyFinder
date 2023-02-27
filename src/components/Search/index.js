@@ -215,27 +215,27 @@ export default function Search(props) {
 
     // Preview user profile through a modal
     const handleProfile = (e) => {
-        userStub = accounts[accounts.findIndex(item => item.user_id === e.target.id)]
+        userStub = accounts[accounts.findIndex(item => item.user_id == e.target.id)]
         handleOpen();
     }
 
     // Add/remove a friend
     function handleFriend(e) {
-        const thisIndex = accounts.findIndex(item => "friend" + item.user_id === e.target.id)
+        const thisIndex = accounts.findIndex(item => "friend" + item.user_id == e.target.id)
         accounts[thisIndex].friend = !accounts[thisIndex].friend
         setQuery(search + ' ')
     }
 
     // Block/unblock
     const handleBlock = (e) => {
-        const thisIndex = accounts.findIndex(item => "block" + item.user_id === e.target.id)
+        const thisIndex = accounts.findIndex(item => "block" + item.user_id == e.target.id)
         accounts[thisIndex].blocked = !accounts[thisIndex].blocked
         setQuery(search + ' ')
     }
 
     // Filter the list of accounts based on the search query
     function filterData(data, query) {
-        if (!query || query === '') {
+        if (!query || query == '') {
             return data;
         } else {
             return data.filter((d) => d.user_id.includes(query.trim()) || d.display_name.toLowerCase().includes(query.trim()));
@@ -271,7 +271,6 @@ export default function Search(props) {
                             color="primary"
                             style={{ maxWidth: '25px', padding: '3px', minWidth: '25px', marginTop: '3px' }}
                             id={'friend' + props.userID}
-                            data-testid={'test_friend_' + props.userID}
                             onClick={(e) => handleFriend(e)}>
                             {props.friend ? '-' : '+'}
                         </Button>

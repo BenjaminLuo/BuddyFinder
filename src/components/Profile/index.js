@@ -102,7 +102,7 @@ export default function Profile(props) {
         } else {
             setUser(userStub)
         }
-    }, [props])
+    }, [])
 
     // Adjusting top padding due to NavBar; this component is used by the Search component in a modal
     const paddingTop = props.paddingTop ? props.paddingTop : '100px'
