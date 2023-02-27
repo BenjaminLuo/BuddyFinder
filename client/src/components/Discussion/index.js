@@ -1,16 +1,16 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
+// --------------------------------------------------- \/ Imports
+
+import React from 'react';
+
 import {
   Typography,
-  Container,
-  Card,
-  CardContent,
-  Grid,
-  TextField,
-  Button,
   makeStyles,
+  Container,
+  Grid,
 } from '@material-ui/core';
+
+// --------------------------------------------------- /\ Imports
+// --------------------------------------------------- \/ Styles
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -18,17 +18,16 @@ const useStyles = makeStyles((theme) => {
       backgroundColor: 'lightgrey',
       backgroundSize: 'cover',
       opacity: 0.9,
-      padding: '40px',
-      paddingTop: '120px'
-    },
+      minHeight: '100vh',
+      padding: '120px 100px 40px 100px'
+    }
   }
 })
 
 
-const textfield = 2;
-
-export default function Discussion(props) {
+export default function QA(props) {
   const classes = useStyles();
+
 
   return (
     <Container maxWidth={false} className={classes.page}>
@@ -36,33 +35,14 @@ export default function Discussion(props) {
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Typography gutterBottom variant="h4" align="center">
-            News feed
+            Want to share your thoughts?
           </Typography>
           <hr style={{ align: 'center', width: '10%', borderColor: 'black' }} />
           <h2 style={{ padding: '50px' }} align="left">
-            Drop your latest feed below!
+            Give your vote below!
           </h2>
         </Grid>
-        <Box
-          sx={{
-            width: 500,
-            maxWidth: '100%',
-          }}
-        >
-          <TextField fullWidth label="What's on your mind?" id="fullWidth" />
-        </Box>
-
-        <Stack spacing={2} direction="column">
-          <Button id='btn1' variant="outlined">Share</Button>
-        </Stack>
       </Grid>
-      <Typography gutterBottom variant="h5" align="right">
-        Here is what is on your feed:
-      </Typography>
-      <Typography gutterBottom variant="h5" align="right">
-        {textfield}
-      </Typography>
     </Container>
   )
-
 }
