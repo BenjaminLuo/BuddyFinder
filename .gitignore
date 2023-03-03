@@ -6,3 +6,5 @@ serviceAccountKey.json
 package-lock.json
 client/package-lock.json
 test/
+config.js
+yarn.lock
