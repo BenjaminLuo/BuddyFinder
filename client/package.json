@@ -15,10 +15,14 @@
     "@material/ripple": "^4.0.0",
     "eslint": "^6.6.0",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "fullcalendar": "^6.1.4",
 =======
     "fullcalendar": "5.1.0",
 >>>>>>> 01722ade474c2eb8b57b9a1d02ed8b0d44e04d92
+=======
+    "fullcalendar": "^6.1.4",
+>>>>>>> c6e3f249a5cb44e58738093ed41a863df14e38d2
     "install": "^0.12.2",
     "mathjs": "^5.10.3",
     "node-fetch": "^2.6.1",
