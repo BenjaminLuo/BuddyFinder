@@ -19,7 +19,7 @@ ___
 
 <br>
 
-**Set-up**: Clone the repository then install the dependencies
+**Set-up**: Clone the repository then install the dependencies. If `npm install` does not work, then try using `yarn add`
 
 ```bash
 git clone https://github.com/BenjaminLuo/BuddyFinder.git
