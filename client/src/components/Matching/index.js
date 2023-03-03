@@ -6,17 +6,16 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
-import { createTheme, ThemeProvider, styled } from '@material-ui/core/styles';
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
+import Container from "@material-ui/core/Container";
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 import { object } from 'prop-types';
+
+
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -55,52 +54,39 @@ export default function Matching() {
 
   const [name, setName] = React.useState("");
 
-  const [title, setTitle] = React.useState("");
-  const [body, setBody] = React.useState("");
-  const [rating, setRating] = React.useState("");
+
+  const [activity, setActivity] = React.useState("");
+  const [place, setPlace] = React.useState("");
   const [time, setTime] = React.useState("");
 
   const [open, setOpen] = React.useState(false);
 
 
-  const onChangeBody = (event) => {
-    setBody(event.target.value);
-  }
-
-  const onChangeTitle = (event) => {
-    setTitle(event.target.value);
-  }
 
   const onChangeRating = (event) => {
-    setRating(event.target.value);
+    setPlace(event.target.value);
   }
 
   const onUpdateMovies = (item) => {
-    setvalue(item.id);
-    setName(item.name);
+    setActivity(item);
   } 
 
-  const handleRemoveItem = (item) => {
-    const newMovies = activityList.filter(
-    (movie) => item.id !== movie.id);
-    setActivityList(newMovies);
-    };
+
 
   let [activityList, setActivityList] = React.useState([]);
   
   
 const categories = ["Basketball", "Squash", "Swimming", "Gym"];
-const places = ["PAC", "CIF"];
+
 
 
 
   const onApplyChanges = () => {
-   // var index = initialReviews.map(function(e) { return e.title; }).indexOf(value);
     const j = {
-     selection: name,
-     title: title,
-     body: body,
-     rating: rating
+     place: place,
+     activity: activity,
+     time: time,
+
   
     }
 
@@ -114,7 +100,13 @@ const places = ["PAC", "CIF"];
   }
 
   return (
-    <><div>
+    <Container maxWidth={false} className={classes.page}>
+
+    <Grid container spacing={2}>
+
+
+        <Grid item xs={6}>
+
       <Typography variant="h3" gutterBottom component="div">
         Match
       </Typography>
@@ -125,7 +117,7 @@ const places = ["PAC", "CIF"];
         
         helperText = {"Where would you like to go?"}
 
-        value={null} onChange={onChangeRating}>
+        value={place} onChange={onChangeRating}>
           
         <FormControlLabel
             value="PAC"
@@ -142,55 +134,13 @@ const places = ["PAC", "CIF"];
 
 </RadioGroup>
       </FormControl>
+      </Grid>
 
-
-      <FormControl className={classes.formControl}>
-
-        <InputLabel id="demo-controlled-open-select-label">Select Activity</InputLabel>
-        <Select
-          labelId="demo-controlled-open-select-label"
-          id="demo-controlled-open-select"
-
-          helperText={"Select an activity you like most"}
-
-          autoWidth
-          open={open}
-          onClose={handleClose}
-          onOpen={handleOpen}
-          onChange={handleChange}
-        >
-
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-
-          {categories.map((sport) => {
-            return (
-              <MenuItem
-                value={sport}
-                onClick={() => onUpdateMovies(sport)}
-              > {sport}
-              </MenuItem>
-
-            );
-
-
-
-          })}
-
-        </Select>
-
-      </FormControl>
-
-
-
-
-        <Typography variant="h3" gutterBottom component="div">
-          Place
-        </Typography>
+      <Grid item xs={8}>
 
 
         <FormControl className={classes.formControl}>
+        <FormLabel component="legend">Activity</FormLabel>
 
           <Select
             labelId="demo-controlled-open-select-label"
@@ -210,12 +160,12 @@ const places = ["PAC", "CIF"];
             </MenuItem>
 
 
-            {places.map((plac) => {
+            {categories.map((cat) => {
               return (
                 <MenuItem
-                  value={plac}
-                  onClick={() => onUpdateMovies(plac)}
-                > {plac}
+                  value={cat}
+                  onClick={() => onUpdateMovies(cat)}
+                > {cat}
                 </MenuItem>
 
               );
@@ -227,15 +177,25 @@ const places = ["PAC", "CIF"];
 
         </FormControl>
 
-        <Grid>
-          <label htmlFor="Time">Enter your end time -- YYYY-MM-DD, HH:MM AM/PM:</label>
+        </Grid>
+
+        <Grid item xs={6}>
+
+ 
+        <FormControl className={classes.formControl}>
+        <FormLabel component="legend">Time</FormLabel>
+          <label htmlFor="Time">Select a Time: </label>
           <input
             id="Time"
             type="datetime-local"
             value={time}
             onChange={(event) => setTime(event.target.value)}
-          />
-        </Grid>
+          /> 
+          </FormControl>
+</Grid>
+
+<Grid item xs={4}>
+
 
         <SubmitButton
               // item={item}
@@ -243,8 +203,38 @@ const places = ["PAC", "CIF"];
               onButtonClick={onApplyChanges}
             />
 
-      </div></>
-  )
+            </Grid>
+
+            <Typography>
+
+      <ul>
+        {activityList.map((item) => {
+          return (
+            <li>
+      <Typography>
+             Place:  {item.place}
+      </Typography>
+      
+      <Typography> 
+           Activity:  {item.activity}
+      </Typography>       
+               
+      <Typography> 
+           Time:  {item.time}
+      </Typography> 
+
+
+          </li>
+          );
+        })}
+      </ul>
+
+       </Typography>
+
+</Grid>
+  </Container>
+
+  );
 
 }
 
