@@ -1,6 +1,7 @@
 // --------------------------------------------------- \/ Imports
 
 import React from 'react';
+import axios from 'axios';
 
 import {
     Typography,
@@ -12,6 +13,8 @@ import {
     Button,
     makeStyles,
 } from '@material-ui/core';
+
+const url = "http://localhost:5000"
 
 // --------------------------------------------------- /\ Imports
 // --------------------------------------------------- \/ Styles
@@ -60,11 +63,12 @@ export default function Contact(props) {
 
             updateSubmitted(true);
 
-            console.log({
+            // API to send review to database
+            axios.post(url + '/api/contactUs', {
                 name: name,
                 email: email,
                 body: body
-            });
+            })
 
         }
     }

@@ -1,39 +1,37 @@
-let mysql = require('mysql');
-let config = require('./config.js');
-const fetch = require('node-fetch');
-const express = require("express");
-const path = require("path");
-const bodyParser = require("body-parser");
-
-const { response } = require('express');
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const path = require('path');
 const app = express();
-const port = process.env.PORT || 5000;
-app.use(bodyParser.json({ limit: '50mb' }));
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+let config = require('./config.js');
+const mysql = require('mysql');
+// const port = process.env.PORT || 5000;
+const port = 5000;
 
+// const db = mysql.createPool(config);
+
+app.use(cors());
 app.use(express.static(path.join(__dirname, "client/build")));
+app.use(express.json())
+app.use(bodyParser.urlencoded({ extended: true }));
 
-
-app.post('/api/loadUserSettings', (req, res) => {
+// Contact Us: Uploads user form output to system
+app.post('/api/contactUs', (req, res) => {
 
 	let connection = mysql.createConnection(config);
-	let userID = req.body.userID;
 
-	let sql = `SELECT mode FROM user WHERE userID = ?`;
-	console.log(sql);
-	let data = [userID];
-	console.log(data);
+	const name = req.body.name;
+	const email = req.body.email;
+	const body = req.body.body;
 
-	connection.query(sql, data, (error, results, fields) => {
-		if (error) {
-			return console.error(error.message);
-		}
+	console.log(req.body);
 
-		let string = JSON.stringify(results);
-		//let obj = JSON.parse(string);
-		res.send({ express: string });
+	const sqlInsert = "INSERT INTO contact_us(name, email, body) VALUES (?,?,?)";
+	connection.query(sqlInsert, [name, email, body], (err, result) => {
+		console.log(err);
 	});
-	connection.end();
+
+	res.send({ express: string });
 });
 
 
