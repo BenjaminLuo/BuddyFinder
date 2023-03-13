@@ -1,7 +1,7 @@
 let config = {
-  host: 'ov-research-4.uwaterloo.ca',
-  user: 'b33luo',
-  password: 'Password1',
+  host    : 'ec2-18-216-101-119.us-east-2.compute.amazonaws.com',
+  user    : 'aa5chowd',
+  password: '',
   database: 'aa5chowd'
 };
 
