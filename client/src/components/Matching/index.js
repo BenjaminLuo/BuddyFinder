@@ -32,10 +32,45 @@ const useStyles = makeStyles((theme) => {
 
 export default function Matching() {
 
+  const addInterest = () => {
+    callApiAddInterest()
+      .then(res => {
+        console.log("callApiAddInterest returned: ", res)
+        var parsed = JSON.parse(res.express);
+        console.log("callApiAddInterest parsed: ", parsed);
+    //    setActivitiesList(parsed);
+      })
+  }
+
+  const callApiAddInterest = async () => {
+    const url = serverURL + "/api/addInterest";
+    console.log(url);
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+
+      },
+      body: JSON.stringify({
+        place: place,
+        activity: activity,
+        time: time,
+        userID: userID       
+      })
+    });
+    const responseInterest = await response.json();
+    if (response.status !== 200) throw Error(responseInterest.message);
+    console.log("User settings: ", responseInterest);
+    return responseInterest;
+  }
+
   const classes = useStyles();
 
+  const [userID, setUserID] = React.useState(1);
+
   const [value, setvalue] = React.useState('');
-  const [userID, setUserID] = React.useState('');
+  //const [userID, setUserID] = React.useState('');
 
 
   const handleChange = (event) => {
@@ -85,7 +120,7 @@ const categories = ["Basketball", "Squash", "Swimming", "Gym"];
     const j = {
      place: place,
      activity: activity,
-     time: time,
+     time: time
 
   
     }
