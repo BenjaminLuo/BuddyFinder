@@ -1,6 +1,6 @@
 // --------------------------------------------------- \/ Imports
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 
 import {
@@ -48,6 +48,25 @@ export default function Contact(props) {
     const [errorName, triggerErrorName] = React.useState(false);
     const [errorEmail, triggerErrorEmail] = React.useState(false);
     const [errorBody, triggerErrorBody] = React.useState(false);
+
+    useEffect(() => {
+        $.ajax({
+            type: "POST",
+            path: "/contactUs",
+            url: "https://dobw52i69c.execute-api.ca-central-1.amazonaws.com/prod",
+            crossDomain: true,
+            data: {
+                name: "fae",
+                email: "fae@outlook.com",
+                body: "My message"
+            },
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data, status) {
+                alert("Data: " + data + "`\nStatus: " + status);
+            }
+        })
+    }, []);
 
     // Form submission
     const handleSubmit = (event) => {
