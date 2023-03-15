@@ -15,7 +15,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 import { object } from 'prop-types';
 
-
+const serverURL = "";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -131,7 +131,7 @@ const categories = ["Basketball", "Squash", "Swimming", "Gym"];
     setActivityList(rev);
     console.log("List is: ", activityList);
 
-    //addReview(); 
+    addInterest(); 
   }
 
   return (
