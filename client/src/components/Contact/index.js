@@ -1,5 +1,3 @@
-// --------------------------------------------------- \/ Imports
-
 import React from 'react';
 
 import {
@@ -13,10 +11,8 @@ import {
     makeStyles,
 } from '@material-ui/core';
 
-// --------------------------------------------------- /\ Imports
-// --------------------------------------------------- \/ Styles
-
-const useStyles = makeStyles((theme) => {
+// Local styles
+const useStyles = makeStyles(() => {
     return {
         page: {
             backgroundColor: 'lightgrey',
@@ -36,7 +32,7 @@ export default function Contact(props) {
     // Form toggle
     const [submitted, updateSubmitted] = React.useState(false);
 
-    // States
+    // State variables
     const [name, updateName] = React.useState("");
     const [email, updateEmail] = React.useState("");
     const [body, updateBody] = React.useState("");
@@ -75,19 +71,7 @@ export default function Contact(props) {
             <Grid container spacing={2}>
 
                 {/* Left Container: About the site */}
-                <Grid item xs={6}>
-                    <Typography gutterBottom variant="h4" align="center">
-                        Contact Us
-                    </Typography>
-                    <hr style={{ align: 'center', width: '10%', borderColor: 'darkgrey' }} />
-
-                    <Typography style={{ padding: '50px' }}>
-                        Welcome to the contact page! Please fill out the form if you want to send us a message and we'll try to get back to you within 2 business days
-                        <br /><br />
-                        Before using the contact form, check out the <b>FAQ</b> page to see a list of frequently asked questions!
-                    </Typography>
-
-                </Grid>
+                {siteInformation}
 
 
                 {/* Right Container: Contact form */}
@@ -95,17 +79,10 @@ export default function Contact(props) {
                     <Card style={{ maxWidth: 450, margin: "0 auto", padding: "15px 5px" }}>
                         <CardContent>
 
-                            {/* If the user has already submitted the form, then confirm it */}
+                            {/* If the user has already submitted the form, send the confirmation message */}
                             {submitted === true ?
 
-                                <div>
-                                    <Typography variant="h5">
-                                        We've received your message!
-                                    </Typography>
-                                    <br /><b>Name</b>: {name}
-                                    <br /><b>Email</b>: {email}
-                                    <br /><b>Message</b>: {body}
-                                </div>
+                                confirmationMessage(name, email, body)
 
                                 :
 
@@ -161,3 +138,33 @@ export default function Contact(props) {
     );
 
 }
+
+
+// Left container: Shows text information about the site
+const siteInformation =
+    <Grid item xs={6}>
+        <Typography gutterBottom variant="h4" align="center">
+            Contact Us
+        </Typography>
+        <hr style={{ align: 'center', width: '10%', borderColor: 'darkgrey' }} />
+
+        <Typography style={{ padding: '50px' }}>
+            Welcome to the contact page! Please fill out the form if you want to send us a message and we'll try to get back to you within 2 business days
+            <br /><br />
+            Before using the contact form, check out the <b>FAQ</b> page to see a list of frequently asked questions!
+        </Typography>
+    </Grid>;
+
+
+// Renders the inputed name, email, and message for the user to see
+function confirmationMessage(name, email, body) {
+    return <>
+        <Typography variant="h5">
+            We've received your message!
+        </Typography>
+        <br /><b>Name</b>: {name}
+        <br /><b>Email</b>: {email}
+        <br /><b>Message</b>: {body}
+    </>;
+}
+

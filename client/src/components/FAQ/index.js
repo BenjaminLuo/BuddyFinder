@@ -29,8 +29,6 @@ const useStyles = makeStyles((theme) => {
 
 export default function FAQ(props) {
     const classes = useStyles();
-
-
     return (
         <Container maxWidth={false} className={classes.page}>
 
@@ -59,13 +57,13 @@ export default function FAQ(props) {
                 question={"Do I need an account?"}
                 answer={"An account is not necessary if you want to browse the website and post anonymously. However, if you want to use scheduling, then it is necessary to sign in through your Google account"} />
 
-
         </Container>
     );
 
 }
 
 
+// Function for each accordion component
 const FAQContent = (props) => {
     const classes = useStyles();
 
