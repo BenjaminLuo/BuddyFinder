@@ -9,6 +9,8 @@ import Landing from '../Landing';
 import PrivateRoute from '../Navigation/PrivateRoute.js';
 import Appbar from '../Appbar';
 
+
+// Site-wide styling constants
 const theme = createTheme({
   palette: {
     primary: {
@@ -39,6 +41,7 @@ const theme = createTheme({
 })
 
 
+// Main routing hub: Loads Appbar on each page and sets default screen to the Landing page
 class App extends Component {
 
   render() {

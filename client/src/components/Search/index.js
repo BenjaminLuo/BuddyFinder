@@ -1,26 +1,23 @@
-// --------------------------------------------------- \/ Imports
-
 import React from 'react';
 import './index.css'
 
 import {
     Typography,
     Container,
-    TextField,
     makeStyles,
     Button,
     Grid,
     Card,
     Box,
     Tabs,
-    Tab,
-    Modal
+    Tab
 } from '@material-ui/core';
 
-import Profile from '../Profile'
-
-// --------------------------------------------------- /\ Imports
-// --------------------------------------------------- \/ Styles
+import { modalController } from './modalController';
+import { searchForUsers } from './searchForUsers';
+import { userList } from './userList';
+import { friendList } from './friendList';
+import { blockedList } from './blockedList';
 
 const useStyles = makeStyles((theme) => {
     return {
@@ -43,6 +40,22 @@ const useStyles = makeStyles((theme) => {
             border: '0px',
             padding: '40px',
             zoom: '0.8'
+        },
+        button: {
+            maxWidth: '25px',
+            padding: '3px',
+            minWidth: '25px',
+            marginTop: '3px'
+        },
+        card: {
+            maxWidth: 550,
+            margin: "0 auto",
+            padding: "20px 5px",
+            minHeight: "65vh"
+        },
+        userCard: {
+            backgroundColor: 'lightgrey',
+            padding: '8px 8px 8px 30px'
         }
     }
 })
@@ -144,7 +157,7 @@ const accounts = [
     }
 ]
 
-var userStub = {
+export var userStub = {
     display_name: 'Yi Fei Tea',
     user_id: '0000',
     bio: 'Just another person',
@@ -202,7 +215,6 @@ export default function Search(props) {
     const [search, setQuery] = React.useState('');
     let query = filterData(accounts, search);
 
-
     // Modal triggers
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
@@ -246,9 +258,7 @@ export default function Search(props) {
     const UserCard = (props) => {
         return (
             <Card style={{ marginBottom: '12px' }}>
-
-
-                <Grid container spacing={2} style={{ backgroundColor: 'lightgrey', padding: '8px 8px 8px 30px' }}>
+                <Grid container spacing={2} className={classes.userCard}>
 
                     {/* User Information */}
                     <Grid item xs={7}>
@@ -269,7 +279,7 @@ export default function Search(props) {
                             type="submit"
                             variant="contained"
                             color="primary"
-                            style={{ maxWidth: '25px', padding: '3px', minWidth: '25px', marginTop: '3px' }}
+                            className={classes.button}
                             id={'friend' + props.userID}
                             data-testid={'test_friend_' + props.userID}
                             onClick={(e) => handleFriend(e)}>
@@ -283,7 +293,7 @@ export default function Search(props) {
                             type="submit"
                             variant="contained"
                             color="primary"
-                            style={{ maxWidth: '25px', padding: '3px', minWidth: '25px', marginTop: '3px' }}
+                            className={classes.button}
                             id={'block' + props.userID}
                             onClick={(e) => handleBlock(e)}>
                             {props.blocked ? 'U' : 'B'}
@@ -304,52 +314,22 @@ export default function Search(props) {
                             {props.disabled ? 'Private' : 'Profile'}
                         </Button>
                     </Grid>
-
                 </Grid>
-
             </Card >
         )
     }
 
     return (
         <Container maxWidth={false} className={classes.page}>
-            <Card style={{ maxWidth: 550, margin: "0 auto", padding: "20px 5px", minHeight: "65vh" }}>
+            <Card className={classes.card}>
 
                 {/* Search for a user */}
-                <Grid container spacing={0}>
-                    <Grid item xs={8} style={{ margin: '0 auto' }}>
-                        <TextField
-                            label="Find a user"
-                            placeholder="Search for a user..."
-                            onInput={(e) => { setQuery(e.target.value) }}
-                            variant="outlined"
-                            fullWidth
-                            size="small"
-                            style={{ marginBottom: "30px" }}
-                        />
-                    </Grid>
-                    <Grid item xs={2}>
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            color="primary">
-                            Search
-                        </Button>
-                    </Grid>
-                    <Grid item xs={1}>
-                    </Grid>
-                </Grid>
+                {searchForUsers(setQuery)}
 
                 {/* Modal to display review */}
-                <Modal
-                    open={open}
-                    onClose={handleClose}>
-                    <Box className={classes.modal}>
-                        <Profile user={userStub} paddingTop={'0px'} />
-                    </Box>
-                </Modal>
+                {modalController(open, handleClose, classes)}
 
-                {/* Returned results */}
+                {/* Tabber to navigate between lists of users*/}
                 <Box sx={{ borderBottom: 1, borderColor: 'divider', marginLeft: '25px' }}>
                     <Tabs value={value} onChange={handleChange}>
                         <Tab label="All" />
@@ -359,78 +339,16 @@ export default function Search(props) {
                 </Box>
 
                 {/* Returned results: All */}
-                <TabPanel value={value} index={0}>
-
-                    {query ? query.map((item) => (
-                        item.searchable ?
-                            <UserCard
-                                name={item.display_name}
-                                userID={item.user_id}
-                                year={item.term}
-                                program={item.program}
-                                disabled={item.private}
-                                friend={item.friend}
-                                blocked={item.blocked} />
-                            : null
-                    )) : null}
-
-                </TabPanel>
+                {userList(value, query, UserCard)}
 
                 {/* Returned results: Friends */}
-                <TabPanel value={value} index={1}>
-
-                    {query ? query.map((item) => (
-                        item.friend ?
-                            <UserCard
-                                name={item.display_name}
-                                userID={item.user_id}
-                                year={item.term}
-                                program={item.program}
-                                disabled={item.private}
-                                friend={item.friend}
-                                blocked={item.blocked} />
-                            : null
-                    )) : null}
-
-                </TabPanel>
+                {friendList(value, query, UserCard)}
 
                 {/* Returned results: Blocked */}
-                <TabPanel value={value} index={2}>
-
-                    {query ? query.map((item) => (
-                        item.blocked ?
-                            <UserCard
-                                name={item.display_name}
-                                userID={item.user_id}
-                                year={item.term}
-                                program={item.program}
-                                disabled={item.private}
-                                friend={item.friend}
-                                blocked={item.blocked} />
-                            : null
-                    )) : null}
-
-                </TabPanel>
-
+                {blockedList(value, query, UserCard)}
 
             </Card>
         </Container >
     );
 
-}
-
-
-function TabPanel(props) {
-    const { children, value, index } = props;
-
-    return (
-        <div>
-            {value === index && (
-                <Box sx={{ p: 3 }}>
-                    <Typography>{children}</Typography>
-                </Box>
-            )
-            }
-        </div >
-    );
 }
