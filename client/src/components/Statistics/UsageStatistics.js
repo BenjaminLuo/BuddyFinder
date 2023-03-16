@@ -2,15 +2,54 @@ import React from 'react';
 import {
     Table,
     TableBody,
+    Box,
+    Modal,
     TableRow,
     TableCell,
     TableContainer,
     TableHead,
+    makeStyles,
     Paper,
-    Button, Grid
+    Button,
+    Grid
 } from '@material-ui/core';
 
-export const UsageStatistics = (props) => {
+const useStyles = makeStyles((theme) => {
+    return {
+        modal: {
+            position: 'absolute',
+            overflowY: 'auto',
+            top: '20%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '40%',
+            maxHeight: '50vh',
+            backgroundColor: 'lightgrey',
+            border: '0px',
+            padding: '40px',
+            zoom: '0.8'
+        },
+    }
+})
+
+export const UsageStatistics = () => {
+    const classes = useStyles();
+
+    // Modal triggers
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    // Preview user profile through a modal
+    const handleProfile = (e) => {
+        handleOpen();
+    }
+
+    const userData = {
+        name: 'ephei',
+        email: 'ephei@outlook.com'
+    }
+
     return (
         <Grid item xs={4}>
 
@@ -18,9 +57,18 @@ export const UsageStatistics = (props) => {
                 type="submit"
                 variant="contained"
                 color="primary"
+                onClick={(e) => handleProfile(e)}
                 style={{ float: 'right', height: '30px', marginBottom: '15px' }}>
                 Download data
             </Button>
+
+            <Modal
+                open={open}
+                onClose={handleClose}>
+                <Box style={{ whiteSpace: 'pre-line' }} className={classes.modal}>
+                    {JSON.stringify(userData)}
+                </Box>
+            </Modal>
 
             <TableContainer component={Paper}>
                 <Table>
