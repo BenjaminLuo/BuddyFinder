@@ -7,7 +7,7 @@ import {
   Menu,
   MenuItem
 } from '@material-ui/core';
-import history from '../Navigation/history';
+import history from '@components/Navigation/history';
 import { NavButton } from './NavButton';
 
 

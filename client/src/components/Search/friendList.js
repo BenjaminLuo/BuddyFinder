@@ -1,5 +1,5 @@
 import React from 'react';
-import { TabPanel } from "../UI/TabPanel";
+import { TabPanel } from "@components/UI/TabPanel";
 
 // Tabber for friend list
 export function friendList(value, query, UserCard) {
