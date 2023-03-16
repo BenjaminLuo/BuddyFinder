@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Modal } from '@material-ui/core';
-import Profile from '../Profile';
+import Profile from '../../components/Profile';
 import { userStub } from './index';
 
 // Controls opening and closing of modals

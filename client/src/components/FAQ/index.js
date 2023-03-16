@@ -64,7 +64,7 @@ export default function FAQ(props) {
 
 
 // Function for each accordion component
-const FAQContent = (props) => {
+const FAQContent = ({ question, answer }) => {
     const classes = useStyles();
 
     return (
@@ -73,11 +73,11 @@ const FAQContent = (props) => {
             <AccordionSummary
                 expandIcon={"▼"}
                 style={{ paddingRight: '20px', paddingLeft: '40px', backgroundColor: '#6AAB8E' }}>
-                <Typography>{props.question}</Typography>
+                <Typography>{question}</Typography>
             </AccordionSummary>
 
             <AccordionDetails>
-                <Typography>{props.answer}</Typography>
+                <Typography>{answer}</Typography>
             </AccordionDetails>
 
         </Accordion>

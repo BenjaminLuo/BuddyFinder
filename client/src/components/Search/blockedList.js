@@ -1,5 +1,5 @@
 import React from 'react';
-import { TabPanel } from "../UI/TabPanel";
+import { TabPanel } from "../../components/UI/TabPanel";
 
 // Tabber for blocked user list
 export function blockedList(value, query, UserCard) {

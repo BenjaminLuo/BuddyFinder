@@ -1,5 +1,5 @@
 import React from 'react';
-import { TabPanel } from "../UI/TabPanel";
+import { TabPanel } from "../../components/UI/TabPanel";
 
 // Tabber for list of all users
 export function userList(value, query, UserCard) {

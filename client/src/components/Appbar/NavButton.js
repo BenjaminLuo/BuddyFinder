@@ -6,7 +6,7 @@ import {
 } from '@material-ui/core';
 
 // Function for creating navigation buttons
-export const NavButton = (props) => {
+export const NavButton = ({ redirect, linkText }) => {
     return (
 
         <Grid item
@@ -14,9 +14,9 @@ export const NavButton = (props) => {
             sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 
             <Button
-                onClick={() => history.push(props.redirect)}
+                onClick={() => history.push(redirect)}
                 sx={{ my: 2, color: 'white', display: 'block' }}>
-                {props.linkText}
+                {linkText}
             </Button>
 
         </Grid>

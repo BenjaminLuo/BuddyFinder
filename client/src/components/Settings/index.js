@@ -11,7 +11,7 @@ import {
     Tab,
     Switch
 } from '@material-ui/core';
-import { TabPanel } from '../UI/TabPanel';
+import { TabPanel } from '../../components/UI/TabPanel';
 
 const useStyles = makeStyles((theme) => {
     return {
