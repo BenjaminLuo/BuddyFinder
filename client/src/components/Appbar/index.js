@@ -5,6 +5,7 @@ import {
   Button,
   Grid,
   Menu,
+  Typography,
   MenuItem
 } from '@material-ui/core';
 import history from '../Navigation/history';
@@ -26,8 +27,8 @@ export default function NavBar() {
 
   return (
     <>
-      <AppBar>
-        <Toolbar>
+      <AppBar position="sticky">
+        <Toolbar variant="dense">
 
           {/* Grid to organize redirects */}
           <Grid container spacing={2}>
@@ -46,7 +47,7 @@ export default function NavBar() {
               item xs={1}
               sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               <Button title="dropbutton" data-testid="dropdownButton" onClick={handleMenu}>
-                User ▼
+                <Typography variant="h6">User ▼</Typography>
               </Button>
               <Menu
                 anchorEl={anchorEl}

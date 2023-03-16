@@ -19,8 +19,7 @@ const useStyles = makeStyles((theme) => {
             backgroundColor: 'lightgrey',
             backgroundSize: 'cover',
             opacity: 0.9,
-            minHeight: 'calc(100vh - 60px)',
-            paddingTop: '90px'
+            minHeight: '90vh'
         },
     }
 })
@@ -116,7 +115,7 @@ export default function Settings() {
                         onClick={handleSubmit}
                         style={{ float: 'right', marginLeft: '50px' }}
                         color="primary">
-                        Change
+                        <Typography variant="h6">Change</Typography>
                     </Button>
                 </Grid>
 
@@ -148,7 +147,7 @@ export default function Settings() {
     return (
 
         <Box
-            sx={{ flexGrow: 1, display: 'flex', height: 224 }}
+            sx={{ flexGrow: 1, display: 'flex' }}
             className={classes.page}>
 
             <Tabs

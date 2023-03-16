@@ -5,23 +5,21 @@ import React from 'react';
 import {
     Typography,
     Container,
-    makeStyles,
-    Accordion,
-    AccordionSummary,
-    AccordionDetails
+    makeStyles
 } from '@material-ui/core';
+import { FAQContent } from './FAQContent';
 
 // --------------------------------------------------- /\ Imports
 // --------------------------------------------------- \/ Styles
 
-const useStyles = makeStyles((theme) => {
+export const useStyles = makeStyles(() => {
     return {
         page: {
             backgroundColor: 'lightgrey',
             backgroundSize: 'cover',
             opacity: 0.9,
-            minHeight: '100vh',
-            padding: '120px 100px 40px 100px'
+            minHeight: '90vh',
+            padding: '60px 100px 40px 100px'
         }
     }
 })
@@ -63,23 +61,4 @@ export default function FAQ(props) {
 }
 
 
-// Function for each accordion component
-const FAQContent = ({ question, answer }) => {
-    const classes = useStyles();
 
-    return (
-        <Accordion className={classes.accordion}>
-
-            <AccordionSummary
-                expandIcon={"▼"}
-                style={{ paddingRight: '20px', paddingLeft: '40px', backgroundColor: '#6AAB8E' }}>
-                <Typography>{question}</Typography>
-            </AccordionSummary>
-
-            <AccordionDetails>
-                <Typography>{answer}</Typography>
-            </AccordionDetails>
-
-        </Accordion>
-    )
-}

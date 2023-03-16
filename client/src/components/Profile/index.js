@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import './index.css';
 
 import {
     Container,
@@ -17,7 +16,8 @@ const useStyles = makeStyles((theme) => {
         page: {
             backgroundSize: 'cover',
             opacity: 0.9,
-            padding: '40px',
+            minHeight: '150vh',
+            backgroundColor: 'lightgrey'
         },
         rightContainer: {
             minHeight: '100vh'
@@ -97,11 +97,8 @@ export default function Profile(props) {
         }
     }, [props])
 
-    // Adjusting top padding due to NavBar; this component is also used by the Search component in a modal
-    const paddingTop = props.paddingTop ? props.paddingTop : '100px'
-
     return (
-        <Container maxWidth={false} className={classes.page} style={{ paddingTop: paddingTop }}>
+        <Container maxWidth={false} className={classes.page}>
 
             {/* Left Container: User Account Information */}
             {profileInformation(user)}
