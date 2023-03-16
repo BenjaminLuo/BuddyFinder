@@ -1,6 +1,8 @@
 import React from 'react';
 import {
-    TextField, Button,
+    TextField,
+    Button,
+    Typography,
     Grid
 } from '@material-ui/core';
 
@@ -23,7 +25,7 @@ export function searchForUsers(setQuery) {
                     type="submit"
                     variant="contained"
                     color="primary">
-                    Search
+                    <Typography variant="h6">Search</Typography>
                 </Button>
             </Grid>
             <Grid item xs={1}>

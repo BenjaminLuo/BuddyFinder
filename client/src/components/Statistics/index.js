@@ -22,8 +22,7 @@ const useStyles = makeStyles((theme) => {
       backgroundSize: 'cover',
       opacity: 0.9,
       padding: '40px',
-      paddingTop: '120px',
-      minHeight: '100vh',
+      minHeight: '90vh',
     },
   }
 })
@@ -89,7 +88,7 @@ export default function Statistics(props) {
           id={'button' + props.itemID}
           onClick={removeItem}
           style={{ height: '30px', marginLeft: '15px', marginTop: '3px' }}>
-          Done
+          <Typography variant="h6">Done</Typography>
         </Button>
       </div>
     )
@@ -115,7 +114,7 @@ export default function Statistics(props) {
         {/* Left Container: User goals */}
         <Grid item xs={1} />
         <Grid item xs={6}>
-          <Typography gutterBottom variant="h6" style={{ marginBottom: '20px' }}>
+          <Typography gutterBottom variant="h5" style={{ marginBottom: '20px' }}>
             My To-Do List
           </Typography>
 
@@ -131,7 +130,7 @@ export default function Statistics(props) {
             variant="contained"
             color="primary"
             style={{ height: '30px', marginTop: '3px' }}>
-            Add another task...
+            <Typography variant="h6">Add another task...</Typography>
           </Button>
 
         </Grid>

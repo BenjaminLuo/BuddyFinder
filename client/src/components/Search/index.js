@@ -25,8 +25,8 @@ const useStyles = makeStyles((theme) => {
             backgroundColor: 'lightgrey',
             backgroundSize: 'cover',
             opacity: 0.9,
-            minHeight: '100vh',
-            padding: '100px 100px 40px 100px'
+            minHeight: '90vh',
+            padding: '40px 100px 40px 100px'
         },
         modal: {
             position: 'absolute',
@@ -283,7 +283,7 @@ export default function Search(props) {
                             id={'friend' + props.userID}
                             data-testid={'test_friend_' + props.userID}
                             onClick={(e) => handleFriend(e)}>
-                            {props.friend ? '-' : '+'}
+                            <Typography variant="h6">{props.friend ? '-' : '+'}</Typography>
                         </Button>
                     </Grid>
 
@@ -296,7 +296,7 @@ export default function Search(props) {
                             className={classes.button}
                             id={'block' + props.userID}
                             onClick={(e) => handleBlock(e)}>
-                            {props.blocked ? 'U' : 'B'}
+                            <Typography variant="h6">{props.blocked ? 'U' : 'B'}</Typography>
                         </Button>
                     </Grid>
 
@@ -311,7 +311,7 @@ export default function Search(props) {
                             key={'profbutton_' + props.userID}
                             onClick={(e) => handleProfile(e)}
                             disabled={props.disabled ? true : false}>
-                            {props.disabled ? 'Private' : 'Profile'}
+                            <Typography variant="h6">{props.disabled ? 'Private' : 'Profile'}</Typography>
                         </Button>
                     </Grid>
                 </Grid>

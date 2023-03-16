@@ -7,14 +7,16 @@ import {
     TableRow,
     TableCell,
     TableContainer,
+    Typography,
     TableHead,
     makeStyles,
     Paper,
     Button,
     Grid
 } from '@material-ui/core';
+import { theme } from '../App/theme'
 
-const useStyles = makeStyles((theme) => {
+const useStyles = makeStyles(() => {
     return {
         modal: {
             position: 'absolute',
@@ -59,7 +61,9 @@ export const UsageStatistics = () => {
                 color="primary"
                 onClick={(e) => handleProfile(e)}
                 style={{ float: 'right', height: '30px', marginBottom: '15px' }}>
-                Download data
+                <Typography variant="h6">
+                    Download data
+                </Typography>
             </Button>
 
             <Modal
@@ -72,9 +76,11 @@ export const UsageStatistics = () => {
 
             <TableContainer component={Paper}>
                 <Table>
-                    <TableHead style={{ backgroundColor: '#6AAB8E' }}>
+                    <TableHead style={{ backgroundColor: theme.palette.primary.main }}>
                         <TableRow>
-                            <TableCell align="center" colSpan={2}>Usage Statistics</TableCell>
+                            <TableCell align="center" colSpan={2}>
+                                <Typography variant="h6">Usage Statistics</Typography>
+                            </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

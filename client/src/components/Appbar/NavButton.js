@@ -2,7 +2,8 @@ import * as React from 'react';
 import history from '../Navigation/history';
 import {
     Button,
-    Grid
+    Grid,
+    Typography
 } from '@material-ui/core';
 
 // Function for creating navigation buttons
@@ -15,8 +16,8 @@ export const NavButton = ({ redirect, linkText }) => {
 
             <Button
                 onClick={() => history.push(redirect)}
-                sx={{ my: 2, color: 'white', display: 'block' }}>
-                {linkText}
+                sx={{ my: 2, display: 'block' }}>
+                <Typography variant="h6"> {linkText} </Typography>
             </Button>
 
         </Grid>

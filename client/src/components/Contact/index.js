@@ -6,6 +6,7 @@ import {
     CardContent,
     Grid,
     TextField,
+    Typography,
     Button,
     makeStyles,
 } from '@material-ui/core';
@@ -19,9 +20,8 @@ const useStyles = makeStyles(() => {
             backgroundColor: 'lightgrey',
             backgroundSize: 'cover',
             opacity: 0.9,
-            padding: '40px',
-            minHeight: '100vh',
-            paddingTop: '120px'
+            padding: '60px',
+            minHeight: '90vh'
         },
     }
 })
@@ -123,7 +123,7 @@ export default function Contact(props) {
                                         variant="contained"
                                         color="primary"
                                         fullWidth>
-                                        Send message
+                                        <Typography variant="h6">Send message</Typography>
                                     </Button>
 
                                 </form>

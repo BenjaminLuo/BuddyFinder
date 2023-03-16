@@ -6,7 +6,7 @@ export function userInterests(classes, user) {
     return (
         <container className={classes.rightSubContainer}>
 
-            <Typography variant="h6" style={{ marginBottom: '12px' }}>
+            <Typography variant="h5" style={{ marginBottom: '12px' }}>
                 Interests
             </Typography>
 
