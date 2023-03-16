@@ -9,7 +9,7 @@ import {
     Button,
     makeStyles,
 } from '@material-ui/core';
-import { siteInformation } from './siteInformation';
+import { SiteInformation } from './siteInformation';
 import { confirmationMessage } from './confirmationMessage';
 
 // Local styles
@@ -72,7 +72,7 @@ export default function Contact(props) {
             <Grid container spacing={2}>
 
                 {/* Left Container: About the site */}
-                {siteInformation}
+                <SiteInformation />
 
 
                 {/* Right Container: Contact form */}

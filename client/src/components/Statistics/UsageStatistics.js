@@ -9,7 +9,6 @@ import {
     Paper,
     Button, Grid
 } from '@material-ui/core';
-import { rows } from './index';
 
 export const UsageStatistics = (props) => {
     return (
@@ -45,3 +44,19 @@ export const UsageStatistics = (props) => {
         </Grid>
     );
 };
+
+function createData(field, value) {
+    return { field, value };
+}
+
+const rows = [
+    createData('Friends', 43),
+    createData('Blocked Users', 43),
+    createData('Posts', 0),
+    createData('Comments', 54),
+    createData('Upvotes', 49),
+    createData('Scheduled Events', 12),
+    createData('Scheduled Events (hours)', 43),
+    createData('Goals Set', 43),
+    createData('Goals Accomplished', 43),
+];

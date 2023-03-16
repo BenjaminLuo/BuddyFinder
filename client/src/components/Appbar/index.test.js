@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, getByTitle } from "@testing-library/react";
-import NavBar from "@components/Appbar/index.js";
+import NavBar from "@src/components/Appbar/index.js";
 
 describe('Appbar', () => {
 

@@ -137,7 +137,7 @@ export default function Statistics(props) {
         </Grid>
 
         {/* Right Container: Usage statistics */}
-        {UsageStatistics}
+        <UsageStatistics />
 
       </Grid>
     </Container>
@@ -145,14 +145,3 @@ export default function Statistics(props) {
 
 }
 
-function createData(field, value) {
-  return { field, value };
-}
-
-export const rows = [
-  createData('Posts', 0),
-  createData('Comments', 54),
-  createData('Upvotes', 49),
-  createData('Scheduled Events', 12),
-  createData('Scheduled Events (hours)', 43),
-];

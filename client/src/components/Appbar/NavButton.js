@@ -1,5 +1,5 @@
 import * as React from 'react';
-import history from '@components/Navigation/history';
+import history from '../Navigation/history';
 import {
     Button,
     Grid

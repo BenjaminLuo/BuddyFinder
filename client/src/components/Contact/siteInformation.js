@@ -2,7 +2,7 @@ import React from 'react';
 import { Typography, Grid } from '@material-ui/core';
 
 // Left container: Shows text information about the site
-export const siteInformation = () => {
+export const SiteInformation = () => {
     return (
         <Grid item xs={6}>
             <Typography gutterBottom variant="h4" align="center">
