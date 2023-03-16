@@ -15,6 +15,8 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 
 
+const serverURL = "";
+
 const AddEventForm = ({ isOpen, onClose, onSubmit }) => {
   const [eventName, setEventName] = useState('');
   const [startTime, setStartTime] = useState('');
@@ -113,6 +115,7 @@ const Calendar = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [events, setEvents] = useState([]);
 
+  /*
   useEffect(() => {
     const storedEvents = JSON.parse(localStorage.getItem('calendarEvents')) || [];
     setEvents(storedEvents);
@@ -121,8 +124,51 @@ const Calendar = () => {
   useEffect(() => {
     localStorage.setItem('calendarEvents', JSON.stringify(events));
   }, [events]);
+*/
+
+
+
+
+
 
   const addEvent = (newEvent) => {
+
+
+const addEventAPI = () => {
+  callApiAddEvent()
+      .then(res => {
+          console.log("callApiAddEventAPI returned: ", res)
+          var parsed = JSON.parse(res.express);
+          console.log("callApiAddEventAPI parsed: ", parsed);
+      })
+}
+
+const callApiAddEvent = async () => {
+  const url = serverURL + "/api/addEventAPI";
+  console.log(url);
+  console.log(newEvent.eventName + " " + newEvent.startTime + " " + newEvent.endTime + " " + newEvent.eventColour);
+  const response = await fetch(url, {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+      }
+      , body: JSON.stringify({
+          event: newEvent.eventName,
+          start: newEvent.startTime,
+          end: newEvent.endTime,
+          colour: newEvent.eventColour, 
+          //recurrence: eventRecurrence,
+      }),
+  });
+  const body = await response.json();
+  if (response.status !== 200) throw Error(body.message);
+  console.log("Event: ", body);
+  return body;
+}
+
+
+
+
     if (newEvent.eventRecurrence === 'none') {
       setEvents([...events, {
         title: newEvent.eventName,
@@ -130,6 +176,7 @@ const Calendar = () => {
         end: newEvent.endTime,
         color: newEvent.eventColour,
       }]);
+      addEventAPI();
     } else {
       let start = new Date(newEvent.startTime);
       let end = new Date(newEvent.endTime);
@@ -154,6 +201,7 @@ const Calendar = () => {
             end: new Date(end),
             color: newEvent.eventColour,
           });
+          addEventAPI();
         }
       }
 
