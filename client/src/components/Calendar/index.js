@@ -5,11 +5,49 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import { useState } from 'react';
 import Grid from "@material-ui/core/Grid";
 
+const serverURL = "";
+
 
 const AddEventForm = ({ isOpen, onClose, onSubmit }) => {
   const [eventName, setEventName] = useState('');
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
+
+  const [userID, setUserID] = useState(1);
+
+
+  const addCalendar = () => {
+    callApiAddCalendar()
+      .then(res => {
+        console.log("callApiAddCalendar returned: ", res)
+        var parsed = JSON.parse(res.express);
+        console.log("callApiAddCalendar parsed: ", parsed);
+    //    setActivitiesList(parsed);
+      })
+  }
+
+  const callApiAddCalendar = async () => {
+    const url = serverURL + "/api/addCalendar";
+    console.log(url);
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+
+      },
+      body: JSON.stringify({
+        eventName: eventName,
+        startTime: startTime,
+        endTime: endTime,
+        userID: userID       
+      })
+    });
+    const responseCalendar = await response.json();
+    if (response.status !== 200) throw Error(responseCalendar.message);
+    console.log("User settings: ", responseCalendar);
+    return responseCalendar;
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -18,6 +56,8 @@ const AddEventForm = ({ isOpen, onClose, onSubmit }) => {
     setEventName('');
     setStartTime('');
     setEndTime('');
+
+    addCalendar();
   };
 
   return isOpen ? (
@@ -59,6 +99,10 @@ const AddEventForm = ({ isOpen, onClose, onSubmit }) => {
 }
 
 const Calendar = () => {
+
+
+
+
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [events, setEvents] = useState([]);
   const addEvent = (newEvent) => {

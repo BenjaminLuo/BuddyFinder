@@ -96,6 +96,8 @@ export default function Matching() {
 
   const [open, setOpen] = React.useState(false);
 
+  const [loc, setLoc] = React.useState(true);
+
 
 
   const onChangeRating = (event) => {
@@ -111,7 +113,8 @@ export default function Matching() {
   let [activityList, setActivityList] = React.useState([]);
   
   
-const categories = ["Basketball", "Squash", "Swimming", "Gym"];
+const categories = ["Basketball", "Squash", "Swimming", "Gym", "Golf"];
+const cat = ["Basketball", "Gym", "Soccer"];
 
 
 
@@ -165,7 +168,10 @@ const categories = ["Basketball", "Squash", "Swimming", "Gym"];
             control={<Radio color="primary" />}
             label="CIF"
             labelPlacement="bottom"
+            
           />
+
+
 
 </RadioGroup>
       </FormControl>
@@ -176,6 +182,8 @@ const categories = ["Basketball", "Squash", "Swimming", "Gym"];
 
         <FormControl className={classes.formControl}>
         <FormLabel component="legend">Activity</FormLabel>
+
+
 
           <Select
             labelId="demo-controlled-open-select-label"
@@ -194,21 +202,24 @@ const categories = ["Basketball", "Squash", "Swimming", "Gym"];
               <em>None</em>
             </MenuItem>
 
+ 
 
-            {categories.map((cat) => {
+           { categories.map((cate) => {
               return (
                 <MenuItem
-                  value={cat}
-                  onClick={() => onUpdateMovies(cat)}
-                > {cat}
+                  value={cate}
+                  onClick={() => onUpdateMovies(cate)}
+                > {cate}
                 </MenuItem>
 
               );
 
 
             })}
-
+        
           </Select>
+
+
 
         </FormControl>
 
