@@ -1,25 +1,25 @@
 Arguments: 
-  C:\Users\HP\Documents\Node\node-v16.15.0-win-x64\node.exe C:\Users\HP\Documents\Node\node-v16.15.0-win-x64\node_modules\yarn\bin\yarn.js cypress
+  /usr/local/bin/node /usr/local/bin/yarn start
 
 PATH: 
-  C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Git\cmd;C:\Program Files\Calibre2\;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Users\HP\Documents\Node\node-v16.15.0-win-x64;C:\Users\HP\AppData\Roaming\TinyTeX\bin\win32;C:\Users\HP\AppData\Local\GitHubDesktop\bin;C:\Users\HP\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\HP\.dotnet\tools
+  /var/folders/tw/qf_x50t95nd4zkp1gjld89q80000gn/T/yarn--1678752819848-0.9311764630980259:/Users/f237khan/buddyFinder/node_modules/.bin:/Users/f237khan/.config/yarn/link/node_modules/.bin:/usr/local/libexec/lib/node_modules/npm/bin/node-gyp-bin:/usr/local/lib/node_modules/npm/bin/node-gyp-bin:/usr/local/bin/node_modules/npm/bin/node-gyp-bin:/var/folders/tw/qf_x50t95nd4zkp1gjld89q80000gn/T/yarn--1678752819419-0.07833017733162939:/Users/f237khan/buddyFinder/node_modules/.bin:/Users/f237khan/.config/yarn/link/node_modules/.bin:/Users/f237khan/.yarn/bin:/usr/local/libexec/lib/node_modules/npm/bin/node-gyp-bin:/usr/local/lib/node_modules/npm/bin/node-gyp-bin:/usr/local/bin/node_modules/npm/bin/node-gyp-bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
 Yarn version: 
   1.22.19
 
 Node version: 
-  16.15.0
+  18.13.0
 
 Platform: 
-  win32 x64
+  darwin arm64
 
 Trace: 
-  SyntaxError: C:\Users\HP\Documents\BuddyFinder\client\package.json: Unexpected token < in JSON at position 489
+  SyntaxError: /Users/f237khan/buddyFinder/client/package.json: Unexpected token < in JSON at position 489
       at JSON.parse (<anonymous>)
-      at C:\Users\HP\Documents\Node\node-v16.15.0-win-x64\node_modules\yarn\lib\cli.js:1629:59
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:1629:59
       at Generator.next (<anonymous>)
-      at step (C:\Users\HP\Documents\Node\node-v16.15.0-win-x64\node_modules\yarn\lib\cli.js:310:30)
-      at C:\Users\HP\Documents\Node\node-v16.15.0-win-x64\node_modules\yarn\lib\cli.js:321:13
+      at step (/usr/local/lib/node_modules/yarn/lib/cli.js:310:30)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:321:13
 
 npm manifest: 
   {
@@ -39,10 +39,14 @@ npm manifest:
       "@material/ripple": "^4.0.0",
       "eslint": "^6.6.0",
   <<<<<<< HEAD
+  <<<<<<< HEAD
       "fullcalendar": "^6.1.4",
   =======
       "fullcalendar": "5.1.0",
   >>>>>>> 01722ade474c2eb8b57b9a1d02ed8b0d44e04d92
+  =======
+      "fullcalendar": "^6.1.4",
+  >>>>>>> c6e3f249a5cb44e58738093ed41a863df14e38d2
       "install": "^0.12.2",
       "mathjs": "^5.10.3",
       "node-fetch": "^2.6.1",

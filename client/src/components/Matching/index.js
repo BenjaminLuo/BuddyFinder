@@ -15,7 +15,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 import { object } from 'prop-types';
 
-
+const serverURL = "";
 
 const useStyles = makeStyles((theme) => {
   return {
