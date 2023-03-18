@@ -6,11 +6,15 @@ import {
   Typography,
   Container,
   Button,
+  Tab,
+  Tabs,
   TextField,
   Grid,
   makeStyles,
 } from '@material-ui/core';
 import { UsageStatistics } from './UsageStatistics';
+import { CompletedGoals } from './completedGoals';
+import { IncompleteGoals } from './incompleteGoals';
 
 // --------------------------------------------------- /\ Imports
 // --------------------------------------------------- \/ Styles
@@ -53,10 +57,17 @@ const goals = [
 export default function Statistics(props) {
   const classes = useStyles();
 
+  // Tracking the user's goals
   const [goalObject, updateGoalObject] = React.useState(goals);
+
+  // Adding a new goal; incrementing the goal ID
   const [nextID, upID] = React.useState(goals.length + 1);
 
+  // Tabber toggles
+  const [tabToggle, changeTabToggle] = React.useState(0);
+  const handleTabber = (event, newValue) => changeTabToggle(newValue);
 
+  // Handler for changes to any goal (ie. TextField)
   const handleChange = (e) => {
     goalObject[goalObject.findIndex(item => "tf" + item.id === e.target.id)].goal = e.target.value
     updateGoalObject([...goalObject])
@@ -65,7 +76,8 @@ export default function Statistics(props) {
   // Find index then remove it
   const removeItem = (e) => {
     goalObject[goalObject.findIndex(item => "button" + item.id === e.target.id)].completed = true
-    updateGoalObject(goalObject.filter((value, index) => value.completed !== true))
+    // updateGoalObject(goalObject.filter((value, index) => value.completed !== true))
+    updateGoalObject([...goalObject])
   }
 
   const ToDoItem = (props) => {
@@ -114,24 +126,25 @@ export default function Statistics(props) {
         {/* Left Container: User goals */}
         <Grid item xs={1} />
         <Grid item xs={6}>
+
           <Typography gutterBottom variant="h5" style={{ marginBottom: '20px' }}>
             My To-Do List
           </Typography>
 
-          {/* Retrieves all existing user goals */}
-          {goalObject ? goalObject.map((item) => (
-            item.completed ? '' :
-              ToDoItem({ itemID: item.id.toString(), value: item.goal })
-          )) : null}
-
-          <Button
-            type="submit"
-            onClick={(e) => handleAddition(e)}
-            variant="contained"
-            color="primary"
-            style={{ height: '30px', marginTop: '3px' }}>
-            <Typography variant="h6">Add another task...</Typography>
-          </Button>
+          <Tabs
+            value={tabToggle}
+            onChange={handleTabber} >
+            <Tab label="Incomplete" />
+            <Tab label="Completed" />
+          </Tabs>
+          {/* Renders tabber for incomplete goals */}
+          <IncompleteGoals
+            tabToggle={tabToggle}
+            goalObject={goalObject}
+            ToDoItem={ToDoItem}
+            handleAddition={handleAddition} />
+          {/* Renders tabber for completed goals */}
+          <CompletedGoals currTab={tabToggle} goalData={goalObject} />
 
         </Grid>
 
@@ -139,8 +152,9 @@ export default function Statistics(props) {
         <UsageStatistics />
 
       </Grid>
-    </Container>
+    </Container >
   );
 
 }
+
 
