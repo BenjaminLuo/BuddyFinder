@@ -123,9 +123,7 @@ const cat = ["Basketball", "Gym", "Soccer"];
     const j = {
      place: place,
      activity: activity,
-     time: time
-
-  
+     time: time  
     }
 
     let rev = [...activityList];
@@ -168,10 +166,8 @@ const cat = ["Basketball", "Gym", "Soccer"];
             control={<Radio color="primary" />}
             label="CIF"
             labelPlacement="bottom"
-            
+
           />
-
-
 
 </RadioGroup>
       </FormControl>
@@ -179,13 +175,10 @@ const cat = ["Basketball", "Gym", "Soccer"];
 
       <Grid item xs={8}>
 
-
         <FormControl className={classes.formControl}>
         <FormLabel component="legend">Activity</FormLabel>
 
-
-
-          <Select
+         <Select
             labelId="demo-controlled-open-select-label"
             id="demo-controlled-open-select"
 
@@ -202,9 +195,9 @@ const cat = ["Basketball", "Gym", "Soccer"];
               <em>None</em>
             </MenuItem>
 
- 
+            { (place === "PAC") ? 
 
-           { categories.map((cate) => {
+           categories.map((cate) => {
               return (
                 <MenuItem
                   value={cate}
@@ -213,15 +206,29 @@ const cat = ["Basketball", "Gym", "Soccer"];
                 </MenuItem>
 
               );
+            })
 
+            :
 
-            })}
+             cat.map((categ) => {
+              return (
+                <MenuItem
+                  value={categ}
+                  onClick={() => onUpdateMovies(categ)}
+                > {categ}
+                </MenuItem>
+
+              );
+            })  
+
+            }
         
           </Select>
 
 
 
         </FormControl>
+
 
         </Grid>
 
