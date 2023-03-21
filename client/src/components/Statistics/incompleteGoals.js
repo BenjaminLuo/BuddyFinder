@@ -8,9 +8,9 @@ export const IncompleteGoals = ({ tabToggle, goalObject, ToDoItem, handleAdditio
         <TabPanel value={tabToggle} index={0}>
 
             {/* Retrieves all existing user goals */}
-            {goalObject ? goalObject.map((item) => (
+            {goalObject ? goalObject.map((item, index) => (
                 item.completed ? '' :
-                    ToDoItem({ itemID: item.id.toString(), value: item.goal })
+                    ToDoItem({ itemID: item.id.toString(), value: item.goal, index: index })
             )) : null}
 
             <Button

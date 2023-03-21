@@ -11,7 +11,7 @@ import { userInterests } from './userInterests';
 import { userComments } from './userComments';
 import { profileInformation } from './profileInformation';
 
-const useStyles = makeStyles((theme) => {
+const useStyles = makeStyles(() => {
     return {
         page: {
             backgroundSize: 'cover',
@@ -19,11 +19,8 @@ const useStyles = makeStyles((theme) => {
             minHeight: '150vh',
             backgroundColor: 'lightgrey'
         },
-        rightContainer: {
-            minHeight: '100vh'
-        },
         rightSubContainer: {
-            padding: '50px'
+            padding: '10px'
         }
     }
 })
@@ -47,15 +44,15 @@ const userStub = {
             title: "How do I solve this problem?"
         },
         {
-            postID: 132,
+            postID: 137,
             title: "Hi."
         },
         {
-            postID: 136,
+            postID: 139,
             title: "Why is this code breaking? What do I dooooooo"
         },
         {
-            postID: 156,
+            postID: 158,
             title: "Why won't you compile AHHHHHH, I quit, I'm done with this project, why is this course required to graduate?!"
         }
     ],
@@ -104,7 +101,7 @@ export default function Profile(props) {
             {profileInformation(user)}
 
             {/* Right Container: User Activity */}
-            <Grid item xs={9} className={classes.rightContainer} style={{ float: 'right' }}>
+            <Grid item xs={9} style={{ float: 'right' }}>
                 {userInterests(classes, user)}
                 {userPosts(classes, user)}
                 {userComments(classes, user)}

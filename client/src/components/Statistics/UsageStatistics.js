@@ -84,8 +84,8 @@ export const UsageStatistics = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row) => (
-                            <TableRow>
+                        {rows.map((row, index) => (
+                            <TableRow key={index}>
                                 <TableCell>{row.field}</TableCell>
                                 <TableCell align="right">{row.value}</TableCell>
                             </TableRow>
