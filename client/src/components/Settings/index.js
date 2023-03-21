@@ -1,5 +1,3 @@
-// --------------------------------------------------- \/ Imports
-
 import React from 'react';
 
 import {
@@ -13,10 +11,7 @@ import {
     Tab,
     Switch
 } from '@material-ui/core';
-
-
-// --------------------------------------------------- /\ Imports
-// --------------------------------------------------- \/ Styles
+import { TabPanel } from '../../components/UI/TabPanel';
 
 const useStyles = makeStyles((theme) => {
     return {
@@ -24,8 +19,7 @@ const useStyles = makeStyles((theme) => {
             backgroundColor: 'lightgrey',
             backgroundSize: 'cover',
             opacity: 0.9,
-            minHeight: 'calc(100vh - 60px)',
-            paddingTop: '90px'
+            minHeight: '90vh'
         },
     }
 })
@@ -82,17 +76,15 @@ export default function Settings() {
             }
         }
         changeData({ ...data })
-
     }
 
+    // Switch UI elements (for toggling private/searchable)
     const handleSwitch = (e) => {
-        // Input: Switches (private/searchable)
         data[e.target.id] = document.getElementById(e.target.id).checked
         changeData({ ...data })
     }
 
-
-    // For input fields iwht text values
+    // For input fields with text values
     const InputField = (props) => {
         return (
             <Grid container spacing={2} style={{ padding: '10px 40px 10px 40px' }}>
@@ -123,7 +115,7 @@ export default function Settings() {
                         onClick={handleSubmit}
                         style={{ float: 'right', marginLeft: '50px' }}
                         color="primary">
-                        Change
+                        <Typography variant="h6">Change</Typography>
                     </Button>
                 </Grid>
 
@@ -133,29 +125,29 @@ export default function Settings() {
 
 
     // For input fields with true/false values (ie. private/searchable)
-    const SwitchField = (props) => {
+    const SwitchField = ({ field, toggled, id }) => {
         return (
             <Grid container spacing={2} style={{ padding: '10px 40px 10px 40px' }}>
                 <Grid item xs={9}>
                     <Typography style={{ marginTop: '5px', textAlign: 'right' }}>
-                        {props.field}
+                        {field}
                     </Typography>
                 </Grid>
                 <Grid item xs={3}>
                     <Switch
-                        defaultChecked={props.toggled}
+                        defaultChecked={toggled}
                         onChange={handleSwitch}
                         color='primary'
-                        id={props.id} />
+                        id={id} />
                 </Grid>
-            </Grid >
+            </Grid>
         )
     }
 
     return (
 
         <Box
-            sx={{ flexGrow: 1, display: 'flex', height: 224 }}
+            sx={{ flexGrow: 1, display: 'flex' }}
             className={classes.page}>
 
             <Tabs
@@ -207,16 +199,3 @@ export default function Settings() {
 }
 
 
-function TabPanel(props) {
-    const { children, value, index } = props;
-
-    return (
-        <div>
-            {value === index && (
-                <Box>
-                    <Typography>{children}</Typography>
-                </Box>
-            )}
-        </div>
-    );
-}

@@ -16,6 +16,10 @@ import FormLabel from '@material-ui/core/FormLabel';
 import { object } from 'prop-types';
 
 const serverURL = "";
+<<<<<<< HEAD
+=======
+
+>>>>>>> 15a51107e7e8d548e325916c376e2609d272b092
 
 const useStyles = makeStyles((theme) => {
   return {

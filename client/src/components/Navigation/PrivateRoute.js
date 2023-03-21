@@ -1,5 +1,6 @@
 import React from "react";
 import { Router, Switch, Route } from "react-router-dom";
+
 import history from './history';
 import Calendar from '../Calendar';
 import Statistics from '../Statistics';
@@ -14,12 +15,8 @@ import Profile from '../Profile';
 import QA from '../QA';
 
 // eslint-disable-next-line
-export default function PrivateRoute({
-  //authenticated,
-  //...rest
-}) {
+export default function PrivateRoute() {
   return (
-
     <Router history={history}>
       <Switch>
         <Route path="/" exact component={Landing} />

@@ -5,23 +5,21 @@ import React from 'react';
 import {
     Typography,
     Container,
-    makeStyles,
-    Accordion,
-    AccordionSummary,
-    AccordionDetails
+    makeStyles
 } from '@material-ui/core';
+import { FAQContent } from './FAQContent';
 
 // --------------------------------------------------- /\ Imports
 // --------------------------------------------------- \/ Styles
 
-const useStyles = makeStyles((theme) => {
+export const useStyles = makeStyles(() => {
     return {
         page: {
             backgroundColor: 'lightgrey',
             backgroundSize: 'cover',
             opacity: 0.9,
-            minHeight: '100vh',
-            padding: '120px 100px 40px 100px'
+            minHeight: '90vh',
+            padding: '60px 100px 40px 100px'
         }
     }
 })
@@ -29,8 +27,6 @@ const useStyles = makeStyles((theme) => {
 
 export default function FAQ(props) {
     const classes = useStyles();
-
-
     return (
         <Container maxWidth={false} className={classes.page}>
 
@@ -59,29 +55,10 @@ export default function FAQ(props) {
                 question={"Do I need an account?"}
                 answer={"An account is not necessary if you want to browse the website and post anonymously. However, if you want to use scheduling, then it is necessary to sign in through your Google account"} />
 
-
         </Container>
     );
 
 }
 
 
-const FAQContent = (props) => {
-    const classes = useStyles();
 
-    return (
-        <Accordion className={classes.accordion}>
-
-            <AccordionSummary
-                expandIcon={"▼"}
-                style={{ paddingRight: '20px', paddingLeft: '40px', backgroundColor: '#6AAB8E' }}>
-                <Typography>{props.question}</Typography>
-            </AccordionSummary>
-
-            <AccordionDetails>
-                <Typography>{props.answer}</Typography>
-            </AccordionDetails>
-
-        </Accordion>
-    )
-}

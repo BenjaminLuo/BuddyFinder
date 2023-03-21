@@ -1,29 +1,24 @@
 import * as React from 'react';
-import history from '../Navigation/history';
-
 import {
   AppBar,
   Toolbar,
   Button,
   Grid,
   Menu,
+  Typography,
   MenuItem
 } from '@material-ui/core';
+import history from '../Navigation/history';
+import { NavButton } from './NavButton';
 
 
 // Navigation Bar (appears on all pages)
 export default function NavBar() {
 
+  // 'User' dropdown menu triggers
   const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
+  const handleMenu = (event) => { setAnchorEl(event.currentTarget) };
+  const handleClose = () => { setAnchorEl(null) };
   const dropdownClick = (redirect) => {
     handleClose();
     history.push(redirect);
@@ -31,9 +26,9 @@ export default function NavBar() {
 
 
   return (
-    <div>
-      <AppBar>
-        <Toolbar>
+    <>
+      <AppBar position="sticky">
+        <Toolbar variant="dense">
 
           {/* Grid to organize redirects */}
           <Grid container spacing={2}>
@@ -52,7 +47,7 @@ export default function NavBar() {
               item xs={1}
               sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               <Button title="dropbutton" data-testid="dropdownButton" onClick={handleMenu}>
-                User ▼
+                <Typography variant="h6">User ▼</Typography>
               </Button>
               <Menu
                 anchorEl={anchorEl}
@@ -73,27 +68,9 @@ export default function NavBar() {
 
         </Toolbar>
       </AppBar>
-    </div>
+    </>
   );
 }
 
 
-const NavButton = (props) => {
-  return (
 
-    <Grid item
-      xs={1}
-      sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-
-      <Button
-        onClick={() => history.push(props.redirect)}
-        sx={{ my: 2, color: 'white', display: 'block' }}>
-
-        {props.linkText}
-
-      </Button>
-
-    </Grid>
-
-  )
-}
