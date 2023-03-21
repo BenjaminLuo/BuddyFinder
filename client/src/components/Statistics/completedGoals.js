@@ -8,9 +8,9 @@ export const CompletedGoals = (props) => {
         <TabPanel value={props.currTab} index={1}>
 
             {/* Retrieves all existing user goals */}
-            {props.goalData ? props.goalData.map((item) => (
+            {props.goalData ? props.goalData.map((item, index) => (
                 item.completed ?
-                    <Card style={{ padding: '10px 10px', marginBottom: '5px' }}>
+                    <Card key={index} style={{ padding: '10px 10px', marginBottom: '5px' }}>
                         <Typography>
                             {item.goal}
                         </Typography>

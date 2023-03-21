@@ -82,7 +82,7 @@ export default function Statistics(props) {
 
   const ToDoItem = (props) => {
     return (
-      <div id={props.itemID}>
+      <Container id={props.itemID} key={props.index}>
         <TextField
           placeholder={'Set a goal'}
           variant="outlined"
@@ -102,10 +102,9 @@ export default function Statistics(props) {
           style={{ height: '30px', marginLeft: '15px', marginTop: '3px' }}>
           <Typography variant="h6">Done</Typography>
         </Button>
-      </div>
+      </Container>
     )
   }
-
 
   // Adds another To-Do item
   const handleAddition = () => {
