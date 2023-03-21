@@ -13,7 +13,8 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 
 const serverURL = "";
 
@@ -120,7 +121,6 @@ const Calendar = () => {
     const storedEvents = JSON.parse(localStorage.getItem('calendarEvents')) || [];
     setEvents(storedEvents);
   }, []);
-
   useEffect(() => {
     localStorage.setItem('calendarEvents', JSON.stringify(events));
   }, [events]);
@@ -134,36 +134,37 @@ const Calendar = () => {
   const addEvent = (newEvent) => {
 
 
-const addEventAPI = () => {
-  callApiAddEvent()
-      .then(res => {
-          console.log("callApiAddEventAPI returned: ", res)
-          var parsed = JSON.parse(res.express);
-          console.log("callApiAddEventAPI parsed: ", parsed);
-      })
+const addCalendar = () => {
+  callApiAddCalendar()
+  .then(res => {
+    console.log("callApiAddCalendar returned: ", res)
+    var parsed = JSON.parse(res.express);
+    console.log("callApiAddCalendar parsed: ", parsed);
+  })
 }
 
-const callApiAddEvent = async () => {
-  const url = serverURL + "/api/addEventAPI";
+const callApiAddCalendar = async () => {
+  const url = serverURL + "/api/addCalendar";
   console.log(url);
-  console.log(newEvent.eventName + " " + newEvent.startTime + " " + newEvent.endTime + " " + newEvent.eventColour);
+
+  //console.log(newEvent.eventName + " " + newEvent.startTime + " " + newEvent.endTime );
   const response = await fetch(url, {
-      method: "POST",
-      headers: {
-          "Content-Type": "application/json",
-      }
-      , body: JSON.stringify({
-          event: newEvent.eventName,
-          start: newEvent.startTime,
-          end: newEvent.endTime,
-          colour: newEvent.eventColour, 
-          //recurrence: eventRecurrence,
-      }),
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+
+    },
+    body: JSON.stringify({
+      eventName: newEvent.eventName,
+      startTime: newEvent.startTime,
+      endTime: newEvent.endTime,
+      //userID: userID       
+    })
   });
-  const body = await response.json();
-  if (response.status !== 200) throw Error(body.message);
-  console.log("Event: ", body);
-  return body;
+  const responseCalendar = await response.json();
+  if (response.status !== 200) throw Error(responseCalendar.message);
+  console.log("User settings: ", responseCalendar);
+  return responseCalendar;
 }
 
 
@@ -176,7 +177,7 @@ const callApiAddEvent = async () => {
         end: newEvent.endTime,
         color: newEvent.eventColour,
       }]);
-      addEventAPI();
+      addCalendar();
     } else {
       let start = new Date(newEvent.startTime);
       let end = new Date(newEvent.endTime);
@@ -201,7 +202,7 @@ const callApiAddEvent = async () => {
             end: new Date(end),
             color: newEvent.eventColour,
           });
-          addEventAPI();
+          addCalendar();
         }
       }
 
@@ -234,12 +235,29 @@ const callApiAddEvent = async () => {
         Calendar Page
       </h1>
 
-      <button onClick={() => setIsFormOpen(true)}>Add Event</button>
+      <Button 
+      variant = "outlined" 
+      sx={{ color: 'black' }} 
+      size = "large" 
+      onClick={() => {
+        setIsFormOpen(true);
+      }}>
+        Add Event</Button>
       <AddEventForm onSubmit={addEvent} isOpen={isFormOpen} onClose={closeForm}
       />
       <p>
 
       </p>
+      <Box
+      component="form"
+      sx={{
+        '& > :not(style)': { m: 1, width: '25ch' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <TextField id="outlined-basic" label="Search by event name" variant="outlined" />
+    </Box>
       <p>
 
       </p>
@@ -263,3 +281,22 @@ const callApiAddEvent = async () => {
 }
 
 export default Calendar;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
