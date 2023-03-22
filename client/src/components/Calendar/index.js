@@ -17,10 +17,6 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
 const serverURL = "";
-<<<<<<< HEAD
-
-=======
->>>>>>> 15a51107e7e8d548e325916c376e2609d272b092
 
 const AddEventForm = ({ isOpen, onClose, onSubmit }) => {
   const [eventName, setEventName] = useState('');
@@ -72,14 +68,12 @@ const AddEventForm = ({ isOpen, onClose, onSubmit }) => {
     setEventName('');
     setStartTime('');
     setEndTime('');
-<<<<<<< HEAD
+
 
     addCalendar();
-=======
-    setEventColour('');
-    setEventRecurrence('none');
 
->>>>>>> 15a51107e7e8d548e325916c376e2609d272b092
+
+
   };
 
 
