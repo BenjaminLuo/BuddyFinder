@@ -34,7 +34,7 @@ const AddEventForm = ({ isOpen, onClose, onSubmit }) => {
         console.log("callApiAddCalendar returned: ", res)
         var parsed = JSON.parse(res.express);
         console.log("callApiAddCalendar parsed: ", parsed);
-    //    setActivitiesList(parsed);
+        //    setActivitiesList(parsed);
       })
   }
 
@@ -52,7 +52,7 @@ const AddEventForm = ({ isOpen, onClose, onSubmit }) => {
         eventName: eventName,
         startTime: startTime,
         endTime: endTime,
-        userID: userID       
+        userID: userID
       })
     });
     const responseCalendar = await response.json();
@@ -177,38 +177,38 @@ const Calendar = () => {
   const addEvent = (newEvent) => {
 
 
-const addCalendar = () => {
-  callApiAddCalendar()
-  .then(res => {
-    console.log("callApiAddCalendar returned: ", res)
-    var parsed = JSON.parse(res.express);
-    console.log("callApiAddCalendar parsed: ", parsed);
-  })
-}
+    const addCalendar = () => {
+      callApiAddCalendar()
+        .then(res => {
+          console.log("callApiAddCalendar returned: ", res)
+          var parsed = JSON.parse(res.express);
+          console.log("callApiAddCalendar parsed: ", parsed);
+        })
+    }
 
-const callApiAddCalendar = async () => {
-  const url = serverURL + "/api/addCalendar";
-  console.log(url);
+    const callApiAddCalendar = async () => {
+      const url = serverURL + "/api/addCalendar";
+      console.log(url);
 
-  //console.log(newEvent.eventName + " " + newEvent.startTime + " " + newEvent.endTime );
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
+      //console.log(newEvent.eventName + " " + newEvent.startTime + " " + newEvent.endTime );
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
 
-    },
-    body: JSON.stringify({
-      eventName: newEvent.eventName,
-      startTime: newEvent.startTime,
-      endTime: newEvent.endTime,
-      //userID: userID       
-    })
-  });
-  const responseCalendar = await response.json();
-  if (response.status !== 200) throw Error(responseCalendar.message);
-  console.log("User settings: ", responseCalendar);
-  return responseCalendar;
-}
+        },
+        body: JSON.stringify({
+          eventName: newEvent.eventName,
+          startTime: newEvent.startTime,
+          endTime: newEvent.endTime,
+          //userID: userID       
+        })
+      });
+      const responseCalendar = await response.json();
+      if (response.status !== 200) throw Error(responseCalendar.message);
+      console.log("User settings: ", responseCalendar);
+      return responseCalendar;
+    }
 
 
 
@@ -278,13 +278,13 @@ const callApiAddCalendar = async () => {
         Calendar Page
       </h1>
 
-      <Button 
-      variant = "outlined" 
-      sx={{ color: 'black' }} 
-      size = "large" 
-      onClick={() => {
-        setIsFormOpen(true);
-      }}>
+      <Button
+        variant="outlined"
+        sx={{ color: 'black' }}
+        size="large"
+        onClick={() => {
+          setIsFormOpen(true);
+        }}>
         Add Event</Button>
       <AddEventForm onSubmit={addEvent} isOpen={isFormOpen} onClose={closeForm}
       />
@@ -292,15 +292,15 @@ const callApiAddCalendar = async () => {
 
       </p>
       <Box
-      component="form"
-      sx={{
-        '& > :not(style)': { m: 1, width: '25ch' },
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <TextField id="outlined-basic" label="Search by event name" variant="outlined" />
-    </Box>
+        component="form"
+        sx={{
+          '& > :not(style)': { m: 1, width: '25ch' },
+        }}
+        noValidate
+        autoComplete="off"
+      >
+        <TextField id="outlined-basic" label="Search by event name" variant="outlined" />
+      </Box>
       <p>
 
       </p>
