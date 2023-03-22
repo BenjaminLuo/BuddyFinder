@@ -45,6 +45,51 @@ app.post('/api/addInterest', (req, res) => {
 	connection.end();
 });
 
+app.post('/api/searchActivity', (req, res) => {
+	// let string = JSON.stringify(recipes);
+
+	let connection = mysql.createConnection(config);
+
+	let user_place = req.body.place;
+	let user_activity = req.body.activity;
+	let user_time = req.body.time;
+	let user_id = req.body.userID;
+	
+	let sql = `SELECT * FROM user_activity ua WHERE`;
+	let data = [];
+
+	if(user_place){
+		sql = sql + ` ua.location = ?`;
+		data.push(user_place);	
+	}
+	if(user_activity){
+		sql = sql + ` ua.action = ?`;
+		data.push(user_activity);	
+	}
+	if(user_time){
+		sql = sql + ` ua.time = ?`;
+		data.push(user_time);	
+	}
+
+	console.log(sql);
+	console.log(data);
+
+	connection.query(sql, data, (error, results, fields) => {
+		if (error) {
+			return console.error(error.message);
+		}
+
+		console.log("Sent items:" + data);
+		console.log(results);
+		let string = JSON.stringify(results);
+		let obj = JSON.parse(string);
+		res.send({ express: string });
+	});
+
+	connection.end();
+});
+
+
 
 app.post('/api/addCalendar', (req, res) => {
 	// let string = JSON.stringify(recipes);

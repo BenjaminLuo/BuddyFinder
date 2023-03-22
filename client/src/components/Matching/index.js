@@ -16,10 +16,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import { object } from 'prop-types';
 
 const serverURL = "";
-<<<<<<< HEAD
-=======
 
->>>>>>> 15a51107e7e8d548e325916c376e2609d272b092
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -68,6 +65,42 @@ export default function Matching() {
     console.log("User settings: ", responseInterest);
     return responseInterest;
   }
+
+
+  const handleActivitySearch = () => {
+    callApiSearchActivity()
+      .then(res => {
+        console.log("callApiSearchActivity returned: ", res)
+        var parsed = JSON.parse(res.express);
+        console.log("callApiSearchActivity parsed: ", parsed[0])
+        setSearchResultsList(parsed);
+      });
+  }
+
+  const callApiSearchActivity = async () => {
+
+    const url = serverURL + "/api/searchActivity";
+    console.log(url);
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        //authorization: `Bearer ${this.state.token}`
+      },
+      body: JSON.stringify({
+        place: place,
+        activity: activity,
+        time: time,
+        userID: userID      
+      })
+    });
+    const body = await response.json();
+    if (response.status !== 200) throw Error(body.message);
+    console.log("Found Activities: ", body);
+    return body;
+  }
+
 
   const classes = useStyles();
 
@@ -121,7 +154,24 @@ const categories = ["Basketball", "Squash", "Swimming", "Gym", "Golf"];
 const cat = ["Basketball", "Gym", "Soccer"];
 
 
+const [searchResultsList, setSearchResultsList] = React.useState([]);
+const [submitSearchList, setSubmitSearchList] = React.useState([]);
 
+const onApplySearch = () => {
+  const s = {
+    place: place,
+    activity: activity,
+    time: time  
+   }
+
+   let arraySearch = [...submitSearchList];
+   arraySearch.push(s); 
+
+   setSubmitSearchList(arraySearch);
+   console.log("Search List is: ", submitSearchList);
+
+   handleActivitySearch();
+}
 
   const onApplyChanges = () => {
     const j = {
@@ -251,20 +301,26 @@ const cat = ["Basketball", "Gym", "Soccer"];
           </FormControl>
 </Grid>
 
-<Grid item xs={4}>
-
-
-        <SubmitButton
+      <Grid>
+      <SubmitButton
               // item={item}
               label={'Submit'}
               onButtonClick={onApplyChanges}
             />
+      </Grid>
 
-            </Grid>
+      <Grid> 
+      <SearchButton
+                // item={item}
+                label={'Search'}
+                onButtonClick={onApplySearch}
+              />    
+      </Grid>
 
-            <Typography>
+    <Grid>
 
-      <ul>
+      <Typography>
+
         {activityList.map((item) => {
           return (
             <li>
@@ -284,9 +340,10 @@ const cat = ["Basketball", "Gym", "Soccer"];
           </li>
           );
         })}
-      </ul>
+
 
        </Typography>
+      </Grid>
 
 </Grid>
   </Container>
@@ -296,6 +353,17 @@ const cat = ["Basketball", "Gym", "Soccer"];
 }
 
 const SubmitButton = ({label, onButtonClick }) => (
+  <Button
+    type="button"
+    variant="contained"
+    color="secondary"
+    onClick={(event) => onButtonClick(event)}
+  >
+    {label}
+  </Button>
+)
+
+const SearchButton = ({label, onButtonClick }) => (
   <Button
     type="button"
     variant="contained"
