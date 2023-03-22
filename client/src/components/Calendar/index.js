@@ -17,6 +17,10 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
 const serverURL = "";
+<<<<<<< HEAD
+
+=======
+>>>>>>> 15a51107e7e8d548e325916c376e2609d272b092
 
 const AddEventForm = ({ isOpen, onClose, onSubmit }) => {
   const [eventName, setEventName] = useState('');
@@ -25,6 +29,42 @@ const AddEventForm = ({ isOpen, onClose, onSubmit }) => {
   const [eventColour, setEventColour] = useState('');
   const [eventRecurrence, setEventRecurrence] = useState('none');
 
+  const [userID, setUserID] = useState(1);
+
+
+  const addCalendar = () => {
+    callApiAddCalendar()
+      .then(res => {
+        console.log("callApiAddCalendar returned: ", res)
+        var parsed = JSON.parse(res.express);
+        console.log("callApiAddCalendar parsed: ", parsed);
+    //    setActivitiesList(parsed);
+      })
+  }
+
+  const callApiAddCalendar = async () => {
+    const url = serverURL + "/api/addCalendar";
+    console.log(url);
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+
+      },
+      body: JSON.stringify({
+        eventName: eventName,
+        startTime: startTime,
+        endTime: endTime,
+        userID: userID       
+      })
+    });
+    const responseCalendar = await response.json();
+    if (response.status !== 200) throw Error(responseCalendar.message);
+    console.log("User settings: ", responseCalendar);
+    return responseCalendar;
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     onSubmit({ eventName, startTime, endTime, eventColour, eventRecurrence });
@@ -32,9 +72,14 @@ const AddEventForm = ({ isOpen, onClose, onSubmit }) => {
     setEventName('');
     setStartTime('');
     setEndTime('');
+<<<<<<< HEAD
+
+    addCalendar();
+=======
     setEventColour('');
     setEventRecurrence('none');
 
+>>>>>>> 15a51107e7e8d548e325916c376e2609d272b092
   };
 
 
@@ -113,6 +158,10 @@ const AddEventForm = ({ isOpen, onClose, onSubmit }) => {
 }
 
 const Calendar = () => {
+
+
+
+
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [events, setEvents] = useState([]);
 

@@ -13,7 +13,13 @@
     "@mui/material": "^5.11.10",
     "dotenv": "^8.1.0",
     "express": "^4.16.4",
+<<<<<<< HEAD
+
     "fullcalendar": "^6.1.4",
+
+=======
+    "fullcalendar": "^6.1.4",
+>>>>>>> 15a51107e7e8d548e325916c376e2609d272b092
     "mysql": "^2.18.1",
     "node-fetch": "^2.6.1",
     "nodemon": "^1.19.3",

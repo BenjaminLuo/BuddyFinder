@@ -16,7 +16,10 @@ import FormLabel from '@material-ui/core/FormLabel';
 import { object } from 'prop-types';
 
 const serverURL = "";
+<<<<<<< HEAD
+=======
 
+>>>>>>> 15a51107e7e8d548e325916c376e2609d272b092
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -97,6 +100,8 @@ export default function Matching() {
 
   const [open, setOpen] = React.useState(false);
 
+  const [loc, setLoc] = React.useState(true);
+
 
 
   const onChangeRating = (event) => {
@@ -112,7 +117,8 @@ export default function Matching() {
   let [activityList, setActivityList] = React.useState([]);
   
   
-const categories = ["Basketball", "Squash", "Swimming", "Gym"];
+const categories = ["Basketball", "Squash", "Swimming", "Gym", "Golf"];
+const cat = ["Basketball", "Gym", "Soccer"];
 
 
 
@@ -121,9 +127,7 @@ const categories = ["Basketball", "Squash", "Swimming", "Gym"];
     const j = {
      place: place,
      activity: activity,
-     time: time
-
-  
+     time: time  
     }
 
     let rev = [...activityList];
@@ -132,7 +136,7 @@ const categories = ["Basketball", "Squash", "Swimming", "Gym"];
     setActivityList(rev);
     console.log("List is: ", activityList);
 
-    //addReview(); 
+    addInterest(); 
   }
 
   return (
@@ -166,6 +170,7 @@ const categories = ["Basketball", "Squash", "Swimming", "Gym"];
             control={<Radio color="primary" />}
             label="CIF"
             labelPlacement="bottom"
+
           />
 
 </RadioGroup>
@@ -174,11 +179,10 @@ const categories = ["Basketball", "Squash", "Swimming", "Gym"];
 
       <Grid item xs={8}>
 
-
         <FormControl className={classes.formControl}>
         <FormLabel component="legend">Activity</FormLabel>
 
-          <Select
+         <Select
             labelId="demo-controlled-open-select-label"
             id="demo-controlled-open-select"
 
@@ -195,23 +199,40 @@ const categories = ["Basketball", "Squash", "Swimming", "Gym"];
               <em>None</em>
             </MenuItem>
 
+            { (place === "PAC") ? 
 
-            {categories.map((cat) => {
+           categories.map((cate) => {
               return (
                 <MenuItem
-                  value={cat}
-                  onClick={() => onUpdateMovies(cat)}
-                > {cat}
+                  value={cate}
+                  onClick={() => onUpdateMovies(cate)}
+                > {cate}
                 </MenuItem>
 
               );
+            })
 
+            :
 
-            })}
+             cat.map((categ) => {
+              return (
+                <MenuItem
+                  value={categ}
+                  onClick={() => onUpdateMovies(categ)}
+                > {categ}
+                </MenuItem>
 
+              );
+            })  
+
+            }
+        
           </Select>
 
+
+
         </FormControl>
+
 
         </Grid>
 

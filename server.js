@@ -26,8 +26,8 @@ app.post('/api/addInterest', (req, res) => {
 	let user_id = req.body.userID;
 
 	
-	let sql = `INSERT INTO user_activity (location, action, reviewScore, time)  
-	VALUES (?, ?, ?, ?, ?)`;
+	let sql = `INSERT INTO user_activity (location, action, time, user_id)  
+	VALUES (?, ?, ?, ?)`;
 	console.log(sql);
 	let data = [ user_place, user_activity, user_time, user_id];
 	connection.query(sql, data, (error, results, fields) => {
@@ -44,6 +44,38 @@ app.post('/api/addInterest', (req, res) => {
 
 	connection.end();
 });
+
+
+app.post('/api/addCalendar', (req, res) => {
+	// let string = JSON.stringify(recipes);
+
+	let connection = mysql.createConnection(config);
+
+	let user_eventName = req.body.eventName;
+	let user_startTime = req.body.startTime;
+	let user_endTime = req.body.endTime;
+	let user_id = req.body.userID;
+
+	
+	let sql = `INSERT INTO user_calendar (event, start, end, user_id)  
+	VALUES (?, ?, ?, ?)`;
+	console.log(sql);
+	let data = [ user_eventName, user_startTime, user_endTime, user_id];
+	connection.query(sql, data, (error, results, fields) => {
+		if (error) {
+			return console.error(error.message);
+		}
+
+		console.log("Sent items:" + data);
+		console.log(results);
+		let string = JSON.stringify(results);
+		let obj = JSON.parse(string);
+		res.send({ express: string });
+	});
+
+	connection.end();
+});
+
 
 
 
