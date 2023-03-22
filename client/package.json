@@ -14,13 +14,7 @@
     "@material-ui/styles": "^4.0.0",
     "@material/ripple": "^4.0.0",
     "eslint": "^6.6.0",
-<<<<<<< HEAD
-
     "fullcalendar": "^6.1.4",
-
-=======
-    "fullcalendar": "^6.1.4",
->>>>>>> 15a51107e7e8d548e325916c376e2609d272b092
     "install": "^0.12.2",
     "mathjs": "^5.10.3",
     "node-fetch": "^2.6.1",
