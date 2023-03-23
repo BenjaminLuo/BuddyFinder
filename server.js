@@ -25,11 +25,11 @@ app.post('/api/addInterest', (req, res) => {
 	let user_time = req.body.time;
 	let user_id = req.body.userID;
 
-	
+
 	let sql = `INSERT INTO user_activity (location, action, time, user_id)  
 	VALUES (?, ?, ?, ?)`;
 	console.log(sql);
-	let data = [ user_place, user_activity, user_time, user_id];
+	let data = [user_place, user_activity, user_time, user_id];
 	connection.query(sql, data, (error, results, fields) => {
 		if (error) {
 			return console.error(error.message);
@@ -39,6 +39,27 @@ app.post('/api/addInterest', (req, res) => {
 		console.log(results);
 		let string = JSON.stringify(results);
 		let obj = JSON.parse(string);
+		res.send({ express: string });
+	});
+
+	connection.end();
+});
+
+app.post('/api/contactUs', (req, res) => {
+	let connection = mysql.createConnection(config);
+
+	let name = req.body.name;
+	let body = req.body.body;
+	let email = req.body.email;
+	let user_id = req.body.userID;
+
+	let sql = `INSERT INTO contact_us (name, body, email, user_id1) VALUES (?, ?, ?, ?)`;
+	connection.query(sql, [name, body, email, user_id], (error, results, fields) => {
+		if (error) {
+			return console.error(error.message);
+		}
+
+		let string = JSON.stringify(results);
 		res.send({ express: string });
 	});
 
@@ -69,6 +90,7 @@ app.post('/api/searchActivity', (req, res) => {
 	if(user_time){
 		sql = sql + ` AND ua.time = ?`;
 		data.push(user_time);	
+
 	}
 
 	console.log(sql);
@@ -101,11 +123,11 @@ app.post('/api/addCalendar', (req, res) => {
 	let user_endTime = req.body.endTime;
 	let user_id = req.body.userID;
 
-	
+
 	let sql = `INSERT INTO user_calendar (event, start, end, user_id)  
 	VALUES (?, ?, ?, ?)`;
 	console.log(sql);
-	let data = [ user_eventName, user_startTime, user_endTime, user_id];
+	let data = [user_eventName, user_startTime, user_endTime, user_id];
 	connection.query(sql, data, (error, results, fields) => {
 		if (error) {
 			return console.error(error.message);

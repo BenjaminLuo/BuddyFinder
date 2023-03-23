@@ -46,6 +46,8 @@ const Discussion = () => {
 
   const [newsSearchTerm, setNewsSearchTerm] = React.useState('');
   const [authorTerm, setAuthorTerm] = React.useState('');
+  const [addedNewsTerm, setAddedNewsTerm] = React.useState('');
+  const [addedNameTerm, setAddedNameTerm] = React.useState('');
 
   const [addedNewsTerm, setAddedNewsTerm] = React.useState('');
   const [addedNameTerm, setAddedNameTerm] = React.useState('');
@@ -83,6 +85,7 @@ const Discussion = () => {
     }
   });
 
+
   const onApplyAddition = () => {
     const q = {
       Names: addedNameTerm,
@@ -97,6 +100,7 @@ const Discussion = () => {
  
      //handleMovieSearch();
   }
+
 
   return (
     <div>
@@ -147,7 +151,9 @@ const Discussion = () => {
                 variant="contained"
                 color="primary"
                 id={'button'}
+
                  onClick={onApplyAddition}
+
                 style={{ height: '30px', marginLeft: '400px', marginTop: '0px' }}>
                 Add
               </Button>
@@ -161,6 +167,7 @@ const Discussion = () => {
             <Typography gutterBottom variant="h5" style={{ marginBottom: '20px' }}>
               Your news feed
             </Typography>
+
            <List list={foundNewsbyAuthor} /> 
                   <Grid>
                     <Typography> 
@@ -181,6 +188,7 @@ const Discussion = () => {
                   </Typography> 
                   
                   </Grid>
+
 
             <Grid item xs={1} />
           </Grid>
