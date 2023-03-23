@@ -336,13 +336,39 @@ const onApplySearch = () => {
            Time:  {item.time}
       </Typography> 
 
-
           </li>
           );
         })}
-
-
        </Typography>
+      </Grid>
+
+      <Grid>
+        <Typography>
+
+        {searchResultsList.map((item) => {
+              return(
+                <li>
+
+      <Typography> 
+              User:  {item.firstName}
+        </Typography>  
+
+        <Typography> 
+              Place:  {item.location}
+        </Typography>
+
+        <Typography> 
+           Activity:  {item.action}
+      </Typography>       
+               
+      <Typography> 
+           Time:  {item.time}
+      </Typography>         
+
+                 </li>
+              );
+                })}
+        </Typography>
       </Grid>
 
 </Grid>
