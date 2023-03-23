@@ -75,21 +75,22 @@ app.post('/api/searchActivity', (req, res) => {
 	let user_activity = req.body.activity;
 	let user_time = req.body.time;
 	let user_id = req.body.userID;
-
-	let sql = `SELECT * FROM user_activity ua WHERE`;
+	
+	let sql = `SELECT * FROM user_activity ua, user u WHERE u.id = ua.user_id`;
 	let data = [];
 
-	if (user_place) {
-		sql = sql + ` ua.location = ?`;
-		data.push(user_place);
+	if(user_place){
+		sql = sql + ` AND ua.location = ?`;
+		data.push(user_place);	
 	}
-	if (user_activity) {
-		sql = sql + ` ua.action = ?`;
-		data.push(user_activity);
+	if(user_activity){
+		sql = sql + ` AND ua.action = ?`;
+		data.push(user_activity);	
 	}
-	if (user_time) {
-		sql = sql + ` ua.time = ?`;
-		data.push(user_time);
+	if(user_time){
+		sql = sql + ` AND ua.time = ?`;
+		data.push(user_time);	
+
 	}
 
 	console.log(sql);

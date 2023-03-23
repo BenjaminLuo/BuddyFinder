@@ -49,6 +49,10 @@ const Discussion = () => {
   const [addedNewsTerm, setAddedNewsTerm] = React.useState('');
   const [addedNameTerm, setAddedNameTerm] = React.useState('');
 
+  const [addedNewsTerm, setAddedNewsTerm] = React.useState('');
+  const [addedNameTerm, setAddedNameTerm] = React.useState('');
+  const [newsList, setNewsList] = React.useState([]);
+
   const handleNewsSearch = (event) => {
     setNewsSearchTerm(event.target.value);
   };
@@ -80,6 +84,22 @@ const Discussion = () => {
       return item;
     }
   });
+
+
+  const onApplyAddition = () => {
+    const q = {
+      Names: addedNameTerm,
+      News: addedNewsTerm,
+     }
+ 
+     let arrayAdd = [...newsList];
+     arrayAdd.push(q); 
+ 
+     setNewsList(arrayAdd);
+     console.log("News List is: ", newsList);
+ 
+     //handleMovieSearch();
+  }
 
 
   return (
@@ -131,7 +151,9 @@ const Discussion = () => {
                 variant="contained"
                 color="primary"
                 id={'button'}
-                // onClick={onApplyChanges}
+
+                 onClick={onApplyAddition}
+
                 style={{ height: '30px', marginLeft: '400px', marginTop: '0px' }}>
                 Add
               </Button>
@@ -145,7 +167,29 @@ const Discussion = () => {
             <Typography gutterBottom variant="h5" style={{ marginBottom: '20px' }}>
               Your news feed
             </Typography>
-            <List list={foundNewsbyAuthor} />
+
+           <List list={foundNewsbyAuthor} /> 
+                  <Grid>
+                    <Typography> 
+
+            {newsList.map((item) => {
+              return (
+                <li>
+            <Typography>
+                Place:  {item.Names}
+            </Typography>
+
+            <Typography> 
+              Activity:  {item.News}
+            </Typography>  
+            </li>
+            );
+            })}
+                  </Typography> 
+                  
+                  </Grid>
+
+
             <Grid item xs={1} />
           </Grid>
         </Grid>
