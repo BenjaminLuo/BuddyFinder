@@ -167,15 +167,15 @@ const Calendar = () => {
   useEffect(() => {
     localStorage.setItem('calendarEvents', JSON.stringify(events));
   }, [events]);
+
+
+
+
 */
 
 
-
-
-
-
   const addEvent = (newEvent) => {
-
+/*
 
     const addCalendar = () => {
       callApiAddCalendar()
@@ -211,7 +211,7 @@ const Calendar = () => {
     }
 
 
-
+*/
 
     if (newEvent.eventRecurrence === 'none') {
       setEvents([...events, {
@@ -220,7 +220,7 @@ const Calendar = () => {
         end: newEvent.endTime,
         color: newEvent.eventColour,
       }]);
-      addCalendar();
+      //addCalendar();
     } else {
       let start = new Date(newEvent.startTime);
       let end = new Date(newEvent.endTime);
@@ -245,7 +245,7 @@ const Calendar = () => {
             end: new Date(end),
             color: newEvent.eventColour,
           });
-          addCalendar();
+        //  addCalendar();
         }
       }
 
@@ -321,25 +321,7 @@ const Calendar = () => {
 
     </div>
   );
-}
+      }
+    
 
 export default Calendar;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
