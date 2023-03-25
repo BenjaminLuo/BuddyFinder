@@ -1,0 +1,32 @@
+{
+  "name": "node-react-app",
+  "version": "1.0.0",
+  "scripts": {
+    "client": "cd client && yarn start",
+    "server": "nodemon server.js",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@fullcalendar/core": "^6.1.5",
+    "@fullcalendar/daygrid": "^6.1.5",
+    "@fullcalendar/react": "^6.1.5",
+    "@mui/icons-material": "^5.11.9",
+    "@mui/material": "^5.11.10",
+    "dotenv": "^8.1.0",
+    "express": "^4.16.4",
+    "fullcalendar": "^6.1.4",
+    "mysql": "^2.18.1",
+    "node-fetch": "^2.6.1",
+    "nodemon": "^1.19.3",
+    "react-bootstrap": "^2.7.2",
+    "recompose": "^0.30.0",
+    "yarn": "^1.22.19"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "concurrently": "^4.0.1",
+    "cypress": "^10.9.0"
+  }
+}
