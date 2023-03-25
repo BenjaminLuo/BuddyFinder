@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import {
     Typography,
@@ -12,6 +12,7 @@ import {
     Switch
 } from '@material-ui/core';
 import { TabPanel } from '../../components/UI/TabPanel';
+import GetFetch from '../common'
 
 const useStyles = makeStyles((theme) => {
     return {
@@ -37,13 +38,11 @@ const validation_init = {
 
 
 export default function Settings() {
+    const userID = 20890448;
     const classes = useStyles();
 
-    // Temporary JSON file to simulate database
-    const init_data = require('../../user.json');
-
     // State variable for storing user data
-    const [data, changeData] = React.useState(init_data);
+    const [data, changeData] = React.useState({});
 
     // State variable for storing validation check parameters (by default they're all false)
     const [validate, invalidate] = React.useState(validation_init);
@@ -51,6 +50,22 @@ export default function Settings() {
     // Tabber toggles
     const [value, setValue] = React.useState(0);
     const handleChange = (event, newValue) => setValue(newValue);
+
+    function getUserSettings() {
+        return GetFetch('getUserSettings', { userID: userID })
+    }
+    function updateUserSettings(fieldToChange, newVal) {
+        return GetFetch('updateUserSettings', {
+            fieldToChange: fieldToChange,
+            newVal: newVal,
+            userID: userID
+        })
+    }
+
+    // Initializing user data
+    useEffect(() => {
+        getUserSettings().then(user => changeData(user))
+    }, [])
 
     // Update user account information
     const handleSubmit = (e) => {
@@ -74,12 +89,15 @@ export default function Settings() {
             }
         }
         changeData({ ...data })
+        updateUserSettings(e.target.id, userInput)
     }
 
     // Switch UI elements (for toggling private/searchable)
     const handleSwitch = (e) => {
         data[e.target.id] = document.getElementById(e.target.id).checked
         changeData({ ...data })
+
+        updateUserSettings(e.target.id, document.getElementById(e.target.id).checked ? 1 : 0)
     }
 
     // For input fields with text values
@@ -166,9 +184,9 @@ export default function Settings() {
 
                 <InputField field={"Display Name"} label={data.display_name} id={'display_name'} />
                 <InputField field={"Program"} label={data.program} id={'program'} />
-                <InputField field={"Academic Year"} label={data.year} id={'year'} />
+                <InputField field={"Academic Year"} label={data.term} id={'term'} />
                 <InputField field={"Bio"} label={data.bio} id={'bio'} paragraph />
-                <InputField field={"Interests"} label={data.interests.join(', ')} id={'interests'} paragraph />
+                <InputField field={"Interests"} label={data.interests?.join(', ')} id={'interests'} paragraph />
 
             </TabPanel>
 
@@ -176,7 +194,6 @@ export default function Settings() {
             {/* User ID, Username, Password, Email */}
             <TabPanel value={value} index={1}>
 
-                <InputField field={"User ID"} label={data.user_id} id={'user_id'} />
                 <InputField field={"Username"} label={data.username} id={'username'} />
                 <InputField field={"Password"} label={data.password} id={'password'} />
                 <InputField field={"Email"} label={data.email} id={'email'} />
@@ -187,8 +204,8 @@ export default function Settings() {
             {/* Hide name from search, Private account */}
             <TabPanel value={value} index={2}>
 
-                <SwitchField field={"Private Account"} toggled={data.private} id={'private'} />
-                <SwitchField field={"Searchable Account"} toggled={data.searchable} id={'searchable'} />
+                <SwitchField field={"Private Account"} toggled={Boolean(data.private)} id={'private'} />
+                <SwitchField field={"Searchable Account"} toggled={Boolean(data.searchable)} id={'searchable'} />
 
             </TabPanel>
 

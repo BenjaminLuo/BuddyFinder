@@ -66,6 +66,42 @@ app.post('/api/contactUs', (req, res) => {
 	connection.end();
 });
 
+app.post('/api/getUserSettings', (req, res) => {
+	let connection = mysql.createConnection(config);
+	let sql = `SELECT * from user_settings WHERE user_id=${req.body.userID}`;
+
+	connection.query(sql, [], (error, results, fields) => {
+		if (error) {
+			return console.error(error.message);
+		}
+
+		res.send(results[0]);
+	});
+
+	connection.end();
+});
+
+app.post('/api/updateUserSettings', (req, res) => {
+	let connection = mysql.createConnection(config);
+
+	let sql = `
+		UPDATE user_settings 
+		SET ${req.body.fieldToChange}="${req.body.newVal}"
+		WHERE user_id=${req.body.userID}`;
+
+	connection.query(sql, [], (error, results, fields) => {
+		if (error) {
+			return console.error(error.message);
+		}
+
+		let string = JSON.stringify(results);
+		res.send({ express: string });
+	});
+
+	connection.end();
+});
+
+
 app.post('/api/searchActivity', (req, res) => {
 	// let string = JSON.stringify(recipes);
 
@@ -75,21 +111,21 @@ app.post('/api/searchActivity', (req, res) => {
 	let user_activity = req.body.activity;
 	let user_time = req.body.time;
 	let user_id = req.body.userID;
-	
+
 	let sql = `SELECT * FROM user_activity ua, user u WHERE u.id = ua.user_id`;
 	let data = [];
 
-	if(user_place){
+	if (user_place) {
 		sql = sql + ` AND ua.location = ?`;
-		data.push(user_place);	
+		data.push(user_place);
 	}
-	if(user_activity){
+	if (user_activity) {
 		sql = sql + ` AND ua.action = ?`;
-		data.push(user_activity);	
+		data.push(user_activity);
 	}
-	if(user_time){
+	if (user_time) {
 		sql = sql + ` AND ua.time = ?`;
-		data.push(user_time);	
+		data.push(user_time);
 
 	}
 
