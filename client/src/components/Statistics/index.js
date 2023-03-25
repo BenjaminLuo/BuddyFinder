@@ -20,7 +20,7 @@ import GetFetch from '../common'
 // --------------------------------------------------- /\ Imports
 // --------------------------------------------------- \/ Styles
 
-const useStyles = makeStyles((theme) => {
+const useStyles = makeStyles(() => {
   return {
     page: {
       opacity: 0.9,
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => {
 
 export default function Statistics() {
   const classes = useStyles();
-  const userID = 20890449
+  const userID = 20890448
 
   // Tracking the user's goals
   const [goalObject, updateGoalObject] = React.useState([{
