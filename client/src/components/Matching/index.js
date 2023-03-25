@@ -13,6 +13,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 import Card from '@material-ui/core/Card';
+import { styled } from '@material-ui/core/styles';
 import Stack from '@mui/material/Stack';
 import { object } from 'prop-types';
 import Box from "@material-ui/core/Box";
@@ -20,8 +21,8 @@ import Box from "@material-ui/core/Box";
 const serverURL = "";
 
 
-const useStyles = makeStyles((theme ) => {
-  
+const useStyles = makeStyles((theme) => {
+
   return {
     page: {
       backgroundColor: '#A8C69F',
@@ -38,8 +39,14 @@ const useStyles = makeStyles((theme ) => {
       }
     }
   }
-  
+
 })
+
+const Div = styled('div')(({ theme }) => ({
+  ...theme.typography.button,
+  backgroundColor: '#0a0a0a',
+  padding: theme.spacing(1),
+}));
 
 export default function Matching() {
 
@@ -49,7 +56,7 @@ export default function Matching() {
         console.log("callApiAddInterest returned: ", res)
         var parsed = JSON.parse(res.express);
         console.log("callApiAddInterest parsed: ", parsed);
-    //    setActivitiesList(parsed);
+        //    setActivitiesList(parsed);
       })
   }
 
@@ -67,7 +74,7 @@ export default function Matching() {
         place: place,
         activity: activity,
         time: time,
-        userID: userID       
+        userID: userID
       })
     });
     const responseInterest = await response.json();
@@ -102,7 +109,7 @@ export default function Matching() {
         place: place,
         activity: activity,
         time: time,
-        userID: userID      
+        userID: userID
       })
     });
     const body = await response.json();
@@ -153,280 +160,279 @@ export default function Matching() {
 
   const onUpdateMovies = (item) => {
     setActivity(item);
-  } 
+  }
 
 
 
   let [activityList, setActivityList] = React.useState([]);
-  
-  
-const categories = ["Basketball", "Squash", "Swimming", "Gym", "Golf"];
-const cat = ["Basketball", "Gym", "Soccer"];
 
 
-const [searchResultsList, setSearchResultsList] = React.useState([]);
-const [submitSearchList, setSubmitSearchList] = React.useState([]);
+  const categories = ["Basketball", "Squash", "Swimming", "Gym", "Golf"];
+  const cat = ["Basketball", "Gym", "Soccer"];
 
-const onApplySearch = () => {
-  const s = {
-    place: place,
-    activity: activity,
-    time: time  
-   }
 
-   let arraySearch = [...submitSearchList];
-   arraySearch.push(s); 
+  const [searchResultsList, setSearchResultsList] = React.useState([]);
+  const [submitSearchList, setSubmitSearchList] = React.useState([]);
 
-   setSubmitSearchList(arraySearch);
-   console.log("Search List is: ", submitSearchList);
+  const onApplySearch = () => {
+    const s = {
+      place: place,
+      activity: activity,
+      time: time
+    }
 
-   handleActivitySearch();
-}
+    let arraySearch = [...submitSearchList];
+    arraySearch.push(s);
+
+    setSubmitSearchList(arraySearch);
+    console.log("Search List is: ", submitSearchList);
+
+    handleActivitySearch();
+  }
 
   const onApplyChanges = () => {
     const j = {
-     place: place,
-     activity: activity,
-     time: time  
+      place: place,
+      activity: activity,
+      time: time
     }
 
     let rev = [...activityList];
-    rev.push(j); 
+    rev.push(j);
 
     setActivityList(rev);
     console.log("List is: ", activityList);
 
-    addInterest(); 
+    addInterest();
   }
 
   return (
 
-      <div align="center" style={{
-            backgroundcolor: '#5C5D8D',
-          }}>
-            <Card style={{color: 'white',
-              backgroundColor: '#A8C69F',
-              }}
-              >
-              <Typography variant="h1" gutterBottom component="div">
-        Match
-      </Typography>
-            </Card>
-            <Card style={{color: 'white',
-              backgroundColor: '#A8C69F',
-              marginTop: '50px',
-              height: '1300px',
-              width: '900px',
-              marginBottom: '50px'}}>
-
-<Grid>
-      <FormControl>
-      <Typography variant="h3" gutterBottom component="div">
-        Place
-      </Typography>
-      <RadioGroup
-        row
-        aria-labelledby="demo-row-radio-buttons-group-label"
-        name="Place"
-        value={place} onChange={onChangeRating}
-        className={classes.smallRadioButton}
-
+    <div align="center" style={{
+      backgroundcolor: '#5C5D8D',
+    }}>
+      <Card style={{
+        color: 'white',
+        backgroundColor: '#A8C69F',
+      }}
       >
-        <FormControlLabel value="PAC" control={<Radio color = "primary"/>} label="PAC"  labelPlacement='bottom'/>
-        <FormControlLabel value="CIF" control={<Radio color = "primary"/>} label="CIF"  labelPlacement='bottom'/>
-      </RadioGroup>
-    </FormControl>
+        <Typography variant="h1" gutterBottom component="div">
+          Match
+        </Typography>
+      </Card>
+      <Card style={{
+        color: 'white',
+        backgroundColor: '#A8C69F',
+        marginTop: '50px',
+        height: '700px',
+        width: '900px',
+        marginBottom: '50px'
+      }}>
 
-    </Grid>
-    <p style={{marginTop: '75px'}}></p>
-   
-    <Grid>
-    <FormControl className={classes.formControl}>
-        <Typography variant="h3" gutterBottom component="div">
-        Activity
-      </Typography>
+        <Grid>
+          <FormControl>
+            <Typography variant="h3" gutterBottom component="div">
+              Place
+            </Typography>
+            <RadioGroup
+              row
+              aria-labelledby="demo-row-radio-buttons-group-label"
+              name="Place"
+              value={place} onChange={onChangeRating}
+              className={classes.smallRadioButton}
 
-         <Select
-            labelId="demo-controlled-open-select-label"
-            id="demo-controlled-open-select"
-
-            helperText={"Select an activity you like most"}
-
-            autoWidth
-            open={open}
-            onClose={handleClose}
-            onOpen={handleOpen}
-            onChange={handleChange}
-          >
-
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-
-            { (place === "PAC") ? 
-
-           categories.map((cate) => {
-              return (
-                <MenuItem
-                  value={cate}
-                  onClick={() => onUpdateMovies(cate)}
-                > {cate}
-                </MenuItem>
-
-              );
-            })
-
-            :
-
-             cat.map((categ) => {
-              return (
-                <MenuItem
-                  value={categ}
-                  onClick={() => onUpdateMovies(categ)}
-                > {categ}
-                </MenuItem>
-
-              );
-            })  
-
-            }
-        
-          </Select>
-
-
-
-        </FormControl>
-
-
-    </Grid>
-    <p style={{marginTop: '75px'}}></p>
-<Grid >
-
-<Typography variant="h3" gutterBottom component="div">
-        Select a Time
-      </Typography>
-        <FormControl className={classes.formControl}>
-        <FormLabel component="legend"></FormLabel>
-          <label htmlFor="Time"> </label>
-          <input
-            id="Time"
-            type="datetime-local"
-            value={time}
-            onChange={(event) => setTime(event.target.value)}
-          /> 
+            >
+              <FormControlLabel value="PAC" control={<Radio color="primary" />} label="PAC" labelPlacement='bottom' />
+              <FormControlLabel value="CIF" control={<Radio color="primary" />} label="CIF" labelPlacement='bottom' />
+            </RadioGroup>
           </FormControl>
-          <p style={{marginTop: '75px'}}></p>
-        
+
+        </Grid>
+        <p style={{ marginTop: '75px' }}></p>
+
+        <Grid>
+          <FormControl className={classes.formControl}>
+            <Typography variant="h3" gutterBottom component="div">
+              Activity
+            </Typography>
+
+            <Select
+              labelId="demo-controlled-open-select-label"
+              id="demo-controlled-open-select"
+
+              helperText={"Select an activity you like most"}
+
+              autoWidth
+              open={open}
+              onClose={handleClose}
+              onOpen={handleOpen}
+              onChange={handleChange}
+            >
+
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+
+              {(place === "CIF") ?
+
+                cat.map((categ) => {
+                  return (
+                    <MenuItem
+                      value={categ}
+                      onClick={() => onUpdateMovies(categ)}
+                    > {categ}
+                    </MenuItem>
+
+                  );
+                })
+
+                :
+
+                categories.map((cate) => {
+                  return (
+                    <MenuItem
+                      value={cate}
+                      onClick={() => onUpdateMovies(cate)}
+                    > {cate}
+                    </MenuItem>
+
+                  );
+                })
+
+              }
+
+            </Select>
+
+
+
+          </FormControl>
+
+
+        </Grid>
+        <p style={{ marginTop: '75px' }}></p>
+        <Grid >
+
+          <Typography variant="h3" gutterBottom component="div">
+            Select a Time
+          </Typography>
+          <FormControl className={classes.formControl}>
+            <FormLabel component="legend"></FormLabel>
+            <label htmlFor="Time"> </label>
+            <input
+              id="Time"
+              type="datetime-local"
+              value={time}
+              onChange={(event) => setTime(event.target.value)}
+            />
+          </FormControl>
+          <p style={{ marginTop: '75px' }}></p>
+
           <Grid >
 
-          <div style ={{ width:'200px',
-display:'flex',
-flexDirection:'row',
-justifyContent:'space-between'
-}}>
-<SubmitButton
-              // item={item}
-              label={'Submit'}
-              onButtonClick={onApplyChanges}
-            />
-            
-<SearchButton
+            <div style={{
+              width: '200px',
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between'
+            }}>
+              <SubmitButton
+                // item={item}
+                label={'Submit'}
+                onButtonClick={onApplyChanges}
+              />
+
+              <SearchButton
                 // item={item}
                 label={'Search'}
                 onButtonClick={onApplySearch}
-              /> 
-</div>
+              />
+            </div>
 
-      
-      </Grid>
-      <p style={{marginTop: '75px'}}></p>
-      <Grid> 
-         
-      </Grid>
-</Grid>
 
-      
+          </Grid>
+          <p style={{ marginTop: '75px' }}></p>
+          <Grid>
 
-      
+          </Grid>
+        </Grid>
 
-    <Grid>
+      </Card>
 
-      <Typography>
+      <Card style={{
+        color: 'white',
+        backgroundColor: '#A8C69F',
+      }}
+      >
 
-        {activityList.map((item) => {
-          return (
-            <li>
-      <Typography>
-             Place:  {item.place}
-      </Typography>
-      
-      <Typography> 
-           Activity:  {item.activity}
-      </Typography>       
-               
-      <Typography> 
-           Time:  {item.time}
-      </Typography> 
+        <Grid>
 
-          </li>
-          );
-        })}
-       </Typography>
-      </Grid>
+          <Typography>
 
-      <Grid>
-        <Typography>
+            {activityList.map((item) => {
+              return (
+                <ul>
+                  <Typography>
+                    Place:  {item.place}
+                  </Typography>
 
-        {searchResultsList.map((item) => {
-              return(
-                <li>
+                  <Typography>
+                    Activity:  {item.activity}
+                  </Typography>
 
-      <Typography> 
-              User:  {item.firstName}
-        </Typography>  
+                  <Typography>
+                    Time:  {item.time}
+                  </Typography>
 
-        <Typography> 
-              Place:  {item.location}
-        </Typography>
-
-        <Typography> 
-           Activity:  {item.action}
-      </Typography>       
-               
-      <Typography> 
-           Time:  {item.time}
-      </Typography>         
-
-                 </li>
+                </ul>
               );
-                })}
-        </Typography>
-      </Grid>
+            })}
+          </Typography>
+        </Grid>
 
-      
+        <Grid>
 
-          </Card>
+
+
+          <Typography>
+
+            {searchResultsList.map((item) => {
+              return (
+                <ul>
+                  <Div>
+                    <Typography>
+                      User:  {item.firstName}
+                    </Typography>
+
+                    <Typography>
+                      Place:  {item.location}
+                    </Typography>
+
+                    <Typography>
+                      Activity:  {item.action}
+                    </Typography>
+
+                    <Typography>
+                      Time:  {item.time}
+                    </Typography>
+                  </Div>
+                </ul>
+              );
+            })}
+          </Typography>
+        </Grid>
+
+
+
+      </Card>
 
     </div>
 
-  
+
   );
 
 }
 
-const SubmitButton = ({label, onButtonClick }) => (
-  <Button 
-    type="button"
-    variant="contained"
-    color="success"
-    onClick={(event) => onButtonClick(event)}
-  >
-    {label}
-  </Button>
-)
-
-const SearchButton = ({label, onButtonClick }) => (
-  
+const SubmitButton = ({ label, onButtonClick }) => (
   <Button
     type="button"
     variant="contained"
@@ -437,3 +443,14 @@ const SearchButton = ({label, onButtonClick }) => (
   </Button>
 )
 
+const SearchButton = ({ label, onButtonClick }) => (
+
+  <Button
+    type="button"
+    variant="contained"
+    color="success"
+    onClick={(event) => onButtonClick(event)}
+  >
+    {label}
+  </Button>
+)
