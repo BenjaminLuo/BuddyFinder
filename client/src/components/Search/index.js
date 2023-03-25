@@ -22,8 +22,6 @@ import { blockedList } from './blockedList';
 const useStyles = makeStyles((theme) => {
     return {
         page: {
-            backgroundColor: 'lightgrey',
-            backgroundSize: 'cover',
             opacity: 0.9,
             minHeight: '90vh',
             padding: '40px 100px 40px 100px'

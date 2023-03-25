@@ -18,8 +18,6 @@ const serverURL = "";
 const useStyles = makeStyles(() => {
     return {
         page: {
-            backgroundColor: 'lightgrey',
-            backgroundSize: 'cover',
             opacity: 0.9,
             padding: '60px',
             minHeight: '90vh'

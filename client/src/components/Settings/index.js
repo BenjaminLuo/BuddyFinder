@@ -16,8 +16,6 @@ import { TabPanel } from '../../components/UI/TabPanel';
 const useStyles = makeStyles((theme) => {
     return {
         page: {
-            backgroundColor: 'lightgrey',
-            backgroundSize: 'cover',
             opacity: 0.9,
             minHeight: '90vh'
         },

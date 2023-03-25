@@ -22,7 +22,11 @@ export const theme = createTheme({
             color: '#FFFFFF',
             fontWeight: '20',
             fontSize: '16px'
-        }
+        },
+        h6: {
+            fontWeight: '10',
+            fontSize: '14px'
+        },
     },
     overrides: {
         MuiCssBaseline: {

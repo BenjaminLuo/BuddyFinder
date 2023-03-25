@@ -22,8 +22,6 @@ import { IncompleteGoals } from './incompleteGoals';
 const useStyles = makeStyles((theme) => {
   return {
     page: {
-      backgroundColor: 'lightgrey',
-      backgroundSize: 'cover',
       opacity: 0.9,
       padding: '40px',
       minHeight: '90vh',

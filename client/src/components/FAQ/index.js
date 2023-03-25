@@ -15,8 +15,6 @@ import { FAQContent } from './FAQContent';
 export const useStyles = makeStyles(() => {
     return {
         page: {
-            backgroundColor: 'lightgrey',
-            backgroundSize: 'cover',
             opacity: 0.9,
             minHeight: '90vh',
             padding: '60px 100px 40px 100px'
