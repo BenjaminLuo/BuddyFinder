@@ -5,7 +5,33 @@ import {
     Typography
   } from '@material-ui/core'; 
 
+const AudioContext = window.AudioContext || window.webkitAudioContext
+
 export default function Profile() {
+
+  const [dataPlaying, setDataPlaying] = useState(false);
+  const audioContextRef = useRef();
+
+  useEffect(() => {
+    const audioContext = new AudioContext();
+                const osc = audioContext.createOscillator();
+                osc.type = "sine";
+                osc.frequency.value = 880;
+                osc.connect(audioContext.destination);
+                osc.start();
+                audioContextRef.current = audioContext;
+                audioContext.suspend();
+    return () => osc.disconnect(audioContext.destination);
+    }, []);
+
+    const toggleOscillator = () => {
+    if (dataPlaying) {
+                    audioContextRef.current.suspend();
+    } else {
+                    audioContextRef.current.resume();
+    }
+    setDataPlaying((play) => !play);
+    };
 
     return (
         <div align="center" style={{
@@ -55,6 +81,12 @@ export default function Profile() {
             >
               Welcome to Buddy Finder! On our website you'll be able to find other students with similar interests and schedule times to meet them. Get started now!</Typography>
           </Card>
+
+          
+          <button onClick={toggleOscillator} data-playing={dataPlaying}>
+                        <span>{dataPlaying ? "Pause" : "Play"}</span>
+          </button>    
+
         </div>
     )
 
