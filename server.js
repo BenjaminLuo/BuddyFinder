@@ -66,6 +66,8 @@ app.post('/api/contactUs', (req, res) => {
 	connection.end();
 });
 
+
+
 app.post('/api/getUserSettings', (req, res) => {
 	let connection = mysql.createConnection(config);
 	let sql = `SELECT * from user_settings WHERE user_id=${req.body.userID}`;
@@ -100,6 +102,69 @@ app.post('/api/updateUserSettings', (req, res) => {
 
 	connection.end();
 });
+
+
+
+app.post('/api/getUserGoals', (req, res) => {
+	let connection = mysql.createConnection(config);
+	let sql = `SELECT * from goal_tracking WHERE user_id=${req.body.userID}`;
+
+	connection.query(sql, [], (error, results, fields) => {
+		if (error) {
+			return console.error(error.message);
+		}
+
+		res.send(results);
+	});
+
+	connection.end();
+});
+
+app.post('/api/updateUserGoals', (req, res) => {
+	let connection = mysql.createConnection(config);
+
+	let today = new Date();
+
+	let sql = `
+		UPDATE goal_tracking
+		SET completed=1, date="${today.getFullYear()}-${today.getMonth()}-${today.getDate()}" 
+		WHERE id=${req.body.goalID}`;
+
+	connection.query(sql, [], (error, results, fields) => {
+		if (error) {
+			return console.error(error.message);
+		}
+
+		let string = JSON.stringify(results);
+		res.send({ express: string });
+	});
+
+	connection.end();
+});
+
+app.post('/api/addUserGoals', (req, res) => {
+	let connection = mysql.createConnection(config);
+
+	let sql = `
+		INSERT into goal_tracking (
+			id, goal, user_id
+		) VALUES (
+			${req.body.id}, "${req.body.goal}", ${req.body.userID}
+		) ON DUPLICATE KEY UPDATE
+			goal = "${req.body.goal}"`
+
+	connection.query(sql, [], (error, results, fields) => {
+		if (error) {
+			return console.error(error.message);
+		}
+
+		let string = JSON.stringify(results);
+		res.send({ express: string });
+	});
+
+	connection.end();
+});
+
 
 
 app.post('/api/searchActivity', (req, res) => {
@@ -178,32 +243,6 @@ app.post('/api/addCalendar', (req, res) => {
 
 	connection.end();
 });
-
-
-
-
-app.post('/api/loadUserSettings', (req, res) => {
-
-	let connection = mysql.createConnection(config);
-	let userID = req.body.userID;
-
-	let sql = `SELECT mode FROM user WHERE userID = ?`;
-	console.log(sql);
-	let data = [userID];
-	console.log(data);
-
-	connection.query(sql, data, (error, results, fields) => {
-		if (error) {
-			return console.error(error.message);
-		}
-
-		let string = JSON.stringify(results);
-		//let obj = JSON.parse(string);
-		res.send({ express: string });
-	});
-	connection.end();
-});
-
 
 
 app.listen(port, () => console.log(`Listening on port ${port}`)); //for the dev version

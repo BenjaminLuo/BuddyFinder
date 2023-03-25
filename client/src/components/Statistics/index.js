@@ -1,6 +1,6 @@
 // --------------------------------------------------- \/ Imports
 
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import {
   Typography,
@@ -15,6 +15,7 @@ import {
 import { UsageStatistics } from './UsageStatistics';
 import { CompletedGoals } from './completedGoals';
 import { IncompleteGoals } from './incompleteGoals';
+import GetFetch from '../common'
 
 // --------------------------------------------------- /\ Imports
 // --------------------------------------------------- \/ Styles
@@ -29,41 +30,47 @@ const useStyles = makeStyles((theme) => {
   }
 })
 
-
-const goals = [
-  {
-    id: 1,
-    goal: "To pass 3A with 86%+",
-    date: "",
-    completed: false
-  },
-  {
-    id: 2,
-    goal: "To go on exchange",
-    date: "",
-    completed: false
-  },
-  {
-    id: 3,
-    goal: "To finish sprint 1 on time",
-    date: "",
-    completed: true
-  }
-]
-
-
-export default function Statistics(props) {
+export default function Statistics() {
   const classes = useStyles();
+  const userID = 20890448
 
   // Tracking the user's goals
-  const [goalObject, updateGoalObject] = React.useState(goals);
+  const [goalObject, updateGoalObject] = React.useState([{
+    id: 0,
+    goal: "",
+    completed: false
+  }]);
 
   // Adding a new goal; incrementing the goal ID
-  const [nextID, upID] = React.useState(goals.length + 1);
+  const [nextID, upID] = React.useState(0);
 
   // Tabber toggles
   const [tabToggle, changeTabToggle] = React.useState(0);
   const handleTabber = (event, newValue) => changeTabToggle(newValue);
+
+  function getUserGoals() {
+    return GetFetch('getUserGoals', { userID: userID })
+  }
+  function updateUserGoals(goalID) {
+    return GetFetch('updateUserGoals', {
+      goalID: goalID
+    })
+  }
+  function addUserGoals(id, goal) {
+    return GetFetch('addUserGoals', {
+      id: id,
+      goal: goal,
+      userID: userID
+    })
+  }
+
+  // Initializing user goals
+  useEffect(() => {
+    getUserGoals().then(goals => {
+      updateGoalObject(goals)
+      upID(goals[goals.length - 1].id)
+    })
+  }, [])
 
   // Handler for changes to any goal (ie. TextField)
   const handleChange = (e) => {
@@ -71,11 +78,28 @@ export default function Statistics(props) {
     updateGoalObject([...goalObject])
   }
 
+  // Saves entry of active textfield to database upon pressing 'Enter'
+  const handleSave = (e) => {
+    addUserGoals(goalObject[goalObject.findIndex(item => "tf" + item.id === e.target.id)].id, e.target.value)
+  }
+
   // Find index then remove it
   const removeItem = (e) => {
-    goalObject[goalObject.findIndex(item => "button" + item.id === e.target.id)].completed = true
-    // updateGoalObject(goalObject.filter((value, index) => value.completed !== true))
-    updateGoalObject([...goalObject])
+    const targetIndex = goalObject.findIndex(item => "button" + item.id === e.target.id);
+    goalObject[targetIndex].completed = true
+    updateGoalObject([...goalObject]) // Trigger re-render
+    updateUserGoals(goalObject[targetIndex].id) // Update database
+  }
+
+  // Adds another To-Do item
+  const handleAddition = () => {
+    updateGoalObject([...goalObject, {
+      id: nextID,
+      goal: "",
+      date: "",
+      completed: false
+    }])
+    upID(nextID + 1);
   }
 
   const ToDoItem = (props) => {
@@ -88,6 +112,7 @@ export default function Statistics(props) {
           id={'tf' + props.itemID}
           onChange={handleChange}
           fullWidth
+          onKeyDown={(ev) => { if (ev.key === 'Enter') { handleSave(ev) } }}
           size="small"
           color="primary"
           style={{ marginBottom: "20px", width: '50%' }} />
@@ -98,21 +123,10 @@ export default function Statistics(props) {
           id={'button' + props.itemID}
           onClick={removeItem}
           style={{ height: '30px', marginLeft: '15px', marginTop: '3px' }}>
-          <Typography variant="h6">Done</Typography>
+          <Typography variant="h6">✔</Typography>
         </Button>
       </Container>
     )
-  }
-
-  // Adds another To-Do item
-  const handleAddition = () => {
-    updateGoalObject([...goalObject, {
-      id: nextID,
-      goal: "",
-      date: "",
-      completed: false
-    }])
-    upID(nextID + 1);
   }
 
   return (
