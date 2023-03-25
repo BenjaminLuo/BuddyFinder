@@ -14,10 +14,8 @@ import { profileInformation } from './profileInformation';
 const useStyles = makeStyles(() => {
     return {
         page: {
-            backgroundSize: 'cover',
             opacity: 0.9,
-            minHeight: '150vh',
-            backgroundColor: 'lightgrey'
+            minHeight: '150vh'
         },
         rightSubContainer: {
             padding: '10px'
