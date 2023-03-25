@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => {
 
 export default function Statistics() {
   const classes = useStyles();
-  const userID = 20890448
+  const userID = 20890449
 
   // Tracking the user's goals
   const [goalObject, updateGoalObject] = React.useState([{
@@ -68,7 +68,7 @@ export default function Statistics() {
   useEffect(() => {
     getUserGoals().then(goals => {
       updateGoalObject(goals)
-      upID(goals[goals.length - 1].id)
+      upID(goals.length !== 0 ? goals[goals.length - 1].id : 0)
     })
   }, [])
 
