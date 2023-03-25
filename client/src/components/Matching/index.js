@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -13,22 +12,33 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
+import Card from '@material-ui/core/Card';
+import Stack from '@mui/material/Stack';
 import { object } from 'prop-types';
+import Box from "@material-ui/core/Box";
 
 const serverURL = "";
 
 
-const useStyles = makeStyles((theme) => {
+const useStyles = makeStyles((theme ) => {
+  
   return {
     page: {
-      backgroundColor: 'lightgrey',
+      backgroundColor: '#A8C69F',
       backgroundSize: 'cover',
       opacity: 0.9,
-      padding: '40px',
-      paddingTop: '120px',
+      //padding: '40px',
+      //paddingTop: '120px',
       minHeight: '100vh',
     },
+    smallRadioButton: {
+      "& svg": {
+        width: "2em",
+        height: "2em"
+      }
+    }
   }
+  
 })
 
 export default function Matching() {
@@ -190,47 +200,51 @@ const onApplySearch = () => {
   }
 
   return (
-    <Container maxWidth={false} className={classes.page}>
 
-    <Grid container spacing={2}>
-
-
-        <Grid item xs={6}>
-
-      <Typography variant="h3" gutterBottom component="div">
+      <div align="center" style={{
+            backgroundcolor: '#5C5D8D',
+          }}>
+            <Card style={{color: 'white',
+              backgroundColor: '#A8C69F',
+              }}
+              >
+              <Typography variant="h1" gutterBottom component="div">
         Match
       </Typography>
+            </Card>
+            <Card style={{color: 'white',
+              backgroundColor: '#A8C69F',
+              marginTop: '50px',
+              height: '750px',
+              width: '900px',
+              marginBottom: '50px'}}>
 
-      <FormControl component="fieldset">
-        <FormLabel component="legend">Place</FormLabel>
-        <RadioGroup row aria-label="position" name="Place"  
-        
-        helperText = {"Where would you like to go?"}
+<Grid>
+      <FormControl>
+      <Typography variant="h3" gutterBottom component="div">
+        Place
+      </Typography>
+      <RadioGroup
+        row
+        aria-labelledby="demo-row-radio-buttons-group-label"
+        name="Place"
+        value={place} onChange={onChangeRating}
+        className={classes.smallRadioButton}
 
-        value={place} onChange={onChangeRating}>
-          
-        <FormControlLabel
-            value="PAC"
-            control={<Radio color="primary" />}
-            label="PAC"
-            labelPlacement="bottom"
-          />
-          <FormControlLabel
-            value="CIF"
-            control={<Radio color="primary" />}
-            label="CIF"
-            labelPlacement="bottom"
+      >
+        <FormControlLabel value="PAC" control={<Radio color = "primary"/>} label="PAC"  labelPlacement='bottom'/>
+        <FormControlLabel value="CIF" control={<Radio color = "primary"/>} label="CIF"  labelPlacement='bottom'/>
+      </RadioGroup>
+    </FormControl>
 
-          />
-
-</RadioGroup>
-      </FormControl>
-      </Grid>
-
-      <Grid item xs={8}>
-
-        <FormControl className={classes.formControl}>
-        <FormLabel component="legend">Activity</FormLabel>
+    </Grid>
+    <p style={{marginTop: '75px'}}></p>
+   
+    <Grid>
+    <FormControl className={classes.formControl}>
+        <Typography variant="h3" gutterBottom component="div">
+        Activity
+      </Typography>
 
          <Select
             labelId="demo-controlled-open-select-label"
@@ -284,14 +298,16 @@ const onApplySearch = () => {
         </FormControl>
 
 
-        </Grid>
+    </Grid>
+    <p style={{marginTop: '75px'}}></p>
+<Grid >
 
-        <Grid item xs={6}>
-
- 
+<Typography variant="h3" gutterBottom component="div">
+        Select a Time
+      </Typography>
         <FormControl className={classes.formControl}>
-        <FormLabel component="legend">Time</FormLabel>
-          <label htmlFor="Time">Select a Time: </label>
+        <FormLabel component="legend"></FormLabel>
+          <label htmlFor="Time"> </label>
           <input
             id="Time"
             type="datetime-local"
@@ -299,23 +315,39 @@ const onApplySearch = () => {
             onChange={(event) => setTime(event.target.value)}
           /> 
           </FormControl>
-</Grid>
+          <p style={{marginTop: '75px'}}></p>
+        
+          <Grid >
 
-      <Grid>
-      <SubmitButton
+          <div style ={{ width:'200px',
+display:'flex',
+flexDirection:'row',
+justifyContent:'space-between'
+}}>
+<SubmitButton
               // item={item}
               label={'Submit'}
               onButtonClick={onApplyChanges}
             />
-      </Grid>
-
-      <Grid> 
-      <SearchButton
+            
+<SearchButton
                 // item={item}
                 label={'Search'}
                 onButtonClick={onApplySearch}
-              />    
+              /> 
+</div>
+
+      
       </Grid>
+      <p style={{marginTop: '75px'}}></p>
+      <Grid> 
+         
+      </Grid>
+</Grid>
+
+      
+
+      
 
     <Grid>
 
@@ -371,18 +403,22 @@ const onApplySearch = () => {
         </Typography>
       </Grid>
 
-</Grid>
-  </Container>
+      
 
+          </Card>
+
+    </div>
+
+  
   );
 
 }
 
 const SubmitButton = ({label, onButtonClick }) => (
-  <Button
+  <Button 
     type="button"
     variant="contained"
-    color="secondary"
+    color="success"
     onClick={(event) => onButtonClick(event)}
   >
     {label}
@@ -390,12 +426,14 @@ const SubmitButton = ({label, onButtonClick }) => (
 )
 
 const SearchButton = ({label, onButtonClick }) => (
+  
   <Button
     type="button"
     variant="contained"
-    color="secondary"
+    color="success"
     onClick={(event) => onButtonClick(event)}
   >
     {label}
   </Button>
 )
+

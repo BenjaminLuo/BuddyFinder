@@ -4,33 +4,24 @@ import { createTheme } from '@material-ui/core';
 export const theme = createTheme({
     palette: {
         primary: {
-            main: '#151515',
-            light: '#acaea9',
-            dark: '#acaea9'
+            main: '#99A1A6',
+            light: '#99A1A6',
+            dark: '#99A1A6'
         },
         secondary: {
-            main: '#dedfdd',
-            light: '#dedfdd',
-            dark: '#dedfdd'
+            main: '#99A1A6',
+            light: '#99A1A6',
+            dark: '#99A1A6'
         }
     },
     typography: {
         fontFamily: [
-            '-apple-system',
-            'BlinkMacSystemFont',
-            '"Segoe UI"',
             'Roboto',
-            '"Helvetica Neue"',
-            'Arial',
-            'sans-serif',
-            '"Apple Color Emoji"',
-            '"Segoe UI Emoji"',
-            '"Segoe UI Symbol"',
         ].join(','),
-        h6: {
-            color: '#feecda',
-            fontWeight: '10',
-            fontSize: '14px'
+        h5: {
+            color: '#FFFFFF',
+            fontWeight: '20',
+            fontSize: '16px'
         }
     },
     overrides: {
