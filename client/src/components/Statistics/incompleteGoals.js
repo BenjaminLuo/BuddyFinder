@@ -7,8 +7,14 @@ export const IncompleteGoals = ({ tabToggle, goalObject, ToDoItem, handleAdditio
     return (
         <TabPanel value={tabToggle} index={0}>
 
+            <Typography>
+                Press enter to update the value
+            </Typography>
+
+            <br />
+
             {/* Retrieves all existing user goals */}
-            {goalObject ? goalObject.map((item, index) => (
+            {goalObject.length ? goalObject.map((item, index) => (
                 item.completed ? '' :
                     ToDoItem({ itemID: item.id.toString(), value: item.goal, index: index })
             )) : null}
