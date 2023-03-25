@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useRef, useState } from "react";
 import './landing.css';
 import {
     Card,
