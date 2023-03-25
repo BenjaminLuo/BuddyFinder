@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 import { SiteInformation } from './siteInformation';
 import { confirmationMessage } from './confirmationMessage';
-const serverURL = "";
+import GetFetch from '../common'
 
 // Local styles
 const useStyles = makeStyles(() => {
@@ -43,31 +43,14 @@ export default function Contact(props) {
     const [errorBody, triggerErrorBody] = React.useState(false);
     const [userID, setUserID] = React.useState(1);
 
-    const addTicket = () => {
-        callApiAddTicket()
-            .then(res => {
-                console.log("callApiAddInterest returned: ", res)
-                var parsed = JSON.parse(res.express);
-                console.log("callApiAddInterest parsed: ", parsed);
-            })
-    }
-
-    const callApiAddTicket = async () => {
-        const url = serverURL + "/api/contactUs";
-        const response = await fetch(url, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                name: name,
-                email: email,
-                body: body,
-                userID: userID
-            })
-        });
-        const responseInterest = await response.json();
-        if (response.status !== 200) throw Error(responseInterest.message);
-        console.log("User settings: ", responseInterest);
-        return responseInterest;
+    // Adds content to database
+    function addTicket() {
+        return GetFetch('contactUs', {
+            name: name,
+            email: email,
+            body: body,
+            userID: userID
+        })
     }
 
     // Form submission
