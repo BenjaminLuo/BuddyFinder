@@ -9,7 +9,6 @@ import Landing from '../Landing';
 import PrivateRoute from '../Navigation/PrivateRoute.js';
 import Appbar from '../Appbar';
 import { theme } from './theme';
-import CssBaseline from '@mui/material/CssBaseline';
 
 
 
@@ -19,7 +18,6 @@ class App extends Component {
   render() {
     return (
       <ThemeProvider theme={theme}>
-        <CssBaseline enableColorScheme />
         <Router>
           <Appbar />
           <div>

@@ -27,18 +27,5 @@ export const theme = createTheme({
             fontWeight: '10',
             fontSize: '14px'
         },
-    },
-    overrides: {
-        MuiCssBaseline: {
-            '@global': {
-                '*': {
-                    'scrollbar-width': 'thin',
-                },
-                '*::-webkit-scrollbar': {
-                    width: '4px',
-                    height: '4px',
-                }
-            }
-        }
     }
 });
