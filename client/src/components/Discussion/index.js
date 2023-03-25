@@ -12,11 +12,11 @@ import {
 const useStyles = makeStyles((theme) => {
   return {
     page: {
-      backgroundColor: 'lightgrey',
+      backgroundColor: '#A8C69F',
       backgroundSize: 'cover',
       opacity: 0.9,
-      padding: '40px',
-      paddingTop: '120px',
+      //padding: '40px',
+      paddingTop: '40px',
       minHeight: '100vh',
     },
   }
@@ -49,8 +49,8 @@ const Discussion = () => {
   const [addedNewsTerm, setAddedNewsTerm] = React.useState('');
   const [addedNameTerm, setAddedNameTerm] = React.useState('');
 
-  const [addedNewsTerm, setAddedNewsTerm] = React.useState('');
-  const [addedNameTerm, setAddedNameTerm] = React.useState('');
+  //const [addedNewsTerm, setAddedNewsTerm] = React.useState('');
+  //const [addedNameTerm, setAddedNameTerm] = React.useState('');
   const [newsList, setNewsList] = React.useState([]);
 
   const handleNewsSearch = (event) => {
@@ -105,11 +105,14 @@ const Discussion = () => {
   return (
     <div>
       <Container maxWidth={false} className={classes.page}>
-        <Grid container spacing={2}>
+      <Typography variant="h3" gutterBottom component="div">
+        News 
+      </Typography>
+        <Grid container spacing={1}>
           {/* Left container */}
           <Grid item xs={1} />
           <Grid item xs={6}>
-            <Typography gutterBottom variant="h5" style={{ marginBottom: '20px' }}>
+            <Typography gutterBottom variant="h4" style={{ marginBottom: '20px' }}>
               Search
             </Typography>
             <h5>(Case sensitive)</h5>
@@ -127,10 +130,10 @@ const Discussion = () => {
               Keywords: <i>{newsSearchTerm}</i>
             </p>
             <p>
-              Author: <i>{authorTerm}</i> {addedNewsTerm} + {addedNameTerm}
+              Author: <i>{authorTerm}</i> {addedNewsTerm}  {addedNameTerm}
             </p>
             <br></br>
-            <Typography gutterBottom variant="h5" style={{ marginBottom: '20px' }}>
+            <Typography gutterBottom variant="h4" style={{ marginBottom: '20px' }}>
               Add your news
             </Typography>
             <Box
@@ -149,7 +152,7 @@ const Discussion = () => {
               <br></br>
               <Button
                 variant="contained"
-                color="primary"
+                color="success"
                 id={'button'}
 
                  onClick={onApplyAddition}
@@ -164,7 +167,7 @@ const Discussion = () => {
 
           {/* Right container */}
           <Grid item xs={4}>
-            <Typography gutterBottom variant="h5" style={{ marginBottom: '20px' }}>
+            <Typography gutterBottom  variant="h4"  style={{ marginBottom: '20px' }}>
               Your news feed
             </Typography>
 
