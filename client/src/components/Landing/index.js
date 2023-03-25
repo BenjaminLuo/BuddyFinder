@@ -57,7 +57,7 @@ export default function Profile() {
                 align: 'center',
               }}
             >
-              Buddy Finder
+              Buddy Finder 
             </Typography>
           </Card>
           <Card
@@ -79,7 +79,7 @@ export default function Profile() {
                 align: 'left',
               }}
             >
-              Welcome to Buddy Finder! On our website you'll be able to find other students with similar interests and schedule times to meet them. Get started now!</Typography>
+              Welcome to Buddy Finder! On this website you'll be able to find other students with similar interests and schedule times to meet them. Get started now!</Typography>
           </Card>
 
           

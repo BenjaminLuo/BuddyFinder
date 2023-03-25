@@ -15,6 +15,7 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import './calendar.css';
 
 const serverURL = "";
 
@@ -68,8 +69,6 @@ const AddEventForm = ({ isOpen, onClose, onSubmit }) => {
     setEventName('');
     setStartTime('');
     setEndTime('');
-
-
     addCalendar();
 
 
@@ -145,7 +144,7 @@ const AddEventForm = ({ isOpen, onClose, onSubmit }) => {
             </Select>
           </FormControl>
         </Grid>
-        <button type="submit">Submit</button>
+        <Button variant="contained">Submit</Button>
       </form>
     </div>
   ) : null;
@@ -159,59 +158,9 @@ const Calendar = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [events, setEvents] = useState([]);
 
-  /*
-  useEffect(() => {
-    const storedEvents = JSON.parse(localStorage.getItem('calendarEvents')) || [];
-    setEvents(storedEvents);
-  }, []);
-  useEffect(() => {
-    localStorage.setItem('calendarEvents', JSON.stringify(events));
-  }, [events]);
-
-
-
-
-*/
-
 
   const addEvent = (newEvent) => {
-/*
 
-    const addCalendar = () => {
-      callApiAddCalendar()
-        .then(res => {
-          console.log("callApiAddCalendar returned: ", res)
-          var parsed = JSON.parse(res.express);
-          console.log("callApiAddCalendar parsed: ", parsed);
-        })
-    }
-
-    const callApiAddCalendar = async () => {
-      const url = serverURL + "/api/addCalendar";
-      console.log(url);
-
-      //console.log(newEvent.eventName + " " + newEvent.startTime + " " + newEvent.endTime );
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-
-        },
-        body: JSON.stringify({
-          eventName: newEvent.eventName,
-          startTime: newEvent.startTime,
-          endTime: newEvent.endTime,
-          //userID: userID       
-        })
-      });
-      const responseCalendar = await response.json();
-      if (response.status !== 200) throw Error(responseCalendar.message);
-      console.log("User settings: ", responseCalendar);
-      return responseCalendar;
-    }
-
-
-*/
 
     if (newEvent.eventRecurrence === 'none') {
       setEvents([...events, {
@@ -220,7 +169,6 @@ const Calendar = () => {
         end: newEvent.endTime,
         color: newEvent.eventColour,
       }]);
-      //addCalendar();
     } else {
       let start = new Date(newEvent.startTime);
       let end = new Date(newEvent.endTime);
@@ -245,7 +193,6 @@ const Calendar = () => {
             end: new Date(end),
             color: newEvent.eventColour,
           });
-        //  addCalendar();
         }
       }
 
@@ -267,20 +214,14 @@ const Calendar = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <p>
 
       </p>
-      <p>
-
-      </p>
-      <h1>
-        Calendar Page
-      </h1>
 
       <Button
-        variant="outlined"
-        sx={{ color: 'black' }}
+        variant= "contained"
+        color = "primary"
         size="large"
         onClick={() => {
           setIsFormOpen(true);
