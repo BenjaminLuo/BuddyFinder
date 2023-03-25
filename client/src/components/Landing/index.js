@@ -9,7 +9,7 @@ export default function Profile() {
 
     return (
         <div align="center" style={{
-            backgroundcolor: '#5C5D8D',
+            //backgroundcolor: '#5C5D8D',
           }}>
             
           <Card

@@ -215,7 +215,7 @@ const onApplySearch = () => {
             <Card style={{color: 'white',
               backgroundColor: '#A8C69F',
               marginTop: '50px',
-              height: '750px',
+              height: '1300px',
               width: '900px',
               marginBottom: '50px'}}>
 
