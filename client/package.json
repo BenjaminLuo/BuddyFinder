@@ -15,6 +15,7 @@
     "@material/ripple": "^4.0.0",
     "eslint": "^6.6.0",
     "fullcalendar": "^6.1.4",
+    "firebase": "^5.10.1",
     "install": "^0.12.2",
     "mathjs": "^5.10.3",
     "node-fetch": "^2.6.1",

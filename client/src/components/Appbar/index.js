@@ -15,7 +15,6 @@ import {
 
 import history from '../Navigation/history';
 import { NavButton } from './NavButton';
-import { SignIn } from '../Authentication/SignIn';
 
 
 const useStyles = makeStyles(() => {
@@ -120,7 +119,7 @@ export default function NavBar() {
           <Typography variant="h4" style={{ paddingBottom: '30px' }} >
             Sign In
           </Typography>
-          <SignIn />
+          {/* <SignIn /> */}
         </Box>
       </Modal>
 
