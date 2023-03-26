@@ -10,17 +10,14 @@ import {
 export const NavButton = ({ redirect, linkText }) => {
     return (
 
-        <Grid item
-            xs={1}
-            sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 
-            <Button
-                onClick={() => history.push(redirect)}
-                sx={{ my: 2, display: 'block' }}>
-                <Typography variant="h6"> {linkText} </Typography>
-            </Button>
+        <Button
+            onClick={() => history.push(redirect)}
+            sx={{ my: 2, display: 'block' }}
+            style={{ marginLeft: '15px', textTransform: 'none' }}>
+            <Typography variant="h6"> {linkText} </Typography>
+        </Button>
 
-        </Grid>
 
     );
 };

@@ -40,6 +40,9 @@ const useStyles = makeStyles(() => {
       padding: '40px',
       zoom: '0.8'
     },
+    toolbarButtons: {
+      marginLeft: 'auto'
+    }
   }
 })
 
@@ -74,7 +77,7 @@ export default function NavBar() {
 
   const handleAuth = () => {
     if (authUser) {
-      userSignOut()
+      userSignOut();
     } else {
       handleOpen();
       handleDropdownClose();
@@ -87,11 +90,9 @@ export default function NavBar() {
       <AppBar position="sticky">
         <Toolbar variant="dense">
 
-          {/* Grid to organize redirects */}
-          <Grid container spacing={2}>
-            <NavButton redirect={"/"} linkText={"Home"} />
-            <Grid xs={4} item></Grid> {/* Empty space for right-aligning the NavButtons*/}
+          <NavButton redirect={"/"} linkText={"Home"} />
 
+          <div className={classes.toolbarButtons}>
             <NavButton redirect={"/Matching"} linkText={"Matching"} />
             <NavButton redirect={"/Discussion"} linkText={"News"} />
             <NavButton redirect={"/QA"} linkText={"Forum"} />
@@ -100,29 +101,34 @@ export default function NavBar() {
             <NavButton redirect={"/Search"} linkText={"Search"} />
 
             {/* Dropdown element for profile components */}
-            <Grid
-              item xs={1}
-              sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              <Button title="dropbutton" data-testid="dropdownButton" onClick={handleMenu}>
-                <Typography variant="h6">User ▼</Typography>
-              </Button>
-              <Menu
-                anchorEl={anchorEl}
-                getContentAnchorEl={null}
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-                transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleDropdownClose}>
-                <MenuItem data-testid={'auth'} onClick={handleAuth}>{authUser ? "Sign Out" : "Sign In"}</MenuItem>
-                <MenuItem data-testid={'profile'} onClick={() => dropdownClick("Profile")}>Profile</MenuItem>
-                <MenuItem data-testid={'settings'} onClick={() => dropdownClick("Settings")}>Settings</MenuItem>
-                <MenuItem data-testid={'contact'} onClick={() => dropdownClick("Contact")}>Contact</MenuItem>
-                <MenuItem data-testid={'faq'} onClick={() => dropdownClick("FAQ")}>FAQ</MenuItem>
-              </Menu>
-            </Grid>
-
-          </Grid>
+            <Button
+              title="dropbutton"
+              data-testid="dropdownButton"
+              onClick={handleMenu}
+              style={{ marginLeft: '15px', textTransform: 'none' }}>
+              <Typography variant="h6">
+                {
+                  authUser ? `${authUser.email} ▼`
+                    :
+                    "User ▼"
+                }
+              </Typography>
+            </Button>
+            <Menu
+              anchorEl={anchorEl}
+              getContentAnchorEl={null}
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+              transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleDropdownClose}>
+              <MenuItem data-testid={'auth'} onClick={handleAuth}>{authUser ? "Sign Out" : "Sign In"}</MenuItem>
+              <MenuItem data-testid={'profile'} onClick={() => dropdownClick("Profile")}>Profile</MenuItem>
+              <MenuItem data-testid={'settings'} onClick={() => dropdownClick("Settings")}>Settings</MenuItem>
+              <MenuItem data-testid={'contact'} onClick={() => dropdownClick("Contact")}>Contact</MenuItem>
+              <MenuItem data-testid={'faq'} onClick={() => dropdownClick("FAQ")}>FAQ</MenuItem>
+            </Menu>
+          </div>
 
         </Toolbar>
       </AppBar>
