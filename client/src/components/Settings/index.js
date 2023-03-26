@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 
 import {
     Typography,
@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core';
 import { TabPanel } from '../../components/UI/TabPanel';
 import GetFetch from '../common'
+import { AuthContext } from '../Authentication/AuthDetails'
 
 const useStyles = makeStyles((theme) => {
     return {
@@ -38,8 +39,8 @@ const validation_init = {
 
 
 export default function Settings() {
-    const userID = 20890448;
     const classes = useStyles();
+    const { authUser } = useContext(AuthContext);
 
     // State variable for storing user data
     const [data, changeData] = React.useState({});
@@ -52,20 +53,20 @@ export default function Settings() {
     const handleChange = (event, newValue) => setValue(newValue);
 
     function getUserSettings() {
-        return GetFetch('getUserSettings', { userID: userID })
+        return GetFetch('getUserSettings', { userID: authUser?.uid })
     }
     function updateUserSettings(fieldToChange, newVal) {
         return GetFetch('updateUserSettings', {
             fieldToChange: fieldToChange,
             newVal: newVal,
-            userID: userID
+            userID: authUser?.uid
         })
     }
 
     // Initializing user data
     useEffect(() => {
-        getUserSettings().then(user => changeData(user))
-    }, [])
+        getUserSettings().then(user => changeData(user.length === 0 ? user : user[0]))
+    }, [authUser])
 
     // Update user account information
     const handleSubmit = (e) => {
@@ -171,7 +172,7 @@ export default function Settings() {
                 variant="scrollable"
                 value={value}
                 onChange={handleChange}
-                style={{ backgroundColor: 'white', paddingTop: '40px', marginTop: '-30px' }}
+                style={{ backgroundColor: 'white', paddingTop: '40px', height: '100vh' }}
                 sx={{ borderRight: 1, borderColor: 'divider' }}>
                 <Tab label="General" />
                 <Tab label="Account" />
@@ -186,7 +187,7 @@ export default function Settings() {
                 <InputField field={"Program"} label={data.program} id={'program'} />
                 <InputField field={"Academic Year"} label={data.term} id={'term'} />
                 <InputField field={"Bio"} label={data.bio} id={'bio'} paragraph />
-                <InputField field={"Interests"} label={data.interests?.join(', ')} id={'interests'} paragraph />
+                {/* <InputField field={"Interests"} label={data.interests?.join(', ')} id={'interests'} paragraph /> */}
 
             </TabPanel>
 

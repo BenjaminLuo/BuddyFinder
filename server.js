@@ -100,14 +100,14 @@ app.post('/api/addChat', (req, res) => {
 
 app.post('/api/getUserSettings', (req, res) => {
 	let connection = mysql.createConnection(config);
-	let sql = `SELECT * from user_settings WHERE user_id=${req.body.userID}`;
+	let sql = `SELECT * from user_settings WHERE user_id="${req.body.userID}"`;
 
 	connection.query(sql, [], (error, results, fields) => {
 		if (error) {
 			return console.error(error.message);
 		}
 
-		res.send(results[0]);
+		res.send(results);
 	});
 
 	connection.end();
@@ -117,9 +117,10 @@ app.post('/api/updateUserSettings', (req, res) => {
 	let connection = mysql.createConnection(config);
 
 	let sql = `
-		UPDATE user_settings 
-		SET ${req.body.fieldToChange}="${req.body.newVal}"
-		WHERE user_id=${req.body.userID}`;
+		INSERT INTO user_settings (user_id, ${req.body.fieldToChange})
+		VALUES ("${req.body.userID}", "${req.body.newVal}")
+		ON DUPLICATE KEY UPDATE
+		${req.body.fieldToChange}="${req.body.newVal}"`;
 
 	connection.query(sql, [], (error, results, fields) => {
 		if (error) {
@@ -137,7 +138,7 @@ app.post('/api/updateUserSettings', (req, res) => {
 
 app.post('/api/getUserGoals', (req, res) => {
 	let connection = mysql.createConnection(config);
-	let sql = `SELECT * from goal_tracking WHERE user_id=${req.body.userID}`;
+	let sql = `SELECT * from goal_tracking WHERE user_id="${req.body.userID}"`;
 
 	connection.query(sql, [], (error, results, fields) => {
 		if (error) {
