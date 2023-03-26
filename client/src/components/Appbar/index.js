@@ -4,21 +4,16 @@ import { auth } from "../Firebase/firebase";
 import {
   AppBar,
   Toolbar,
-  Button,
-  Grid,
-  makeStyles,
-  Modal,
-  Box,
-  Menu,
-  Typography,
-  MenuItem
+  makeStyles
 } from '@material-ui/core';
 
 
 import history from '../Navigation/history';
 import { NavButton } from './NavButton';
-import SignIn from '../Authentication/SignIn'
 import { AuthContext } from '../Authentication/AuthDetails'
+import { DropDownOptions } from './DropDownOptions';
+import { DropDownButton } from './DropDownButton';
+import { SignInModal } from './SignInModal';
 
 
 const useStyles = makeStyles(() => {
@@ -101,47 +96,19 @@ export default function NavBar() {
             <NavButton redirect={"/Search"} linkText={"Search"} />
 
             {/* Dropdown element for profile components */}
-            <Button
-              title="dropbutton"
-              data-testid="dropdownButton"
-              onClick={handleMenu}
-              style={{ marginLeft: '15px', textTransform: 'none' }}>
-              <Typography variant="h6">
-                {
-                  authUser ? `${authUser.email} ▼`
-                    :
-                    "User ▼"
-                }
-              </Typography>
-            </Button>
-            <Menu
-              anchorEl={anchorEl}
-              getContentAnchorEl={null}
-              anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-              transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleDropdownClose}>
-              <MenuItem data-testid={'auth'} onClick={handleAuth}>{authUser ? "Sign Out" : "Sign In"}</MenuItem>
-              <MenuItem data-testid={'profile'} onClick={() => dropdownClick("Profile")}>Profile</MenuItem>
-              <MenuItem data-testid={'settings'} onClick={() => dropdownClick("Settings")}>Settings</MenuItem>
-              <MenuItem data-testid={'contact'} onClick={() => dropdownClick("Contact")}>Contact</MenuItem>
-              <MenuItem data-testid={'faq'} onClick={() => dropdownClick("FAQ")}>FAQ</MenuItem>
-            </Menu>
+            {DropDownButton(handleMenu, authUser)}
+            {DropDownOptions(anchorEl, handleDropdownClose, handleAuth, authUser, dropdownClick)}
           </div>
 
         </Toolbar>
       </AppBar>
 
-      <Modal
-        open={open}
-        onClose={handleModalClose}>
-        <Box className={classes.modal}>
-          <SignIn />
-        </Box>
-      </Modal>
+      {/* Modal and sign in / registration form */}
+      {SignInModal(open, handleModalClose, classes)}
 
     </>
   );
 }
+
+
 

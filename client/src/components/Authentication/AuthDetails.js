@@ -4,6 +4,8 @@ import { auth } from "../Firebase/firebase";
 
 export const AuthContext = React.createContext();
 
+// Context manager for user authentication
+// Updates the state whenever the user signs in or out
 const AuthDetails = ({ children }) => {
   const [authUser, setAuthUser] = useState(null);
 
@@ -14,7 +16,6 @@ const AuthDetails = ({ children }) => {
       } else {
         setAuthUser(null);
       }
-      console.log('test')
     });
 
     return () => {
