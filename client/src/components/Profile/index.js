@@ -10,6 +10,7 @@ import { userPosts } from './userPosts';
 import { userInterests } from './userInterests';
 import { userComments } from './userComments';
 import { profileInformation } from './profileInformation';
+import GetFetch from '../common'
 
 const useStyles = makeStyles(() => {
     return {
@@ -70,7 +71,7 @@ const userStub = {
     ]
 };
 
-export default function Profile(props) {
+export default function Profile({ userID }) {
     const classes = useStyles();
 
     // Declaring user object
@@ -83,14 +84,18 @@ export default function Profile(props) {
         comments: ['None']
     });
 
+    function getUserData() {
+        return GetFetch('getUserSettings', { userID: userID })
+    }
+
     // Initializing user data
     useEffect(() => {
-        if (props.user) {
-            setUser(props.user)
+        if (userID) {
+            setUser(userID)
         } else {
             setUser(userStub)
         }
-    }, [props])
+    }, [])
 
     return (
         <Container maxWidth={false} className={classes.page}>

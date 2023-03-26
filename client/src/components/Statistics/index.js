@@ -20,7 +20,7 @@ import GetFetch from '../common'
 // --------------------------------------------------- /\ Imports
 // --------------------------------------------------- \/ Styles
 
-const useStyles = makeStyles((theme) => {
+const useStyles = makeStyles(() => {
   return {
     page: {
       opacity: 0.9,
@@ -68,7 +68,7 @@ export default function Statistics() {
   useEffect(() => {
     getUserGoals().then(goals => {
       updateGoalObject(goals)
-      upID(goals[goals.length - 1].id)
+      upID(goals.length !== 0 ? goals[goals.length - 1].id : 0)
     })
   }, [])
 

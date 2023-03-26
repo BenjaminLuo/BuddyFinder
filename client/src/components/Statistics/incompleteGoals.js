@@ -14,7 +14,7 @@ export const IncompleteGoals = ({ tabToggle, goalObject, ToDoItem, handleAdditio
             <br />
 
             {/* Retrieves all existing user goals */}
-            {goalObject.length ? goalObject.map((item, index) => (
+            {goalObject ? goalObject.map((item, index) => (
                 item.completed ? '' :
                     ToDoItem({ itemID: item.id.toString(), value: item.goal, index: index })
             )) : null}
