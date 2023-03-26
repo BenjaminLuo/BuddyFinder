@@ -13,6 +13,8 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 app.use(express.static(path.join(__dirname, "client/build")));
 
+let today = new Date();
+
 
 
 app.post('/api/addInterest', (req, res) => {
@@ -52,9 +54,10 @@ app.post('/api/contactUs', (req, res) => {
 	let body = req.body.body;
 	let email = req.body.email;
 	let user_id = req.body.userID;
+	let date = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`
 
-	let sql = `INSERT INTO contact_us (name, body, email, user_id1) VALUES (?, ?, ?, ?)`;
-	connection.query(sql, [name, body, email, user_id], (error, results, fields) => {
+	let sql = `INSERT INTO contact_us (name, body, user_id, email, date) VALUES (?, ?, ?, ?, ?)`;
+	connection.query(sql, [name, body, user_id, email, date], (error, results, fields) => {
 		if (error) {
 			return console.error(error.message);
 		}
@@ -149,8 +152,6 @@ app.post('/api/getUserGoals', (req, res) => {
 
 app.post('/api/updateUserGoals', (req, res) => {
 	let connection = mysql.createConnection(config);
-
-	let today = new Date();
 
 	let sql = `
 		UPDATE goal_tracking

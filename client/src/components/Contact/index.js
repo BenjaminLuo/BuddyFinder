@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../Authentication/AuthDetails'
 
 import {
     Container,
@@ -26,8 +27,9 @@ const useStyles = makeStyles(() => {
 })
 
 
-export default function Contact(props) {
+export default function Contact() {
     const classes = useStyles();
+    const { authUser } = useContext(AuthContext);
 
     // Form toggle
     const [submitted, updateSubmitted] = React.useState(false);
@@ -41,7 +43,6 @@ export default function Contact(props) {
     const [errorName, triggerErrorName] = React.useState(false);
     const [errorEmail, triggerErrorEmail] = React.useState(false);
     const [errorBody, triggerErrorBody] = React.useState(false);
-    const [userID, setUserID] = React.useState(1);
 
     // Adds content to database
     function addTicket() {
@@ -49,7 +50,7 @@ export default function Contact(props) {
             name: name,
             email: email,
             body: body,
-            userID: userID
+            userID: authUser?.uid
         })
     }
 
