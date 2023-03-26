@@ -17,6 +17,8 @@ import {
   Card
 } from '@material-ui/core';
 
+const serverURL = "";
+
 // --------------------------------------------------- /\ Imports
 // --------------------------------------------------- \/ Styles
 
@@ -35,6 +37,38 @@ const useStyles = makeStyles((theme) => {
 
 export default function QA(props) {
 
+  const addChat = () => {
+    callApiAddChat()
+      .then(res => {
+        console.log("callApiAddChat returned: ", res)
+        var parsed = JSON.parse(res.express);
+        console.log("callApiAddChat parsed: ", parsed);
+        //    setActivitiesList(parsed);
+      })
+  }
+
+  const callApiAddChat = async () => {
+    const url = serverURL + "/api/addChat";
+    console.log(url);
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+
+      },
+      body: JSON.stringify({
+        post: post,
+        ran: ran,
+        userID: userID
+      })
+    });
+    const responseInterest = await response.json();
+    if (response.status !== 200) throw Error(responseInterest.message);
+    console.log("User settings: ", responseInterest);
+    return responseInterest;
+  }
+
   const classes = useStyles();
 
   const [userID, setUserID] = React.useState(1);
@@ -44,7 +78,7 @@ export default function QA(props) {
   const [ran, setRan] = React.useState('');
   const [postList, setPostList] = React.useState([]);
 
-  const chat = ["Ephei", "Fuad", "Tea"];
+  const chat = ["1", "2", "3"];
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -82,7 +116,7 @@ export default function QA(props) {
     setPostList(rez);
     console.log("List is: ", postList);
 
-    //addInterest();
+    addChat();
   }
 
   return (

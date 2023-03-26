@@ -13,6 +13,7 @@ import FAQ from '../FAQ';
 import Search from '../Search';
 import Profile from '../Profile';
 import QA from '../QA';
+import Similar from "../Similar";
 
 // eslint-disable-next-line
 export default function PrivateRoute() {
@@ -30,6 +31,7 @@ export default function PrivateRoute() {
         <Route path="/Search" exact component={Search} />
         <Route path="/Profile" exact component={Profile} />
         <Route path="/QA" exact component={QA} />
+        <Route path="/Similar" exact component={Similar} />
       </Switch>
     </Router>
   );

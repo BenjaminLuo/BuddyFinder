@@ -66,7 +66,34 @@ app.post('/api/contactUs', (req, res) => {
 	connection.end();
 });
 
+app.post('/api/addChat', (req, res) => {
+	// let string = JSON.stringify(recipes);
 
+	let connection = mysql.createConnection(config);
+
+	let user_post = req.body.post;
+	let user_ran = req.body.ran;
+	let user_id = req.body.userID;
+
+
+	let sql = `INSERT INTO chat (content, user_to, user_id)  
+	VALUES (?, ?, ?)`;
+	console.log(sql);
+	let data = [user_ran, user_post, user_id];
+	connection.query(sql, data, (error, results, fields) => {
+		if (error) {
+			return console.error(error.message);
+		}
+
+		console.log("Sent items:" + data);
+		console.log(results);
+		let string = JSON.stringify(results);
+		let obj = JSON.parse(string);
+		res.send({ express: string });
+	});
+
+	connection.end();
+});
 
 app.post('/api/getUserSettings', (req, res) => {
 	let connection = mysql.createConnection(config);
