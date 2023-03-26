@@ -15,6 +15,7 @@ import { DropDownOptions } from './DropDownOptions';
 import { DropDownButton } from './DropDownButton';
 import { SignInModal } from './SignInModal';
 
+import Similar from '../Similar';
 
 const useStyles = makeStyles(() => {
   return {
@@ -94,6 +95,7 @@ export default function NavBar() {
             <NavButton redirect={"/Calendar"} linkText={"Calendar"} />
             <NavButton redirect={"/Statistics"} linkText={"Statistics"} />
             <NavButton redirect={"/Search"} linkText={"Search"} />
+            <NavButton redirect={"/Similar"} linkText={"Similar"} />
 
             {/* Dropdown element for profile components */}
             {DropDownButton(handleMenu, authUser)}

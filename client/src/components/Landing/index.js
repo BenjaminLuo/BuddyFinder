@@ -3,8 +3,11 @@ import './landing.css';
 import {
     Card,
     Typography,
-    Link
-  } from '@material-ui/core'; 
+    Link,
+    Paper,
+    Box
+  } from '@material-ui/core';
+  import { createTheme, ThemeProvider, styled } from '@material-ui/core/styles'; 
 import history from "../Navigation/history";  
 
 const AudioContext = window.AudioContext || window.webkitAudioContext
@@ -36,6 +39,7 @@ export default function Profile() {
     };
 
     return (
+
         <div align="center" style={{
             backgroundcolor: '#5C5D8D',
           }}>
@@ -82,13 +86,10 @@ export default function Profile() {
               }}
             >
               Welcome to Buddy Finder! On this website you'll be able to find other students with similar interests and schedule times to meet them. Get started now!</Typography>
-         
-         <Link color="inherit" style={{ cursor: "pointer" }} onClick={() => history.push('/Similar')} >
-         <Typography> Go to Similar </Typography>
-         </Link>
+        
           </Card>
 
-          
+          Only use this in case of emergencies!
           <button onClick={toggleOscillator} data-playing={dataPlaying}>
                         <span>{dataPlaying ? "Pause" : "Play"}</span>
           </button>    
