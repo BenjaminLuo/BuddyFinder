@@ -73,6 +73,7 @@ export default function NavBar() {
   const handleAuth = () => {
     if (authUser) {
       userSignOut();
+      history.push("/");
     } else {
       handleOpen();
       handleDropdownClose();
