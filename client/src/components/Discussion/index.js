@@ -149,7 +149,7 @@ const Discussion = () => {
     }
   });
 
-  // FILTER SEARCH COMPONENT FOR SOCIAL ***********************************************
+  // FILTER SEARCH COMPONENT FOR SOCIAL *********************************************
   const foundSocialNewsbyTitle = newsSocial.filter(function (item) {
     if (newsSearchTerm) {
       return item.title.includes(newsSearchTerm);
@@ -164,9 +164,9 @@ const Discussion = () => {
     } else {
       return item;
     }
-  });
+  });git 
 
-  // FILTER SEARCH COMPONENT FOR PHYSICAL ACTIVITY ***********************************************
+  // FILTER SEARCH COMPONENT FOR PHYSICAL ACTIVITY *********************************************
   const foundPhysNewsbyTitle = newsPhys.filter(function (item) {
     if (newsSearchTerm) {
       return item.title.includes(newsSearchTerm);
