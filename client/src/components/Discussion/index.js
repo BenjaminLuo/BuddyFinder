@@ -120,13 +120,13 @@ const Discussion = () => {
             </Typography>
             <h5>(Case sensitive)</h5>
             <Typography>By news</Typography>
-            <Search2
+            <Search
               label="By news title: "
               onSearch={handleNewsSearch}
             />
             <br></br>
             <Typography>By author</Typography>
-            <Search2
+            <Search
               label="By news author: "
               onSearch={handleAuthorSearch}
             />
@@ -214,18 +214,6 @@ const Discussion = () => {
 }
 
 const Search = (props) => (
-  <div>
-    <label htmlFor="search">{props.label}</label>
-    <input
-      id="search"
-      type="text"
-      onChange={props.onSearch}
-    />
-
-  </div>
-);
-
-const Search2 = (props) => (
   <div>
     <TextField id="outlined-basic" label="Search" variant="outlined" onChange={props.onSearch} />
   </div>
