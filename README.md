@@ -1,5 +1,5 @@
 ## Project Description
-___
+BuddyFinder is a social media application that connects you with other people of similar interests as you. One can use this app to match with somebody for a certain activity, participate in discussion forums, check the latest news feed, organise event calendar and to-do lists, see usage statistics and more. 
 
 MSCI 342 project, by 
 
