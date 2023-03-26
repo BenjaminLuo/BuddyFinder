@@ -1,4 +1,4 @@
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { auth } from "../Firebase/firebase";
 
@@ -21,14 +21,6 @@ const AuthDetails = ({ children }) => {
       listen();
     };
   }, []);
-
-  const userSignOut = () => {
-    signOut(auth)
-      .then(() => {
-        console.log("sign out successful");
-      })
-      .catch((error) => console.log(error));
-  };
 
   return (
     <AuthContext.Provider

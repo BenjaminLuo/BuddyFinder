@@ -8,9 +8,6 @@ import Landing from '../Landing';
 import PrivateRoute from '../Navigation/PrivateRoute.js';
 import Appbar from '../Appbar';
 import { theme } from './theme';
-
-import SignIn from '../Authentication/SignIn';
-import SignUp from '../Authentication/SignUp';
 import AuthDetails from '../Authentication/AuthDetails';
 
 
@@ -24,9 +21,6 @@ class App extends Component {
             <Appbar />
             <div className="App">
               <PrivateRoute exact path="/" component={Landing} />
-              {/* <SignIn /> */}
-              {/* <SignUp /> */}
-              {/* <AuthDetails /> */}
             </div>
           </Router>
         </AuthDetails>

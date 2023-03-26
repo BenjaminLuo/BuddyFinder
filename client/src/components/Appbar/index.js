@@ -1,4 +1,6 @@
 import React, { useContext } from 'react';
+import { signOut } from "firebase/auth";
+import { auth } from "../Firebase/firebase";
 import {
   AppBar,
   Toolbar,
@@ -33,8 +35,7 @@ const useStyles = makeStyles(() => {
       left: '50%',
       transform: 'translate(-50%, -50%)',
       width: '33%',
-      minHeight: '70%',
-      backgroundColor: 'lightgrey',
+      backgroundColor: 'white',
       border: '0px',
       padding: '40px',
       zoom: '0.8'
@@ -58,16 +59,26 @@ export default function NavBar() {
   const handleOpen = () => setOpen(true);
   const handleModalClose = () => setOpen(false);
 
-
   const dropdownClick = (redirect) => {
     handleDropdownClose();
     history.push(redirect);
   }
 
+  const userSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        console.log("sign out successful");
+      })
+      .catch((error) => console.log(error));
+  };
+
   const handleAuth = () => {
-    handleOpen();
-    handleDropdownClose();
-    console.log(authUser)
+    if (authUser) {
+      userSignOut()
+    } else {
+      handleOpen();
+      handleDropdownClose();
+    }
   }
 
 
@@ -103,7 +114,7 @@ export default function NavBar() {
                 keepMounted
                 open={Boolean(anchorEl)}
                 onClose={handleDropdownClose}>
-                <MenuItem data-testid={'auth'} onClick={handleAuth}>Sign In</MenuItem>
+                <MenuItem data-testid={'auth'} onClick={handleAuth}>{authUser ? "Sign Out" : "Sign In"}</MenuItem>
                 <MenuItem data-testid={'profile'} onClick={() => dropdownClick("Profile")}>Profile</MenuItem>
                 <MenuItem data-testid={'settings'} onClick={() => dropdownClick("Settings")}>Settings</MenuItem>
                 <MenuItem data-testid={'contact'} onClick={() => dropdownClick("Contact")}>Contact</MenuItem>
@@ -120,9 +131,6 @@ export default function NavBar() {
         open={open}
         onClose={handleModalClose}>
         <Box className={classes.modal}>
-          <Typography variant="h4" style={{ paddingBottom: '30px' }} >
-            Sign In
-          </Typography>
           <SignIn />
         </Box>
       </Modal>
