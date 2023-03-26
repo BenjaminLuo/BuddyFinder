@@ -44,14 +44,14 @@ const Discussion = () => {
     },
   ];
 
-  const [newsSearchTerm, setNewsSearchTerm] = React.useState('');
-  const [authorTerm, setAuthorTerm] = React.useState('');
-  const [addedNewsTerm, setAddedNewsTerm] = React.useState('');
-  const [addedNameTerm, setAddedNameTerm] = React.useState('');
-
-  //const [addedNewsTerm, setAddedNewsTerm] = React.useState('');
-  //const [addedNameTerm, setAddedNameTerm] = React.useState('');
+  const [newsSearchTerm, setNewsSearchTerm] = React.useState(''); //search by news
+  const [authorTerm, setAuthorTerm] = React.useState(''); //search by author
+  const [addedNewsTerm, setAddedNewsTerm] = React.useState(''); //user inputted news
+  const [addedNameTerm, setAddedNameTerm] = React.useState(''); //user inputted author
   const [newsList, setNewsList] = React.useState([]);
+
+  // validation checks
+  const [error, seterror] = React.useState(false);
 
   const handleNewsSearch = (event) => {
     setNewsSearchTerm(event.target.value);
@@ -87,27 +87,29 @@ const Discussion = () => {
 
 
   const onApplyAddition = () => {
-    const q = {
-      Names: addedNameTerm,
-      News: addedNewsTerm,
-     }
- 
-     let arrayAdd = [...newsList];
-     arrayAdd.push(q); 
- 
-     setNewsList(arrayAdd);
-     console.log("News List is: ", newsList);
- 
-     //handleMovieSearch();
-  }
+    if (addedNewsTerm.length == 0 || addedNameTerm.length == 0) {
+      seterror(true);
+    } else {
+      const q = {
+        Names: addedNameTerm,
+        News: addedNewsTerm,
+      }
 
+      let arrayAdd = [...newsList];
+      arrayAdd.push(q);
+
+      setNewsList(arrayAdd);
+      console.log("News List is: ", newsList);
+
+    }
+  }
 
   return (
     <div>
       <Container maxWidth={false} className={classes.page}>
-      <Typography variant="h3" gutterBottom component="div">
-        News 
-      </Typography>
+        <Typography variant="h3" gutterBottom component="div">
+          News
+        </Typography>
         <Grid container spacing={1}>
           {/* Left container */}
           <Grid item xs={1} />
@@ -116,11 +118,13 @@ const Discussion = () => {
               Search
             </Typography>
             <h5>(Case sensitive)</h5>
+            <Typography>By news</Typography>
             <Search
               label="By news title: "
               onSearch={handleNewsSearch}
             />
             <br></br>
+            <Typography>By author</Typography>
             <Search
               label="By news author: "
               onSearch={handleAuthorSearch}
@@ -130,7 +134,7 @@ const Discussion = () => {
               Keywords: <i>{newsSearchTerm}</i>
             </p>
             <p>
-              Author: <i>{authorTerm}</i> {addedNewsTerm}  {addedNameTerm}
+              Author: <i>{authorTerm}</i>
             </p>
             <br></br>
             <Typography gutterBottom variant="h4" style={{ marginBottom: '20px' }}>
@@ -143,20 +147,26 @@ const Discussion = () => {
               }}
             >
               <div>
-                <TextField fullWidth label="Add your status update" id="addedNews" onChange={handleAddedNews}/>
+                <TextField fullWidth label="Add your status update" id="addedNews" onChange={handleAddedNews} />
+              </div>
+              <div>
+                {(error && addedNewsTerm.length <= 0) ?
+                  <label>Status update is required for posting</label> : ""}
               </div>
               <br></br>
               <div>
                 <TextField id="addedName" label="Your name" variant="standard" onChange={handleAddedName} />
+              </div>
+              <div>
+                {(error && addedNameTerm <= 0) ?
+                  <label>Author name is required for posting</label> : ""}
               </div>
               <br></br>
               <Button
                 variant="contained"
                 color="success"
                 id={'button'}
-
-                 onClick={onApplyAddition}
-
+                onClick={onApplyAddition}
                 style={{ height: '30px', marginLeft: '400px', marginTop: '0px' }}>
                 Add
               </Button>
@@ -167,30 +177,30 @@ const Discussion = () => {
 
           {/* Right container */}
           <Grid item xs={4}>
-            <Typography gutterBottom  variant="h4"  style={{ marginBottom: '20px' }}>
+            <Typography gutterBottom variant="h4" style={{ marginBottom: '20px' }}>
               Your news feed
             </Typography>
 
-           <List list={foundNewsbyAuthor} /> 
-                  <Grid>
-                    <Typography> 
+            <List list={foundNewsbyAuthor} />
+            <Grid>
+              <Typography>
 
-            {newsList.map((item) => {
-              return (
-                <li>
-            <Typography>
-                Place:  {item.Names}
-            </Typography>
+                {newsList.map((item) => {
+                  return (
+                    <li>
+                      <Typography>
+                        Place:  {item.Names}
+                      </Typography>
 
-            <Typography> 
-              Activity:  {item.News}
-            </Typography>  
-            </li>
-            );
-            })}
-                  </Typography> 
-                  
-                  </Grid>
+                      <Typography>
+                        Activity:  {item.News}
+                      </Typography>
+                    </li>
+                  );
+                })}
+              </Typography>
+
+            </Grid>
 
 
             <Grid item xs={1} />
@@ -204,13 +214,7 @@ const Discussion = () => {
 
 const Search = (props) => (
   <div>
-    <label htmlFor="search">{props.label}</label>
-    <input
-      id="search"
-      type="text"
-      onChange={props.onSearch}
-    />
-
+    <TextField id="outlined-basic" label="Search" variant="outlined" onChange={props.onSearch} />
   </div>
 );
 
