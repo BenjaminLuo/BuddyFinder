@@ -47,6 +47,28 @@ app.post('/api/addInterest', (req, res) => {
 	connection.end();
 });
 
+app.get('/api/getUsersArray', (req, res) => {
+	// let string = JSON.stringify(recipes);
+
+	let connection = mysql.createConnection(config);
+	
+	let sql = `SELECT display_name FROM user_settings`;
+	console.log(sql);
+	let data = [];
+
+	connection.query(sql, data, (error, results, fields) => {
+		if (error) {
+			return console.error(error.message);
+		}
+
+		console.log(results);
+		let string = JSON.stringify(results);
+		let obj = JSON.parse(string);
+		res.send({ express: string });
+	});
+	connection.end();
+});
+
 app.post('/api/contactUs', (req, res) => {
 	let connection = mysql.createConnection(config);
 
@@ -206,7 +228,7 @@ app.post('/api/searchActivity', (req, res) => {
 	let user_time = req.body.time;
 	let user_id = req.body.userID;
 
-	let sql = `SELECT * FROM user_activity ua, user u WHERE u.id = ua.user_id`;
+	let sql = `SELECT * FROM user_activity ua, user_settings us WHERE us.user_id = ua.user_settings_user_id`;
 	let data = [];
 
 	if (user_place) {
@@ -241,6 +263,64 @@ app.post('/api/searchActivity', (req, res) => {
 	connection.end();
 });
 
+app.post('/api/addPeople', (req, res) => {
+	// let string = JSON.stringify(recipes);
+
+	let connection = mysql.createConnection(config);
+
+	let user_number = req.body.final;
+	let user_id = req.body.userID;
+
+	let sql = `INSERT INTO user_similar (group, user_settings_user_id)  
+	VALUES (?, ?)`;
+	let data = [user_number, userID];
+
+	console.log(sql);
+	console.log(data);
+
+	connection.query(sql, data, (error, results, fields) => {
+		if (error) {
+			return console.error(error.message);
+		}
+
+		console.log("Sent items:" + data);
+		console.log(results);
+		let string = JSON.stringify(results);
+		let obj = JSON.parse(string);
+		res.send({ express: string });
+	});
+
+	connection.end();
+});
+
+
+app.post('/api/searchPeople', (req, res) => {
+	// let string = JSON.stringify(recipes);
+
+	let connection = mysql.createConnection(config);
+
+	let user_number = req.body.final;
+
+	let sql = `SELECT * FROM user_similar us WHERE us.group = ?`;
+	let data = [user_number];
+
+	console.log(sql);
+	console.log(data);
+
+	connection.query(sql, data, (error, results, fields) => {
+		if (error) {
+			return console.error(error.message);
+		}
+
+		console.log("Sent items:" + data);
+		console.log(results);
+		let string = JSON.stringify(results);
+		let obj = JSON.parse(string);
+		res.send({ express: string });
+	});
+
+	connection.end();
+});
 
 
 app.post('/api/addCalendar', (req, res) => {

@@ -37,13 +37,47 @@ const useStyles = makeStyles((theme) => {
 
 export default function QA(props) {
 
+  const [usersList, setUsersList] = React.useState([]);
+
+  React.useEffect(() => {
+    loadUsers();
+  }, []);
+
+  const loadUsers = () => {
+    callApiUserNames()
+      .then(res => {
+        console.log("callApiUserNames returned: ", res)
+        var parsed = JSON.parse(res.express);
+        console.log("callApiUserNames parsed: ", parsed);
+
+        setUsersList(parsed);
+        console.log("The List is ", usersList);
+      })
+  }
+
+  const callApiUserNames = async () => {
+    const url = serverURL + "/api/getUsersArray";
+    console.log(url);
+
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
+    const arrayBody = await response.json();
+    if (response.status !== 200) throw Error(arrayBody.message);
+    console.log("User settings: ", arrayBody);
+    return arrayBody;
+  }
+
   const addChat = () => {
     callApiAddChat()
       .then(res => {
         console.log("callApiAddChat returned: ", res)
         var parsed = JSON.parse(res.express);
         console.log("callApiAddChat parsed: ", parsed);
-        //    setActivitiesList(parsed);
+
       })
   }
 
@@ -78,7 +112,7 @@ export default function QA(props) {
   const [ran, setRan] = React.useState('');
   const [postList, setPostList] = React.useState([]);
 
-  const chat = ["1", "2", "3"];
+  const chat = ["Yi Fei", "Suiyu", "A struggling student", "Ephei Tea", "Benjamin Luo"];
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -159,7 +193,7 @@ export default function QA(props) {
                   <em>None</em>
                 </MenuItem>
 
-                {chat.map((ch) => {
+                {usersList.map((ch) => {
                   return (
                     <MenuItem
                       value={ch}

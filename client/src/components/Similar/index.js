@@ -23,13 +23,80 @@ import {
   Checkbox
 } from '@material-ui/core';
 
+const serverURL = "";
+
 function valuetext(value) {
   return `${value}°C`;
 }
 
 export default function Similar() {
 
-  const [userID, setUserID] = React.useState(0);
+  const [resultsList, setResultsList] = React.useState([]);
+
+  const loadResults = () => {
+    callApiUsers()
+      .then(res => {
+        console.log("callApiUsers returned: ", res)
+        var parsed = JSON.parse(res.express);
+        console.log("callApiUsers parsed: ", parsed);
+
+        setResultsList(parsed);
+        console.log("The List is ", resultsList);
+      })
+  }
+
+  const callApiUsers = async () => {
+    const url = serverURL + "/api/searchPeople";
+    console.log(url);
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        final: final
+      })
+    });
+    const notArrayBody = await response.json();
+    if (response.status !== 200) throw Error(notArrayBody.message);
+    console.log("User settings: ", notArrayBody);
+    return notArrayBody;
+  }
+
+  const addPeople = () => {
+    callApiAddPeople()
+      .then(res => {
+        console.log("callApiAddChat returned: ", res)
+        var parsed = JSON.parse(res.express);
+        console.log("callApiAddChat parsed: ", parsed);
+
+      })
+  }
+
+  const callApiAddPeople = async () => {
+    const url = serverURL + "/api/addPeople";
+    console.log(url);
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+
+      },
+      body: JSON.stringify({
+        final: final,
+        userID: userID
+      })
+    });
+    const responseSimilar = await response.json();
+    if (response.status !== 200) throw Error(responseSimilar.message);
+    console.log("User settings: ", responseSimilar);
+    return responseSimilar;
+  }
+
+  const [userID, setUserID] = React.useState('');
+  const [final, setFinal] = React.useState('');
 
   const [place, setPlace] = React.useState('');
   const [soft, setSoft] = React.useState('');
@@ -48,7 +115,7 @@ export default function Similar() {
 
   const [checked, setChecked] = React.useState(true);
 
-  const [final, setFinal] = React.useState('');
+
 
   const handleChange = (event) => {
     setvalue(event.target.value);
@@ -105,10 +172,23 @@ export default function Similar() {
       } }
       console.log("Group ", final);
 
-    //addChat();
+      const si = {
+        final: final,
+        userID: userID
+      }
+  
+      let rep = [...matchList];
+      rep.push(si);
+  
+      setMatchList(rep);
+      console.log("This is it: ", matchList);
+
+    addPeople();
+    loadResults();
   }
 
   return (
+    
     <div align="center" style={{
       backgroundcolor: '#5C5D8D',
     }}>
@@ -132,7 +212,7 @@ export default function Similar() {
             align: 'center',
           }}
         >
-          Buddy Finder
+        Spare some time to fill out the following questionaire to hopefully find some like minded people
         </Typography>
 
         <Typography
