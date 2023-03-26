@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -15,6 +15,8 @@ import {
 
 import history from '../Navigation/history';
 import { NavButton } from './NavButton';
+import SignIn from '../Authentication/SignIn'
+import { AuthContext } from '../Authentication/AuthDetails'
 
 
 const useStyles = makeStyles(() => {
@@ -44,6 +46,7 @@ const useStyles = makeStyles(() => {
 // Navigation Bar (appears on all pages)
 export default function NavBar() {
   const classes = useStyles();
+  const { authUser } = useContext(AuthContext);
 
   // 'User' dropdown menu triggers
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -61,9 +64,10 @@ export default function NavBar() {
     history.push(redirect);
   }
 
-  const handleSignIn = () => {
+  const handleAuth = () => {
     handleOpen();
     handleDropdownClose();
+    console.log(authUser)
   }
 
 
@@ -99,7 +103,7 @@ export default function NavBar() {
                 keepMounted
                 open={Boolean(anchorEl)}
                 onClose={handleDropdownClose}>
-                <MenuItem data-testid={'auth'} onClick={handleSignIn}>Sign In</MenuItem>
+                <MenuItem data-testid={'auth'} onClick={handleAuth}>Sign In</MenuItem>
                 <MenuItem data-testid={'profile'} onClick={() => dropdownClick("Profile")}>Profile</MenuItem>
                 <MenuItem data-testid={'settings'} onClick={() => dropdownClick("Settings")}>Settings</MenuItem>
                 <MenuItem data-testid={'contact'} onClick={() => dropdownClick("Contact")}>Contact</MenuItem>
@@ -119,7 +123,7 @@ export default function NavBar() {
           <Typography variant="h4" style={{ paddingBottom: '30px' }} >
             Sign In
           </Typography>
-          {/* <SignIn /> */}
+          <SignIn />
         </Box>
       </Modal>
 
