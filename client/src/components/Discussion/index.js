@@ -44,12 +44,14 @@ const Discussion = () => {
     },
   ];
 
-  const [newsSearchTerm, setNewsSearchTerm] = React.useState('');
-  const [authorTerm, setAuthorTerm] = React.useState('');
-  const [addedNewsTerm, setAddedNewsTerm] = React.useState('');
-  const [addedNameTerm, setAddedNameTerm] = React.useState('');
-
+  const [newsSearchTerm, setNewsSearchTerm] = React.useState(''); //search by news
+  const [authorTerm, setAuthorTerm] = React.useState(''); //search by author
+  const [addedNewsTerm, setAddedNewsTerm] = React.useState(''); //user inputted news
+  const [addedNameTerm, setAddedNameTerm] = React.useState(''); //user inputted author
   const [newsList, setNewsList] = React.useState([]);
+
+  // validation checks
+  const [error, seterror] = React.useState(false);
 
   const handleNewsSearch = (event) => {
     setNewsSearchTerm(event.target.value);
@@ -85,18 +87,21 @@ const Discussion = () => {
 
 
   const onApplyAddition = () => {
-    const q = {
-      Names: addedNameTerm,
-      News: addedNewsTerm,
+    if (addedNewsTerm.length == 0 || addedNameTerm.length == 0) {
+      seterror(true);
+    } else {
+      const q = {
+        Names: addedNameTerm,
+        News: addedNewsTerm,
+      }
+
+      let arrayAdd = [...newsList];
+      arrayAdd.push(q);
+
+      setNewsList(arrayAdd);
+      console.log("News List is: ", newsList);
+
     }
-
-    let arrayAdd = [...newsList];
-    arrayAdd.push(q);
-
-    setNewsList(arrayAdd);
-    console.log("News List is: ", newsList);
-
-    //handleMovieSearch();
   }
 
 
@@ -145,18 +150,24 @@ const Discussion = () => {
               <div>
                 <TextField fullWidth label="Add your status update" id="addedNews" onChange={handleAddedNews} />
               </div>
+              <div>
+                {(error && addedNewsTerm.length <= 0) ?
+                  <label>Status update is required for posting</label> : ""}
+              </div>
               <br></br>
               <div>
                 <TextField id="addedName" label="Your name" variant="standard" onChange={handleAddedName} />
+              </div>
+              <div>
+                {(error && addedNameTerm <= 0) ?
+                  <label>Author name is required for posting</label> : ""}
               </div>
               <br></br>
               <Button
                 variant="contained"
                 color="success"
                 id={'button'}
-
                 onClick={onApplyAddition}
-
                 style={{ height: '30px', marginLeft: '400px', marginTop: '0px' }}>
                 Add
               </Button>
