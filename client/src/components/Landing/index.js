@@ -2,8 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import './landing.css';
 import {
     Card,
-    Typography
+    Typography,
+    Link
   } from '@material-ui/core'; 
+import history from "../Navigation/history";  
 
 const AudioContext = window.AudioContext || window.webkitAudioContext
 
@@ -80,6 +82,10 @@ export default function Profile() {
               }}
             >
               Welcome to Buddy Finder! On this website you'll be able to find other students with similar interests and schedule times to meet them. Get started now!</Typography>
+         
+         <Link color="inherit" style={{ cursor: "pointer" }} onClick={() => history.push('/Similar')} >
+         <Typography> Go to Similar </Typography>
+         </Link>
           </Card>
 
           
