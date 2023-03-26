@@ -7,6 +7,7 @@ import {
   FormControl,
   FormLabel,
   FormControlLabel,
+  FormGroup,
   RadioGroup,
   Container,
   Grid,
@@ -15,20 +16,72 @@ import {
   Button,
   Box,
   Card,
-  Radio
+  Radio,
+  Select,
+  MenuItem,
+  Slider,
+  Checkbox
 } from '@material-ui/core';
+
+function valuetext(value) {
+  return `${value}°C`;
+}
 
 export default function Similar() {
 
-  const [userID, setUserID] = React.useState(1);
+  const [userID, setUserID] = React.useState(0);
 
   const [place, setPlace] = React.useState('');
   const [soft, setSoft] = React.useState('');
+  const [play, setPlay] = React.useState('');
+  const [numb, setNumb] = React.useState('');
+  const [fur, setFur] = React.useState(0);
   const [matchList, setMatchList] = React.useState([]);
+
+  const acts = [{ "type": "Basketball", "num": 1 },
+  { "type": "Gym", "num": 2 },
+  { "type": "Soccer", "num": 3 },
+  { "type": "Swimming", "num": 4 }]
+
+  const [value, setvalue] = React.useState('');
+  const [open, setOpen] = React.useState(false);
+
+  const [checked, setChecked] = React.useState(true);
+
+  const [final, setFinal] = React.useState('');
+
+  const handleChange = (event) => {
+    setvalue(event.target.value);
+    console.log(value);
+  };
+
+  const handleToggleChange = (event) => {
+    setChecked(event.target.checked);
+    console.log(checked);
+  };
+
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
   const handleRadio = (item) => {
     setPlace(item);
     console.log("Radio Button is ", place);
+  }
+
+  const onUpdateSelection = (item) => {
+    setPlay(item);
+    console.log("Play is ", play)
+  }
+
+  const onChangeSlider = (item) => {
+    setNumb(item);
+    console.log("Random Number is ", numb)
   }
 
   const handleSel = (item) => {
@@ -36,17 +89,21 @@ export default function Similar() {
   }
 
   const onApplySim = () => {
-    const s = {
-      place: place,
-      soft: soft,
-      userID: userID
-    }
+      {if (checked === true) {
+       setFur(1);
+      } else {
+        setFur(0);
+      }}
 
-    let prez = [...matchList];
-    prez.push(s);
+      const sum =   parseInt(place) + soft + play + numb +  fur ;
+        console.log("Let's count ", sum);
 
-    setMatchList(prez);
-    console.log("List is: ", matchList);
+      {  if(sum % 2 === 0) {
+        setFinal(0);
+      } else{
+        setFinal(1);
+      } }
+      console.log("Group ", final);
 
     //addChat();
   }
@@ -92,52 +149,137 @@ export default function Similar() {
         >
 
           <FormControl>
-            <FormLabel id="demo-row-radio-buttons-group-label"> Which do you prefer more?</FormLabel>
+            <FormLabel id="demo-row-radio-buttons-group-label"
+              style={{ fontFamily: 'Roboto', color: 'white', opacity: '100%', align: 'center', }} >
+              Which do you prefer more?</FormLabel>
             <RadioGroup
               row
               aria-labelledby="demo-row-radio-buttons-group-label"
               name="row-radio-buttons-group"
-              onChange={handleRadio}
+              onChange={(event, newValue) => {
+                setPlace(newValue);
+                console.log("Place is ", place);
+              }}
             >
-        <FormControlLabel
-            value="1"
-            control={<Radio color="primary" />}
-            label="Outdoors"
-            labelPlacement="bottom"
-          />
-          <FormControlLabel
-            value="2"
-            control={<Radio color="primary" />}
-            label="Indoors"
-            labelPlacement="bottom"
-          />
+              <FormControlLabel
+                value="1"
+                control={<Radio color="primary" />}
+                label="Outdoors"
+                labelPlacement="bottom"
+              />
+              <FormControlLabel
+                value="2"
+                control={<Radio color="primary" />}
+                label="Indoors"
+                labelPlacement="bottom"
+              />
             </RadioGroup>
           </FormControl>
         </Typography>
 
-        <Typography>Do you like PAC's recent renovation? </Typography>
-        <Rating
-          name="simple-controlled"
-          value={soft}
-          onChange={(event, newValue) => {
-            setSoft(newValue);
-            console.log("Soft is ", soft);
+        <Typography>Which is your favourite activity? </Typography>
+
+        <FormControl style={{ minWidth: 120 }}>
+          <Select
+            labelId="demo-controlled-open-select-label"
+            id="demo-controlled-open-select"
+
+            helperText={"Select an activity you like most"}
+
+            autoWidth
+            open={open}
+            onClose={handleClose}
+            onOpen={handleOpen}
+            onChange={handleChange}
+          >
+
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+
+            {acts.map((a) => {
+              return (
+                <MenuItem
+                  value={a.num}
+                  onClick={() => onUpdateSelection(a.num)}
+                > {a.type}
+                </MenuItem>
+
+              );
+            })}
+
+          </Select>
+        </FormControl>
+
+        <Typography
+          align="center"
+          variant="h4"
+          component="div"
+          gutterBottom
+          style={{
+            fontFamily: 'Roboto',
+            color: 'white',
+            opacity: '100%',
+            align: 'center',
           }}
-        />
+        >
+          <Typography>How much do you like MSCI 342? </Typography>
 
-<Button
-            variant="contained"
-            color="success"
-            id={'button'}
-            onChange={onApplySim}
+          <FormControl>
+            <Rating
+              name="simple-controlled"
+              value={soft}
+              onChange={(event, newValue) => {
+                setSoft(newValue);
+                console.log("Soft is ", soft);
+              }}
+            />
+          </FormControl>
+        </Typography>
 
-            style={{ height: '30px', marginLeft: '400px', marginTop: '0px' }}>
-            Search
-          </Button>
+
+        <Typography>Pick a number </Typography>
+
+        <Box sx={{ width: 300 }}>
+          <Slider
+            aria-label="Temperature"
+            defaultValue={2}
+            getAriaValueText={valuetext}
+            valueLabelDisplay="auto"
+            step={1}
+            marks
+            min={1}
+            max={5}
+            onChange={(event, newValue) => {
+              setNumb(newValue);
+              console.log("Random Number is ", numb);
+            }}
+          />
+        </Box>
+
+        <FormControl>
+          <FormLabel id="demo-row-radio-buttons-group-label"
+            style={{ fontFamily: 'Roboto', color: 'white', opacity: '100%', align: 'center', }} >
+            <FormGroup>
+              <FormControlLabel control={<Checkbox   onChange={handleToggleChange} />} label="Randomize futher" />
+              <FormControlLabel disabled control={<Checkbox />} label="I am happy" />
+            </FormGroup>
+          </FormLabel>
+        </FormControl>
+
+        <Button
+          variant="contained"
+          color="success"
+          id={'button'}
+          onClick={onApplySim}
+
+          style={{ height: '30px', marginLeft: '400px', marginTop: '0px' }}>
+          Search
+        </Button>
 
       </Card>
 
-    </div>
+    </div >
   )
 
 }
