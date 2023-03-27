@@ -1,7 +1,10 @@
 // --------------------------------------------------- \/ Imports
-import * as React from 'react';
+
+import React, { useEffect, useContext } from 'react';
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
+
+import { AuthContext } from '../Authentication/AuthDetails'
 
 import {
   Typography,
@@ -105,14 +108,15 @@ export default function QA(props) {
 
   const classes = useStyles();
 
-  const [userID, setUserID] = React.useState('');
+  const { authUser } = useContext(AuthContext);
+  const userID = authUser?.uid
 
   const [value, setValue] = React.useState('');
   const [post, setPost] = React.useState('');
   const [ran, setRan] = React.useState('');
   const [postList, setPostList] = React.useState([]);
 
-  const chat = ["Yi Fei", "Suiyu", "A struggling student", "Ephei Tea", "Benjamin Luo"];
+  const chat = ["Yi Fei", "Suiyu", "A struggling student", "Ephei Tea", "NA", "Benjamin Luo"];
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -154,21 +158,23 @@ export default function QA(props) {
   }
 
   return (
-    <div align = 'center'>
-        <Typography gutterBottom variant="h3" align="center">
-    Want to share your thoughts?
-  </Typography>
-  <hr style={{ align: 'center', width: '10%', borderColor: 'black' }} />
+    <div align='center'>
+      <Typography gutterBottom variant="h3" align="center">
+        Want to share your thoughts?
+      </Typography>
+      <hr style={{ align: 'center', width: '10%', borderColor: 'black' }} />
 
-      <Card style={{color: 'white',
-              backgroundColor: '#99A1A6',
-              marginTop: '50px',
-              height: '250px',
-              width: '900px',
-              marginBottom: '50px'}}>
+      <Card style={{
+        color: 'white',
+        backgroundColor: '#99A1A6',
+        marginTop: '50px',
+        height: '250px',
+        width: '900px',
+        marginBottom: '50px'
+      }}>
 
-  <p style={{marginTop: '75px'}}></p>
-  <Box
+        <p style={{ marginTop: '75px' }}></p>
+        <Box
           sx={{
             width: 500,
             maxWidth: '100%',
@@ -193,7 +199,7 @@ export default function QA(props) {
                   <em>None</em>
                 </MenuItem>
 
-                {usersList.map((ch) => {
+                {chat.map((ch) => {
                   return (
                     <MenuItem
                       value={ch}
@@ -222,12 +228,31 @@ export default function QA(props) {
             Post
           </Button>
         </Box>
-
-
       </Card>
 
+      <Grid>
+
+        <Typography>
+
+          {postList.map((item) => {
+            return (
+              <ul>
+                <Typography>
+                  To:  {item.post}
+                </Typography>
+
+                <Typography>
+                  Message:  {item.ran}
+                </Typography>
+
+              </ul>
+            );
+          })}
+        </Typography>
+      </Grid>
+
     </div>
-    
+
   )
 }
 

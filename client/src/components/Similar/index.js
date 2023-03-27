@@ -34,6 +34,7 @@ export default function Similar() {
   const { authUser } = useContext(AuthContext);
   const userID = authUser?.uid
   const [resultsList, setResultsList] = React.useState([]);
+  const [final, setFinal] = React.useState('');
 
   const loadResults = () => {
     callApiUsers()
@@ -97,13 +98,13 @@ export default function Similar() {
     return responseSimilar;
   }
 
-  const [final, setFinal] = React.useState(0);
+
 
   const [place, setPlace] = React.useState('');
   const [soft, setSoft] = React.useState('');
   const [play, setPlay] = React.useState('');
   const [numb, setNumb] = React.useState('');
-  const [fur, setFur] = React.useState(0);
+  const [fur, setFur] = React.useState('');
   const [matchList, setMatchList] = React.useState([]);
 
   const acts = [{ "type": "Basketball", "num": 1 },
@@ -156,7 +157,7 @@ export default function Similar() {
     setSoft(item);
   }
 
-  const onApplySim = () => {
+  const addUp = () => {
     {
       if (checked === true) {
         setFur(1);
@@ -176,6 +177,12 @@ export default function Similar() {
       }
     }
     console.log("Group ", final);
+  }
+
+  const onApplySim = () => {
+
+    addUp();
+    console.log("2nd Group ", final);
 
     const si = {
       final: final,
@@ -188,7 +195,7 @@ export default function Similar() {
     setMatchList(rep);
     console.log("This is it: ", matchList);
 
-    addPeople();
+   // addPeople();
     loadResults();
   }
 
@@ -363,6 +370,23 @@ export default function Similar() {
         </Button>
 
       </Card>
+
+      <Grid>
+
+      <Typography>
+
+        {resultsList.map((item) => {
+          return (
+            <ul>
+
+              <Typography>
+                User:  {item.display_name}
+              </Typography>
+            </ul>
+          );
+        })}
+      </Typography>
+      </Grid>
 
     </div >
   )

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { useState, useEffect, useContext } from 'react';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -17,6 +18,7 @@ import { styled } from '@material-ui/core/styles';
 import Stack from '@mui/material/Stack';
 import { object } from 'prop-types';
 import Box from "@material-ui/core/Box";
+import { AuthContext } from '../Authentication/AuthDetails'
 
 const serverURL = "";
 
@@ -121,7 +123,8 @@ export default function Matching() {
 
   const classes = useStyles();
 
-  const [userID, setUserID] = React.useState(1);
+  const { authUser } = useContext(AuthContext);
+  const userID = authUser?.uid
 
   const [value, setvalue] = React.useState('');
   //const [userID, setUserID] = React.useState('');

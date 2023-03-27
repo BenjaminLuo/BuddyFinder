@@ -101,7 +101,7 @@ app.post('/api/addChat', (req, res) => {
 	let user_id = req.body.userID;
 
 
-	let sql = `INSERT INTO chat (content, user_to, user_id)  
+	let sql = `INSERT INTO chat (content, user_to, user_settings_user_id)  
 	VALUES (?, ?, ?)`;
 	console.log(sql);
 	let data = [user_ran, user_post, user_id];
@@ -375,7 +375,8 @@ app.post('/api/searchPeople', (req, res) => {
 
 	let user_number = req.body.final;
 
-	let sql = `SELECT * FROM user_similar us WHERE us.gr = ?`;
+	let sql = `SELECT * FROM user_settings us, user_similar ua 
+	WHERE us.user_id = ua.user_settings_user_id AND ua.gr = ?`;
 	let data = [user_number];
 
 	console.log(sql);
