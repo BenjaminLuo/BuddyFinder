@@ -16,7 +16,7 @@ export function userPosts(classes, user) {
             </Typography>
 
             <Grid container spacing={2} styles={{ marginBottom: '12px' }}>
-                {user ? user.posts.map((item, index) => (
+                {user?.hasOwnProperty('posts') ? user.posts.map((item, index) => (
                     <Paper
                         color="primary"
                         key={index}
@@ -26,7 +26,13 @@ export function userPosts(classes, user) {
                             {item.title}
                         </Grid>
                     </Paper>
-                )) : null}
+                )) :
+                    <Paper
+                        color="primary"
+                        style={{ margin: '6px', width: '150px', padding: '6px', verticalAlign: 'top', display: 'flex' }}
+                    >
+                        No posts yet
+                    </Paper>}
             </Grid>
 
         </Container>

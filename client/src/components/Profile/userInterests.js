@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Button, Container } from '@material-ui/core';
+import { Typography, Button, Container, Paper } from '@material-ui/core';
 
 // Right container, 1st row: User interests
 export function userInterests(classes, user) {
@@ -10,7 +10,7 @@ export function userInterests(classes, user) {
                 Interests
             </Typography>
 
-            {user ? user.interests.map((item, index) => (
+            {user?.hasOwnProperty('interests') ? user.interests.map((item, index) => (
                 <Button
                     key={index}
                     variant="contained"
@@ -19,7 +19,13 @@ export function userInterests(classes, user) {
                     style={{ margin: '6px' }}>
                     {item}
                 </Button>
-            )) : null}
+            )) :
+                <Paper
+                    color="primary"
+                    style={{ width: '150px', padding: '6px', verticalAlign: 'top', display: 'flex' }}
+                >
+                    No interests yet
+                </Paper>}
 
         </Container>
     );

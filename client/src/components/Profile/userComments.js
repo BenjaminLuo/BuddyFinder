@@ -16,7 +16,7 @@ export function userComments(classes, user) {
             </Typography>
 
             <Grid container spacing={2}>
-                {user ? user.comments.map((item, index) => (
+                {user?.hasOwnProperty('comments') ? user.comments.map((item, index) => (
                     <Paper
                         color="primary"
                         key={index}
@@ -26,7 +26,14 @@ export function userComments(classes, user) {
                             {item.value}
                         </Grid>
                     </Paper>
-                )) : null}
+                )) :
+                    <Paper
+                        color="primary"
+                        style={{ margin: '6px', width: '150px', padding: '6px', verticalAlign: 'top', display: 'flex' }}
+                    >
+                        No comments yet
+                    </Paper>
+                }
             </Grid>
 
         </Container>
