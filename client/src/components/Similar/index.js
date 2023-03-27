@@ -18,7 +18,6 @@ import {
   Grid,
   Slider,
   Checkbox, 
-  Grid
 } from '@material-ui/core';
 
 const serverURL = "";
