@@ -1,16 +1,16 @@
 import * as React from 'react';
-import Matching from '../../src/components/Matching'
+import Discussion from '../../src/components/Discussion'
 import { render, screen } from '@testing-library/react'
 
 // let renderTest;
 
-describe('Select', () => {
+describe('Discussion', () => {
   function renderComponent() {
-    render(<Matching />);
+    render(<Discussion />);
   }
 
-  it('Select component has', () => {
+  it('Renders', () => {
     renderComponent();
-    expect(screen.getByText('PAC'));
+    expect(screen.getByText('News'));
   })
 })

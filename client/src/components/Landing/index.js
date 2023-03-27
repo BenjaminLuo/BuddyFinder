@@ -5,10 +5,10 @@ import {
   Typography,
 } from '@material-ui/core';
 
-const AudioContext = window.AudioContext || window.webkitAudioContext
+//const AudioContext = window.AudioContext || window.webkitAudioContext
 
 export default function Profile() {
-
+/*
   const [dataPlaying, setDataPlaying] = useState(false);
   const audioContextRef = useRef();
 
@@ -32,7 +32,7 @@ export default function Profile() {
     }
     setDataPlaying((play) => !play);
   };
-
+*/
   return (
 
     <div align="center" style={{
@@ -84,10 +84,7 @@ export default function Profile() {
 
       </Card>
 
-      Only use this in case of emergencies!
-      <button onClick={toggleOscillator} data-playing={dataPlaying}>
-        <span>{dataPlaying ? "Pause" : "Play"}</span>
-      </button>
+
 
     </div>
   )

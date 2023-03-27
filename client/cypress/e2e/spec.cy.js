@@ -1,16 +1,16 @@
 import * as React from 'react';
-import NavBar from '../../src/components/Appbar'
+import Discussion from '../../src/components/Discussion'
 import { render, screen } from '@testing-library/react'
 
 // let renderTest;
 
-describe('AppBar', () => {
+describe('Discussion', () => {
   function renderComponent() {
-    render(<NavBar />);
+    render(<Discussion />);
   }
 
   it('Renders', () => {
     renderComponent();
-    expect(screen.getByText('Statistics'));
+    expect(screen.getByText('Search'));
   })
 })
