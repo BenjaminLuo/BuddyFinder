@@ -72,6 +72,9 @@ export default function Search() {
     const [friends, updateFriends] = React.useState([]);
     const [blocked, updateBlocked] = React.useState([]);
 
+    // For tracking which user to open
+    const [user, setUser] = React.useState({});
+
     // For tabbers
     const [value, setValue] = React.useState(0);
 
@@ -110,7 +113,7 @@ export default function Search() {
 
     // Preview user profile through a modal
     const handleProfile = (e) => {
-        const userStub = accounts[accounts.findIndex(item => item.user_id === e.target.id)]
+        setUser(accounts[accounts.findIndex(item => item.user_id === e.target.id)]);
         handleOpen();
     }
 
@@ -224,7 +227,7 @@ export default function Search() {
                 {searchForUsers(setQuery)}
 
                 {/* Modal to display review */}
-                {modalController(open, handleClose, classes)}
+                {modalController(open, handleClose, classes, user)}
 
                 {/* Tabber to navigate between lists of users*/}
                 <Box sx={{ borderBottom: 1, borderColor: 'divider', marginLeft: '25px' }}>

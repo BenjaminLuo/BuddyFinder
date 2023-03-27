@@ -15,9 +15,8 @@ import {
   Radio,
   Select,
   MenuItem,
-  Grid,
   Slider,
-  Checkbox, 
+  Checkbox,
   Grid
 } from '@material-ui/core';
 

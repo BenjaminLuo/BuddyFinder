@@ -3,13 +3,13 @@ import { Box, Modal } from '@material-ui/core';
 import Profile from '../../components/Profile';
 
 // Controls opening and closing of modals
-export function modalController(open, handleClose, classes) {
+export function modalController(open, handleClose, classes, user) {
     return (
         <Modal
             open={open}
             onClose={handleClose}>
             <Box className={classes.modal}>
-                <Profile user={null} paddingTop={'0px'} />
+                <Profile userID={user} />
             </Box>
         </Modal>
     );
