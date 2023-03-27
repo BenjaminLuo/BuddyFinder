@@ -229,7 +229,7 @@ export default function Matching() {
         marginBottom: '50px'
       }}>
 
-        <Grid>
+        <Grid style={{ marginTop: '50px' }}>
           <FormControl>
             <Typography variant="h3" gutterBottom component="div">
               Place
@@ -248,9 +248,8 @@ export default function Matching() {
           </FormControl>
 
         </Grid>
-        <p style={{ marginTop: '75px' }}></p>
 
-        <Grid>
+        <Grid style={{ marginTop: '50px' }}>
           <FormControl className={classes.formControl}>
             <Typography variant="h3" gutterBottom component="div">
               Activity
@@ -309,8 +308,7 @@ export default function Matching() {
 
 
         </Grid>
-        <p style={{ marginTop: '75px' }}></p>
-        <Grid >
+        <Grid style={{ marginTop: '50px' }}>
 
           <Typography variant="h3" gutterBottom component="div">
             Select a Time
@@ -325,9 +323,8 @@ export default function Matching() {
               onChange={(event) => setTime(event.target.value)}
             />
           </FormControl>
-          <p style={{ marginTop: '75px' }}></p>
 
-          <Grid >
+          <Grid style={{ marginTop: '50px' }}>
 
             <div style={{
               width: '200px',
@@ -350,7 +347,6 @@ export default function Matching() {
 
 
           </Grid>
-          <p style={{ marginTop: '75px' }}></p>
           <Grid>
 
           </Grid>
@@ -400,7 +396,7 @@ export default function Matching() {
                 <ul>
                   <Div>
                     <Typography>
-                      User:  {item.firstName}
+                      User:  {item.display_name}
                     </Typography>
 
                     <Typography>

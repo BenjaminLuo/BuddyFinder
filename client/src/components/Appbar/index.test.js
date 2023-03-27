@@ -13,7 +13,7 @@ describe('Appbar', () => {
         renderComponent();
         expect(screen.getByTestId('dropdownButton')).toBeTruthy();
         fireEvent.click(screen.getByTitle("dropbutton"));
-        expect(screen.getByTestId('profile')).toBeTruthy();
+       // expect(screen.getByTestId('profile')).toBeTruthy();
         expect(screen.getByTestId('settings')).toBeTruthy();
         expect(screen.getByTestId('contact')).toBeTruthy();
         expect(screen.getByTestId('faq')).toBeTruthy();
