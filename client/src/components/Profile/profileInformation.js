@@ -6,29 +6,30 @@ import {
 } from '@material-ui/core';
 
 // Left container: User profile information
-export function profileInformation(user) {
+export function profileInformation(user, authUser) {
+    const name = (user?.hasOwnProperty('display_name')) ? user.display_name : authUser?.email.slice(0, authUser?.email.lastIndexOf('@'))
     return (
-        <Grid item xs={3} style={{ position: 'fixed', padding: '40px 0px 0px 40px' }}>
+        <>
 
             {/* Avatar icon with first 1-2 letters of the name */}
             <Avatar style={{ height: '150px', width: '150px', fontSize: '70px', margin: '40px auto 40px auto', backgroundColor: '#222222' }}>
-                {user.display_name.match(/\b(\w)/g).slice(0, 2)}
+                {name?.match(/\b(\w)/g).slice(0, 2)}
             </Avatar>
 
             <Container style={{ marginLeft: '10px' }}>
 
                 <Typography variant="h4" style={{ marginBottom: '8px' }}>
-                    {user.display_name}
+                    {name}
                 </Typography>
                 <Typography style={{ fontSize: '20px', fontStyle: 'italic', marginBottom: '10px', color: '#333333' }}>
-                    ID: {user.user_id}
+                    ID: {authUser?.uid.slice(0, 8)}...
                 </Typography>
                 <Typography style={{ fontSize: '16px', color: '#333333' }}>
-                    {user.bio}
+                    {user?.bio}
                 </Typography>
 
             </Container>
 
-        </Grid>
+        </>
     )
 }
