@@ -49,6 +49,8 @@ export default function QA() {
     loadUsers();
   }, []);
 
+
+
   const loadUsers = () => {
     callApiUserNames()
       .then(res => {
@@ -255,6 +257,27 @@ export default function QA() {
           })}
         </Typography>
       </Grid>
+
+      <Grid>
+
+<Typography>
+
+  {usersList.map((item) => {
+    return (
+      <ul>
+        <Typography>
+          To:  {item.display_name}
+        </Typography>
+
+        <Typography>
+          Message:  {item.content}
+        </Typography>
+
+      </ul>
+    );
+  })}
+</Typography>
+</Grid>
 
     </div>
 

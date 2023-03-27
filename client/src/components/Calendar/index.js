@@ -14,6 +14,8 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import SnackbarContent from '@mui/material/SnackbarContent';
 
 import './calendar.css';
 
@@ -151,7 +153,7 @@ const AddEventForm = ({ isOpen, onClose, onSubmit }) => {
             </Select>
           </FormControl>
         </Grid>
-        <Button variant="contained">Submit</Button>
+        <Button variant="contained" type ="submit">Submit</Button>
       </form>
     </div>
   ) : null;
@@ -215,9 +217,19 @@ const Calendar = () => {
   };
 
   const eventClick = ({ event }) => {
-    if (window.confirm("Are you sure you want to delete this event from your calendar?")) {
-      event.remove();
-    }
+    const action = (
+      event.remove()
+    );
+
+    return (
+      <Stack spacing={2} sx={{ maxWidth: 600 }}>
+        <SnackbarContent message="Are you sure you want to delete this event from your calendar?" action={action} />
+      </Stack>
+    );
+
+    //if (window.confirm("Are you sure you want to delete this event from your calendar?")) {
+      //event.remove();
+   // }
   };
 
   return (
@@ -228,7 +240,7 @@ const Calendar = () => {
 
       <Button
         variant="contained"
-        color="primary"
+        color= "success"
         size="large"
         onClick={() => {
           setIsFormOpen(true);
@@ -239,16 +251,7 @@ const Calendar = () => {
       <p>
 
       </p>
-      <Box
-        component="form"
-        sx={{
-          '& > :not(style)': { m: 1, width: '25ch' },
-        }}
-        noValidate
-        autoComplete="off"
-      >
-        <TextField id="outlined-basic" label="Search by event name" variant="outlined" />
-      </Box>
+      
       <p>
 
       </p>
