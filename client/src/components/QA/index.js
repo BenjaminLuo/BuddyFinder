@@ -1,5 +1,11 @@
 // --------------------------------------------------- \/ Imports
-import * as React from 'react';
+
+import React, { useEffect, useContext } from 'react';
+import Rating from '@mui/material/Rating';
+import Stack from '@mui/material/Stack';
+
+
+import { AuthContext } from '../Authentication/AuthDetails'
 
 import {
   Typography,
@@ -87,12 +93,19 @@ export default function QA(props) {
     return responseInterest;
   }
 
-  const userID = 1
+
+  const classes = useStyles();
+
+  const { authUser } = useContext(AuthContext);
+  const userID = authUser?.uid
 
   const [value, setValue] = React.useState('');
   const [post, setPost] = React.useState('');
   const [ran, setRan] = React.useState('');
   const [postList, setPostList] = React.useState([]);
+
+
+  const chat = ["Yi Fei", "Suiyu", "A struggling student", "Ephei Tea", "NA", "Benjamin Luo"];
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -175,7 +188,7 @@ export default function QA(props) {
                   <em>None</em>
                 </MenuItem>
 
-                {usersList.map((ch) => {
+                {chat.map((ch) => {
                   return (
                     <MenuItem
                       value={ch}
@@ -204,9 +217,28 @@ export default function QA(props) {
             Post
           </Button>
         </Box>
-
-
       </Card>
+
+      <Grid>
+
+        <Typography>
+
+          {postList.map((item) => {
+            return (
+              <ul>
+                <Typography>
+                  To:  {item.post}
+                </Typography>
+
+                <Typography>
+                  Message:  {item.ran}
+                </Typography>
+
+              </ul>
+            );
+          })}
+        </Typography>
+      </Grid>
 
     </div>
 

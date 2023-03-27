@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
+
 import Grid from "@material-ui/core/Grid";
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
@@ -16,6 +17,8 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import './calendar.css';
 
+import { AuthContext } from '../Authentication/AuthDetails'
+
 const serverURL = "";
 
 const AddEventForm = ({ isOpen, onClose, onSubmit }) => {
@@ -25,7 +28,10 @@ const AddEventForm = ({ isOpen, onClose, onSubmit }) => {
   const [eventColour, setEventColour] = useState('');
   const [eventRecurrence, setEventRecurrence] = useState('none');
 
-  const userID = 1;
+
+  const { authUser } = useContext(AuthContext);
+  const userID = authUser?.uid
+
 
 
   const addCalendar = () => {
@@ -62,6 +68,8 @@ const AddEventForm = ({ isOpen, onClose, onSubmit }) => {
   }
 
   const handleSubmit = (event) => {
+
+    console.log("I'm here");
     event.preventDefault();
     onSubmit({ eventName, startTime, endTime, eventColour, eventRecurrence });
     onClose();
