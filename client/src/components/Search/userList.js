@@ -2,7 +2,7 @@ import React from 'react';
 import { TabPanel } from "../../components/UI/TabPanel";
 
 // Tabber for list of all users
-export function userList(value, query, UserCard) {
+export function userList(value, query, UserCard, friends, blocked) {
     return (
         <TabPanel value={value} index={0}>
 
@@ -15,8 +15,8 @@ export function userList(value, query, UserCard) {
                         year={item.term}
                         program={item.program}
                         disabled={item.private}
-                        friend={item.friend}
-                        blocked={item.blocked} />
+                        friend={friends.includes(item.user_id)}
+                        blocked={blocked.includes(item.user_id)} />
                     : null
             )) : null}
 

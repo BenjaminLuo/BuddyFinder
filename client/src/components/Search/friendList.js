@@ -2,12 +2,12 @@ import React from 'react';
 import { TabPanel } from "../../components/UI/TabPanel";
 
 // Tabber for friend list
-export function friendList(value, query, UserCard) {
+export function friendList(value, query, UserCard, friends, blocked) {
     return (
         <TabPanel value={value} index={1}>
 
             {query ? query.map((item, index) => (
-                item.friend ?
+                friends.includes(item.user_id) ?
                     <UserCard
                         key={index}
                         name={item.display_name}
@@ -15,8 +15,8 @@ export function friendList(value, query, UserCard) {
                         year={item.term}
                         program={item.program}
                         disabled={item.private}
-                        friend={item.friend}
-                        blocked={item.blocked} />
+                        friend={true}
+                        blocked={blocked.includes(item.user_id)} />
                     : null
             )) : null}
 
