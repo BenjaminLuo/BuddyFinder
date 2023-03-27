@@ -1,8 +1,6 @@
 // --------------------------------------------------- \/ Imports
 
-import React, { useEffect, useContext } from 'react';
-import Rating from '@mui/material/Rating';
-import Stack from '@mui/material/Stack';
+import React, { useContext } from 'react';
 
 
 import { AuthContext } from '../Authentication/AuthDetails'
@@ -16,7 +14,8 @@ import {
   MenuItem,
   Select,
   FormControl,
-  Card
+  Card,
+  Grid
 } from '@material-ui/core';
 
 const serverURL = "";
@@ -24,8 +23,20 @@ const serverURL = "";
 // --------------------------------------------------- /\ Imports
 // --------------------------------------------------- \/ Styles
 
+const useStyles = makeStyles((theme) => {
+  return {
+    page: {
+      backgroundColor: 'lightgrey',
+      backgroundSize: 'cover',
+      opacity: 0.9,
+      minHeight: '100vh',
+      padding: '120px 100px 40px 100px'
+    }
+  }
+})
 
-export default function QA(props) {
+
+export default function QA() {
 
   const [usersList, setUsersList] = React.useState([]);
 

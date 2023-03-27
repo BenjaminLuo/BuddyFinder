@@ -15,6 +15,7 @@ import {
   Radio,
   Select,
   MenuItem,
+  Grid,
   Slider,
   Checkbox
 } from '@material-ui/core';
@@ -185,7 +186,7 @@ export default function Similar() {
     setMatchList(rep);
     console.log("This is it: ", matchList);
 
-   // addPeople();
+    // addPeople();
     loadResults();
   }
 
@@ -363,19 +364,19 @@ export default function Similar() {
 
       <Grid>
 
-      <Typography>
+        <Typography>
 
-        {resultsList.map((item) => {
-          return (
-            <ul>
+          {resultsList.map((item) => {
+            return (
+              <ul>
 
-              <Typography>
-                User:  {item.display_name}
-              </Typography>
-            </ul>
-          );
-        })}
-      </Typography>
+                <Typography>
+                  User:  {item.display_name}
+                </Typography>
+              </ul>
+            );
+          })}
+        </Typography>
       </Grid>
 
     </div >
