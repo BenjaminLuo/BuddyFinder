@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, { useEffect, useContext } from 'react';
+import { AuthContext } from '../Authentication/AuthDetails'
 
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
@@ -30,7 +31,8 @@ function valuetext(value) {
 }
 
 export default function Similar() {
-
+  const { authUser } = useContext(AuthContext);
+  const userID = authUser?.uid
   const [resultsList, setResultsList] = React.useState([]);
 
   const loadResults = () => {
@@ -95,8 +97,7 @@ export default function Similar() {
     return responseSimilar;
   }
 
-  const [userID, setUserID] = React.useState('');
-  const [final, setFinal] = React.useState('');
+  const [final, setFinal] = React.useState(0);
 
   const [place, setPlace] = React.useState('');
   const [soft, setSoft] = React.useState('');
@@ -156,39 +157,43 @@ export default function Similar() {
   }
 
   const onApplySim = () => {
-      {if (checked === true) {
-       setFur(1);
+    {
+      if (checked === true) {
+        setFur(1);
       } else {
         setFur(0);
-      }}
-
-      const sum =   parseInt(place) + soft + play + numb +  fur ;
-        console.log("Let's count ", sum);
-
-      {  if(sum % 2 === 0) {
-        setFinal(0);
-      } else{
-        setFinal(1);
-      } }
-      console.log("Group ", final);
-
-      const si = {
-        final: final,
-        userID: userID
       }
-  
-      let rep = [...matchList];
-      rep.push(si);
-  
-      setMatchList(rep);
-      console.log("This is it: ", matchList);
+    }
+
+    const sum = parseInt(place) + soft + play + numb + fur;
+    console.log("Let's count ", sum);
+
+    {
+      if (sum % 2 === 0) {
+        setFinal(0);
+      } else {
+        setFinal(1);
+      }
+    }
+    console.log("Group ", final);
+
+    const si = {
+      final: final,
+      userID: userID
+    }
+
+    let rep = [...matchList];
+    rep.push(si);
+
+    setMatchList(rep);
+    console.log("This is it: ", matchList);
 
     addPeople();
     loadResults();
   }
 
   return (
-    
+
     <div align="center" style={{
       backgroundcolor: '#5C5D8D',
     }}>
@@ -212,7 +217,7 @@ export default function Similar() {
             align: 'center',
           }}
         >
-        Spare some time to fill out the following questionaire to hopefully find some like minded people
+          Spare some time to fill out the following questionaire to hopefully find some like minded people
         </Typography>
 
         <Typography
@@ -341,7 +346,7 @@ export default function Similar() {
           <FormLabel id="demo-row-radio-buttons-group-label"
             style={{ fontFamily: 'Roboto', color: 'white', opacity: '100%', align: 'center', }} >
             <FormGroup>
-              <FormControlLabel control={<Checkbox   onChange={handleToggleChange} />} label="Randomize futher" />
+              <FormControlLabel control={<Checkbox onChange={handleToggleChange} />} label="Randomize futher" />
               <FormControlLabel disabled control={<Checkbox />} label="I am happy" />
             </FormGroup>
           </FormLabel>

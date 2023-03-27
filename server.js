@@ -51,7 +51,7 @@ app.get('/api/getUsersArray', (req, res) => {
 	// let string = JSON.stringify(recipes);
 
 	let connection = mysql.createConnection(config);
-	
+
 	let sql = `SELECT display_name FROM user_settings`;
 	console.log(sql);
 	let data = [];
@@ -344,14 +344,13 @@ app.post('/api/addPeople', (req, res) => {
 	let connection = mysql.createConnection(config);
 
 	let user_number = req.body.final;
-	let user_id = req.body.userID;
+	let userID = req.body.userID;
 
-	let sql = `INSERT INTO user_similar (group, user_settings_user_id)  
+	let sql = `INSERT INTO user_similar (gr, user_settings_user_id)  
 	VALUES (?, ?)`;
 	let data = [user_number, userID];
 
-	console.log(sql);
-	console.log(data);
+	console.log(userID)
 
 	connection.query(sql, data, (error, results, fields) => {
 		if (error) {
@@ -376,7 +375,7 @@ app.post('/api/searchPeople', (req, res) => {
 
 	let user_number = req.body.final;
 
-	let sql = `SELECT * FROM user_similar us WHERE us.group = ?`;
+	let sql = `SELECT * FROM user_similar us WHERE us.gr = ?`;
 	let data = [user_number];
 
 	console.log(sql);
