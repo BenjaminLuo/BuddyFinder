@@ -90,8 +90,7 @@ export default function Profile({ userID }) {
     useEffect(() => {
         // If an external component is referencing Profile, then load the requested user
         if (userID) {
-            getUserData(userID)
-                .then(user => setUser(user[0]))
+            setUser(userID)
             // Load the current user
         } else if (authUser?.length !== 0) {
             getUserData(authUser?.uid)
