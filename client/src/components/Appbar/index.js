@@ -1,10 +1,13 @@
 import React, { useContext } from 'react';
-import { signOut } from "firebase/auth";
+import firebase from "firebase/app"
+import "firebase/auth";
 import { auth } from "../Firebase/firebase";
 import {
   AppBar,
   Toolbar,
-  makeStyles
+  makeStyles,
+  Button,
+  Typography
 } from '@material-ui/core';
 
 
@@ -67,7 +70,7 @@ export default function NavBar() {
   }
 
   const userSignOut = () => {
-    signOut(auth)
+    firebase.signOut(auth)
       .then(() => {
         console.log("sign out successful");
       })

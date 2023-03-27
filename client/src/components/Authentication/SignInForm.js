@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TextField, Button, Typography } from '@material-ui/core';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+import firebase from "firebase/app"
+import "firebase/auth";
 import { auth } from "../Firebase/firebase";
 
 export function SignInForm(authUser) {
@@ -24,7 +25,7 @@ export function SignInForm(authUser) {
 
         // If no errors then continue to sign in
         if (password !== "" && email !== "") {
-            signInWithEmailAndPassword(auth, email, password)
+            firebase.signInWithEmailAndPassword(auth, email, password)
                 // For demo purposes: The user data is logged
                 .then((userCredential) => {
                     console.log(userCredential);
@@ -48,7 +49,7 @@ export function SignInForm(authUser) {
 
         // If no errors then continue to sign in
         if (password !== "" && email !== "") {
-            createUserWithEmailAndPassword(auth, email, password)
+            firebase.createUserWithEmailAndPassword(auth, email, password)
                 // For demo purposes: The user data is logged
                 .then((userCredential) => {
                     console.log(userCredential);

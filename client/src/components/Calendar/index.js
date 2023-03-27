@@ -3,17 +3,17 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import Grid from "@material-ui/core/Grid";
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import Box from '@material-ui/core/Box';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 import './calendar.css';
 
@@ -31,7 +31,6 @@ const AddEventForm = ({ isOpen, onClose, onSubmit }) => {
 
   const { authUser } = useContext(AuthContext);
   const userID = authUser?.uid
-
 
 
   const addCalendar = () => {
@@ -68,17 +67,14 @@ const AddEventForm = ({ isOpen, onClose, onSubmit }) => {
   }
 
   const handleSubmit = (event) => {
-
-    console.log("I'm here");
     event.preventDefault();
+    console.log("I'm here");
     onSubmit({ eventName, startTime, endTime, eventColour, eventRecurrence });
     onClose();
     setEventName('');
     setStartTime('');
     setEndTime('');
     addCalendar();
-
-
 
   };
 
@@ -151,7 +147,7 @@ const AddEventForm = ({ isOpen, onClose, onSubmit }) => {
             </Select>
           </FormControl>
         </Grid>
-        <Button variant="contained">Submit</Button>
+        <Button variant="contained" type="submit">Submit</Button>
       </form>
     </div>
   ) : null;
@@ -159,15 +155,11 @@ const AddEventForm = ({ isOpen, onClose, onSubmit }) => {
 
 const Calendar = () => {
 
-
-
-
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [events, setEvents] = useState([]);
 
 
   const addEvent = (newEvent) => {
-
 
     if (newEvent.eventRecurrence === 'none') {
       setEvents([...events, {
@@ -233,9 +225,9 @@ const Calendar = () => {
         onClick={() => {
           setIsFormOpen(true);
         }}>
-        Add Event</Button>
-      <AddEventForm onSubmit={addEvent} isOpen={isFormOpen} onClose={closeForm}
-      />
+        Add Event
+      </Button>
+      <AddEventForm onSubmit={addEvent} isOpen={isFormOpen} onClose={closeForm} />
       <p>
 
       </p>

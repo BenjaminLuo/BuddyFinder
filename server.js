@@ -104,7 +104,7 @@ app.post('/api/addChat', (req, res) => {
 	let sql = `INSERT INTO chat (content, user_to, user_settings_user_id)  
 	VALUES (?, ?, ?)`;
 	console.log(sql);
-	let data = [user_ran, user_post, user_id];
+	let data = [user_ran, user_post, 0];
 	connection.query(sql, data, (error, results, fields) => {
 		if (error) {
 			return console.error(error.message);
@@ -409,10 +409,10 @@ app.post('/api/addCalendar', (req, res) => {
 	let user_id = req.body.userID;
 
 
-	let sql = `INSERT INTO user_calendar (event, start, end, user_id)  
-	VALUES (?, ?, ?, ?)`;
+	let sql = `INSERT INTO user_calendar (event, start, end, user_id, user_settings_user_id)  
+	VALUES (?, ?, ?, ?, ?)`;
 	console.log(sql);
-	let data = [user_eventName, user_startTime, user_endTime, user_id];
+	let data = [user_eventName, user_startTime, user_endTime, user_id, 0];
 	connection.query(sql, data, (error, results, fields) => {
 		if (error) {
 			return console.error(error.message);

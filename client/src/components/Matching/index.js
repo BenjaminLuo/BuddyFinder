@@ -16,10 +16,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 import Card from '@material-ui/core/Card';
 import { styled } from '@material-ui/core/styles';
-
-import Stack from '@mui/material/Stack';
-import { object } from 'prop-types';
-import Box from "@material-ui/core/Box";
 import { AuthContext } from '../Authentication/AuthDetails'
 
 

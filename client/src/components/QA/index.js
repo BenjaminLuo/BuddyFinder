@@ -1,10 +1,7 @@
 // --------------------------------------------------- \/ Imports
 
 
-import React, { useEffect, useContext } from 'react';
-import Rating from '@mui/material/Rating';
-import Stack from '@mui/material/Stack';
-import { styled } from '@material-ui/core/styles';
+import React, { useContext } from 'react';
 
 
 
