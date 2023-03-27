@@ -11,16 +11,23 @@ import { userInterests } from './userInterests';
 import { userComments } from './userComments';
 import { profileInformation } from './profileInformation';
 import GetFetch from '../common'
+import backgroundImage from '../images/banner_background.png';
 
 const useStyles = makeStyles(() => {
     return {
         page: {
             opacity: 0.9,
-            minHeight: '150vh'
+            minHeight: '120vh',
+            backgroundImage: `url(${backgroundImage})`,
+            backgroundSize: 'cover'
         },
         rightSubContainer: {
             padding: '10px'
-        }
+        },
+        overlay: {
+            background: 'rgba(255, 255, 255, 0.4)',
+            height: '120vh'
+        },
     }
 })
 
@@ -99,17 +106,19 @@ export default function Profile({ userID }) {
 
     return (
         <Container maxWidth={false} className={classes.page}>
+            <Container maxWidth={false} className={classes.overlay}>
 
-            {/* Left Container: User Account Information */}
-            {profileInformation(user)}
+                {/* Left Container: User Account Information */}
+                {profileInformation(user)}
 
-            {/* Right Container: User Activity */}
-            <Grid item xs={9} style={{ float: 'right' }}>
-                {userInterests(classes, user)}
-                {userPosts(classes, user)}
-                {userComments(classes, user)}
-            </Grid>
+                {/* Right Container: User Activity */}
+                <Grid item xs={9} style={{ float: 'right' }}>
+                    {userInterests(classes, user)}
+                    {userPosts(classes, user)}
+                    {userComments(classes, user)}
+                </Grid>
 
+            </Container>
         </Container>
     );
 

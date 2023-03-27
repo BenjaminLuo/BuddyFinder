@@ -20,6 +20,7 @@ import { userList } from './userList';
 import { friendList } from './friendList';
 import { blockedList } from './blockedList';
 import GetFetch from '../common'
+import backgroundImage from '../images/light_background.png';
 
 
 const useStyles = makeStyles(() => {
@@ -27,6 +28,8 @@ const useStyles = makeStyles(() => {
         page: {
             opacity: 0.9,
             minHeight: '90vh',
+            backgroundImage: `url(${backgroundImage})`,
+            backgroundSize: 'cover',
             padding: '40px 100px 40px 100px'
         },
         modal: {

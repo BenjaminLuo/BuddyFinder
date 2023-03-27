@@ -16,6 +16,7 @@ import { UsageStatistics } from './UsageStatistics';
 import { CompletedGoals } from './completedGoals';
 import { IncompleteGoals } from './incompleteGoals';
 import GetFetch from '../common'
+import backgroundImage from '../images/light_background.png';
 
 // --------------------------------------------------- /\ Imports
 // --------------------------------------------------- \/ Styles
@@ -26,6 +27,8 @@ const useStyles = makeStyles(() => {
       opacity: 0.9,
       padding: '40px',
       minHeight: '90vh',
+      backgroundImage: `url(${backgroundImage})`,
+      backgroundSize: 'cover'
     },
   }
 })
@@ -138,7 +141,7 @@ export default function Statistics() {
         <Grid item xs={1} />
         <Grid item xs={6}>
 
-          <Typography gutterBottom variant="h5" style={{ marginBottom: '20px' }}>
+          <Typography gutterBottom variant="h5" style={{ marginBottom: '20px', color: 'black', fontSize: '24px' }}>
             My To-Do List
           </Typography>
 

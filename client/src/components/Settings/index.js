@@ -14,12 +14,15 @@ import {
 import { TabPanel } from '../../components/UI/TabPanel';
 import GetFetch from '../common'
 import { AuthContext } from '../Authentication/AuthDetails'
+import backgroundImage from '../images/light_background.png';
 
 const useStyles = makeStyles((theme) => {
     return {
         page: {
             opacity: 0.9,
-            minHeight: '90vh'
+            minHeight: '91vh',
+            backgroundImage: `url(${backgroundImage})`,
+            backgroundSize: 'cover'
         },
     }
 })
@@ -116,7 +119,7 @@ export default function Settings() {
                     <TextField
                         label={props.label}
                         placeholder={"Enter new " + props.field.toLowerCase()}
-                        variant="outlined"
+                        variant="filled"
                         helperText={validate[props.id] ? "This field cannot be blank" : ""}
                         error={validate[props.id]}
                         id={props.id + '_info'}
