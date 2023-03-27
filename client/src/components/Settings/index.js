@@ -52,9 +52,6 @@ export default function Settings() {
     const [value, setValue] = React.useState(0);
     const handleChange = (event, newValue) => setValue(newValue);
 
-    function getUserSettings() {
-        return GetFetch('getUserSettings', { userID: authUser?.uid })
-    }
     function updateUserSettings(fieldToChange, newVal) {
         return GetFetch('updateUserSettings', {
             fieldToChange: fieldToChange,
@@ -65,7 +62,11 @@ export default function Settings() {
 
     // Initializing user data
     useEffect(() => {
-        getUserSettings().then(user => changeData(user.length === 0 ? user : user[0]))
+        const getUserSettings = () => {
+            return GetFetch('getUserSettings', { userID: authUser?.uid }
+            ).then(user => changeData(user.length === 0 ? user : user[0]))
+        }
+        getUserSettings();
     }, [authUser])
 
     // Update user account information

@@ -158,6 +158,81 @@ app.post('/api/updateUserSettings', (req, res) => {
 
 
 
+app.post('/api/getUserList', (req, res) => {
+	let connection = mysql.createConnection(config);
+	let sql = `SELECT * from user_settings`;
+
+	connection.query(sql, [], (error, results, fields) => {
+		if (error) {
+			return console.error(error.message);
+		}
+		res.send(results);
+	});
+
+	connection.end();
+});
+
+app.post('/api/getFriendList', (req, res) => {
+	let connection = mysql.createConnection(config);
+	let sql = `SELECT addressee from friend_list WHERE requester="${req.body.userID}"`;
+
+	connection.query(sql, [], (error, results, fields) => {
+		if (error) {
+			return console.error(error.message);
+		}
+		res.send(results.map(item => item.addressee));
+	});
+
+	connection.end();
+});
+
+app.post('/api/getBlockList', (req, res) => {
+	let connection = mysql.createConnection(config);
+	let sql = `SELECT addressee from block_list WHERE requester="${req.body.userID}"`;
+
+	connection.query(sql, [], (error, results, fields) => {
+		if (error) {
+			return console.error(error.message);
+		}
+		res.send(results.map(item => item.addressee));
+	});
+
+	connection.end();
+});
+
+app.post('/api/addUser', (req, res) => {
+	let connection = mysql.createConnection(config);
+	let sql = `INSERT INTO ${req.body.action}_list (requester, addressee)
+		VALUES ("${req.body.userID}", "${req.body.addressee}")`;
+
+	connection.query(sql, [], (error, results, fields) => {
+		if (error) {
+			return console.error(error.message);
+		}
+		res.send(results);
+	});
+
+	connection.end();
+});
+
+app.post('/api/removeUser', (req, res) => {
+	let connection = mysql.createConnection(config);
+	let sql = `DELETE FROM ${req.body.action}_list 
+		WHERE requester="${req.body.userID}" 
+		AND addressee="${req.body.addressee}"`;
+
+	connection.query(sql, [], (error, results, fields) => {
+		if (error) {
+			return console.error(error.message);
+		}
+		res.send(results);
+	});
+
+	connection.end();
+});
+
+
+
 app.post('/api/getUserGoals', (req, res) => {
 	let connection = mysql.createConnection(config);
 	let sql = `SELECT * from goal_tracking WHERE user_id="${req.body.userID}"`;

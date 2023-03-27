@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import './index.css'
 
 import {
@@ -13,13 +13,16 @@ import {
     Tab
 } from '@material-ui/core';
 
+import { AuthContext } from '../Authentication/AuthDetails'
 import { modalController } from './modalController';
 import { searchForUsers } from './searchForUsers';
 import { userList } from './userList';
 import { friendList } from './friendList';
 import { blockedList } from './blockedList';
+import GetFetch from '../common'
 
-const useStyles = makeStyles((theme) => {
+
+const useStyles = makeStyles(() => {
     return {
         page: {
             opacity: 0.9,
@@ -59,152 +62,12 @@ const useStyles = makeStyles((theme) => {
 })
 
 
-const accounts = [
-    {
-        display_name: 'Ephei Tea',
-        user_id: '20890448',
-        bio: 'A struggling student',
-        term: '3A',
-        program: 'Mangement Engineering',
-        private: false,
-        searchable: true,
-        friend: true,
-        blocked: false,
-        interests: ['NodeJS', 'ReactJS', 'MUI', 'Mathematics', 'AWS', 'Research', 'Games', 'Hackathons', 'Sleeping'],
-        posts: [
-            {
-                postID: 132,
-                title: "Looking for friends in MGMT25"
-            },
-            {
-                postID: 136,
-                title: "Help with MSCI 342 project"
-            },
-            {
-                postID: 156,
-                title: "How do I solve this problem?"
-            },
-            {
-                postID: 132,
-                title: "Hi."
-            },
-            {
-                postID: 136,
-                title: "Why is this code breaking? What do I dooooooo"
-            },
-            {
-                postID: 156,
-                title: "Why won't you compile AHHHHHH, I quit, I'm done with this project, why is this course required to graduate?!"
-            }
-        ],
-        comments: [
-            {
-                commentID: 253,
-                value: "Hi"
-            },
-            {
-                commentID: 342,
-                value: "I'm a 3rd year management engineering student"
-            },
-            {
-                commentID: 554,
-                value: "I'm also looking for a project team, let's work together"
-            }
-        ]
-    },
-    {
-        display_name: 'Yi Fei',
-        user_id: '00000000',
-        term: '4B',
-        program: 'Civil Engineering',
-        private: false,
-        searchable: true,
-        friend: true,
-        blocked: false,
-        interests: [],
-        posts: [],
-        comments: []
-    },
-    {
-        display_name: 'John Doe',
-        user_id: '12345678',
-        bio: 'A struggling student',
-        term: '1A',
-        program: 'Electrical Engineering',
-        private: true,
-        searchable: true,
-        friend: false,
-        blocked: false,
-        interests: [],
-        posts: [],
-        comments: []
-    },
-    {
-        display_name: 'Nyephe',
-        user_id: '87654321',
-        bio: 'A struggling student',
-        term: '2B',
-        program: 'Software Engineering',
-        private: false,
-        searchable: false,
-        friend: true,
-        blocked: true,
-        interests: [],
-        posts: [],
-        comments: []
-    }
-]
-
-export var userStub = {
-    display_name: 'Yi Fei Tea',
-    user_id: '0000',
-    bio: 'Just another person',
-    interests: ['NodeJS', 'ReactJS', 'MUI', 'Mathematics', 'AWS', 'Research', 'Games', 'Hackathons', 'Sleeping'],
-    posts: [
-        {
-            postID: 132,
-            title: "Looking for friends in MGMT25"
-        },
-        {
-            postID: 136,
-            title: "Help with MSCI 342 project"
-        },
-        {
-            postID: 156,
-            title: "How do I solve this problem?"
-        },
-        {
-            postID: 132,
-            title: "Hi."
-        },
-        {
-            postID: 136,
-            title: "Why is this code breaking? What do I dooooooo"
-        },
-        {
-            postID: 156,
-            title: "Why won't you compile AHHHHHH, I quit, I'm done with this project, why is this course required to graduate?!"
-        }
-    ],
-    comments: [
-        {
-            commentID: 253,
-            value: "Hi"
-        },
-        {
-            commentID: 342,
-            value: "I'm a 3rd year management engineering student"
-        },
-        {
-            commentID: 554,
-            value: "I'm also looking for a project team, let's work together"
-        }
-    ]
-};
-
-
-export default function Search(props) {
+export default function Search() {
     const classes = useStyles();
+    const { authUser } = useContext(AuthContext);
+    const [accounts, loadAccounts] = React.useState([]);
+    const [friends, updateFriends] = React.useState([]);
+    const [blocked, updateBlocked] = React.useState([]);
 
     // For tabbers
     const [value, setValue] = React.useState(0);
@@ -218,6 +81,25 @@ export default function Search(props) {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    // API Calls for fetching data
+    function getUsers() { return GetFetch('getUserList') }
+    function getFriends() { return GetFetch('getFriendList', { userID: authUser?.uid }) }
+    function getBlocked() { return GetFetch('getBlockList', { userID: authUser?.uid }) }
+    function updateUsers(whichList, action, addressee) {
+        return GetFetch(whichList, {
+            action: action,
+            userID: authUser?.uid,
+            addressee: addressee
+        })
+    }
+
+    // Initializing user data
+    useEffect(() => {
+        getUsers().then(userList => loadAccounts(userList))
+        getFriends().then(friendList => updateFriends(friendList))
+        getBlocked().then(blockedUsers => updateBlocked(blockedUsers))
+    }, [authUser])
+
     // Tabbers
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -225,21 +107,27 @@ export default function Search(props) {
 
     // Preview user profile through a modal
     const handleProfile = (e) => {
-        userStub = accounts[accounts.findIndex(item => item.user_id === e.target.id)]
+        const userStub = accounts[accounts.findIndex(item => item.user_id === e.target.id)]
         handleOpen();
     }
 
     // Add/remove a friend
     function handleFriend(e) {
-        const thisIndex = accounts.findIndex(item => "friend" + item.user_id === e.target.id)
-        accounts[thisIndex].friend = !accounts[thisIndex].friend
-        setQuery(search + ' ')
+        e = e.target.id.slice(6) // Processing on the ID to retrieve the user ID
+        if (friends.includes(e)) {
+            updateFriends(friends.filter(item => item !== e));
+            updateUsers('removeUser', 'friend', e);
+        } else {
+            updateFriends(friends.concat([e]));
+            updateUsers('addUser', 'friend', e);
+        }
+
+
     }
 
     // Block/unblock
     const handleBlock = (e) => {
-        const thisIndex = accounts.findIndex(item => "block" + item.user_id === e.target.id)
-        accounts[thisIndex].blocked = !accounts[thisIndex].blocked
+        updateBlocked(blocked.concat([e.target.id]))
         setQuery(search + ' ')
     }
 
@@ -260,11 +148,11 @@ export default function Search(props) {
 
                     {/* User Information */}
                     <Grid item xs={7}>
-                        <Typography style={{ fontWeight: '500', display: 'inline' }}>
+                        <Typography style={{ fontWeight: '600', display: 'inline' }}>
                             {props.name + " / "}
                         </Typography>
                         <Typography style={{ display: 'inline' }}>
-                            ({props.userID})
+                            ({props.userID.slice(0, 5)}...)
                         </Typography>
                         <Typography style={{ fontStyle: 'italic', fontSize: '12px' }}>
                             {props.year + " " + props.program}
@@ -273,29 +161,33 @@ export default function Search(props) {
 
                     {/* Add/remove Friend */}
                     <Grid item xs={1}>
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            color="primary"
-                            className={classes.button}
-                            id={'friend' + props.userID}
-                            data-testid={'test_friend_' + props.userID}
-                            onClick={(e) => handleFriend(e)}>
-                            <Typography variant="h6">{props.friend ? '-' : '+'}</Typography>
-                        </Button>
+                        {authUser ?
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                color="primary"
+                                className={classes.button}
+                                id={'friend' + props.userID}
+                                data-testid={'test_friend_' + props.userID}
+                                onClick={(e) => handleFriend(e)}>
+                                <Typography variant="h6">{props.friend ? '-' : '+'}</Typography>
+                            </Button>
+                            : ""}
                     </Grid>
 
                     {/* Block/unblock */}
                     <Grid item xs={1}>
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            color="primary"
-                            className={classes.button}
-                            id={'block' + props.userID}
-                            onClick={(e) => handleBlock(e)}>
-                            <Typography variant="h6">{props.blocked ? 'U' : 'B'}</Typography>
-                        </Button>
+                        {authUser ?
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                color="primary"
+                                className={classes.button}
+                                id={'block' + props.userID}
+                                onClick={(e) => handleBlock(e)}>
+                                <Typography variant="h6">{props.blocked ? 'U' : 'B'}</Typography>
+                            </Button>
+                            : ""}
                     </Grid>
 
                     {/* View profile */}
@@ -337,13 +229,13 @@ export default function Search(props) {
                 </Box>
 
                 {/* Returned results: All */}
-                {userList(value, query, UserCard)}
+                {userList(value, query, UserCard, friends, blocked)}
 
                 {/* Returned results: Friends */}
-                {friendList(value, query, UserCard)}
+                {friendList(value, query, UserCard, friends, blocked)}
 
                 {/* Returned results: Blocked */}
-                {blockedList(value, query, UserCard)}
+                {blockedList(value, query, UserCard, friends, blocked)}
 
             </Card>
         </Container >
