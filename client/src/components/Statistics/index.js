@@ -1,6 +1,6 @@
 // --------------------------------------------------- \/ Imports
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 
 import {
   Typography,
@@ -17,6 +17,7 @@ import { CompletedGoals } from './completedGoals';
 import { IncompleteGoals } from './incompleteGoals';
 import GetFetch from '../common'
 import backgroundImage from '../images/light_background.png';
+import { AuthContext } from '../Authentication/AuthDetails'
 
 // --------------------------------------------------- /\ Imports
 // --------------------------------------------------- \/ Styles
@@ -35,7 +36,8 @@ const useStyles = makeStyles(() => {
 
 export default function Statistics() {
   const classes = useStyles();
-  const userID = 20890448
+  const { authUser } = useContext(AuthContext);
+  const userID = authUser?.uid
 
   // Tracking the user's goals
   const [goalObject, updateGoalObject] = React.useState([{
@@ -71,9 +73,9 @@ export default function Statistics() {
   useEffect(() => {
     getUserGoals().then(goals => {
       updateGoalObject(goals)
-      upID(goals.length !== 0 ? goals[goals.length - 1].id : 0)
+      upID(goals.length !== 0 ? goals[goals.length - 1].id + 1 : 0)
     })
-  }, [])
+  }, [authUser])
 
   // Handler for changes to any goal (ie. TextField)
   const handleChange = (e) => {
