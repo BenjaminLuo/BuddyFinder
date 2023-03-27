@@ -14,6 +14,7 @@ import {
 import { SiteInformation } from './siteInformation';
 import { confirmationMessage } from './confirmationMessage';
 import GetFetch from '../common'
+import backgroundImage from '../images/light_background.png';
 
 // Local styles
 const useStyles = makeStyles(() => {
@@ -21,7 +22,9 @@ const useStyles = makeStyles(() => {
         page: {
             opacity: 0.9,
             padding: '60px',
-            minHeight: '90vh'
+            minHeight: '91vh',
+            backgroundImage: `url(${backgroundImage})`,
+            backgroundSize: 'cover'
         },
     }
 })

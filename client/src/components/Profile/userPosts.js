@@ -11,7 +11,7 @@ export function userPosts(classes, user) {
     return (
         <Container className={classes.rightSubContainer}>
 
-            <Typography variant="h5" style={{ margin: '12px 0px 12px 0px' }}>
+            <Typography variant="h5" style={{ margin: '12px 0px 12px 0px', color: 'black', fontSize: '24px' }}>
                 Posts
             </Typography>
 
