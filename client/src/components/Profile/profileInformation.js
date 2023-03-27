@@ -5,8 +5,6 @@ import {
     Grid, Avatar
 } from '@material-ui/core';
 
-import { theme } from '../App/theme'
-
 // Left container: User profile information
 export function profileInformation(user) {
     return (

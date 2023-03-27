@@ -1,8 +1,7 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import { AuthContext } from '../Authentication/AuthDetails'
 
 import Rating from '@mui/material/Rating';
-import Stack from '@mui/material/Stack';
 import {
   Typography,
   FormControl,
@@ -10,10 +9,6 @@ import {
   FormControlLabel,
   FormGroup,
   RadioGroup,
-  Container,
-  Grid,
-  makeStyles,
-  TextField,
   Button,
   Box,
   Card,
@@ -137,44 +132,28 @@ export default function Similar() {
     setOpen(true);
   };
 
-  const handleRadio = (item) => {
-    setPlace(item);
-    console.log("Radio Button is ", place);
-  }
-
   const onUpdateSelection = (item) => {
     setPlay(item);
     console.log("Play is ", play)
   }
 
-  const onChangeSlider = (item) => {
-    setNumb(item);
-    console.log("Random Number is ", numb)
-  }
-
-  const handleSel = (item) => {
-    setSoft(item);
-  }
-
   const onApplySim = () => {
-    {
-      if (checked === true) {
-        setFur(1);
-      } else {
-        setFur(0);
-      }
+    if (checked === true) {
+      setFur(1);
+    } else {
+      setFur(0);
     }
 
     const sum = parseInt(place) + soft + play + numb + fur;
     console.log("Let's count ", sum);
 
-    {
-      if (sum % 2 === 0) {
-        setFinal(0);
-      } else {
-        setFinal(1);
-      }
+
+    if (sum % 2 === 0) {
+      setFinal(0);
+    } else {
+      setFinal(1);
     }
+
     console.log("Group ", final);
 
     const si = {
