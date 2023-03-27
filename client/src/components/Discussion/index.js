@@ -186,7 +186,7 @@ const Discussion = () => {
   // ******************* ADD USER INPUTTED VALUES TO LISTS *******************
   const onApplyAddition = () => {
     //VALIDATE IF USER INPUTTED VALUES
-    if (addedNewsTerm.length == 0 || addedNameTerm.length == 0) {
+    if (addedNewsTerm.length === 0 || addedNameTerm.length === 0) {
       seterror(true);
     }
     //PUSH INPUT TO CORRESPONSING GENERAL FORUM
@@ -232,7 +232,7 @@ const Discussion = () => {
       setPhys('');
     }
     else {
-      
+
     }
   }
 
@@ -337,14 +337,14 @@ const Discussion = () => {
             <List list={foundGeneralNewsbyAuthor} />
             <Grid>
               {newsGeneralList.map((item) => {
-                if (item.News !== '' && item.Name !== ''){
-                return (
-                  <li>
-                    <p> {"News title: " + item.News}</p>
-                    <p> {"Author: " + item.Name}</p>
-                  </li>
-                );
-                } 
+                if (item.News !== '' && item.Name !== '') {
+                  return (
+                    <li>
+                      <p> {"News title: " + item.News}</p>
+                      <p> {"Author: " + item.Name}</p>
+                    </li>
+                  );
+                }
               })}
             </Grid>
 
@@ -353,13 +353,13 @@ const Discussion = () => {
             <List list={foundSocialNewsbyAuthor} />
             <Grid>
               {newsSocialList.map((item) => {
-                if (item.News !== '' && item.Name !== ''){
-                return (
-                  <li>
-                    <p> {"News title: " + item.News}</p>
-                    <p> {"Author: " + item.Name}</p>
-                  </li>
-                );
+                if (item.News !== '' && item.Name !== '') {
+                  return (
+                    <li>
+                      <p> {"News title: " + item.News}</p>
+                      <p> {"Author: " + item.Name}</p>
+                    </li>
+                  );
                 }
               })}
             </Grid>
@@ -369,13 +369,13 @@ const Discussion = () => {
             <List list={foundPhysNewsbyAuthor} />
             <Grid>
               {newsPhysList.map((item) => {
-                if (item.News !== '' && item.Name !== ''){
-                return (
-                  <li>
-                    <p> {"News title: " + item.News}</p>
-                    <p> {"Author: " + item.Name}</p>
-                  </li>
-                );
+                if (item.News !== '' && item.Name !== '') {
+                  return (
+                    <li>
+                      <p> {"News title: " + item.News}</p>
+                      <p> {"Author: " + item.Name}</p>
+                    </li>
+                  );
                 }
               })}
             </Grid>

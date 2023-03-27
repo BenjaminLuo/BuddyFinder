@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
-import { useState, useEffect } from 'react';
 import Grid from "@material-ui/core/Grid";
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
@@ -26,7 +25,7 @@ const AddEventForm = ({ isOpen, onClose, onSubmit }) => {
   const [eventColour, setEventColour] = useState('');
   const [eventRecurrence, setEventRecurrence] = useState('none');
 
-  const [userID, setUserID] = useState(1);
+  const userID = 1;
 
 
   const addCalendar = () => {
@@ -220,8 +219,8 @@ const Calendar = () => {
       </p>
 
       <Button
-        variant= "contained"
-        color = "primary"
+        variant="contained"
+        color="primary"
         size="large"
         onClick={() => {
           setIsFormOpen(true);
@@ -262,7 +261,7 @@ const Calendar = () => {
 
     </div>
   );
-      }
-    
+}
+
 
 export default Calendar;

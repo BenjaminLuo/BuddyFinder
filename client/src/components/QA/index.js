@@ -1,13 +1,9 @@
 // --------------------------------------------------- \/ Imports
 import * as React from 'react';
-import Rating from '@mui/material/Rating';
-import Stack from '@mui/material/Stack';
 
 import {
   Typography,
   makeStyles,
-  Container,
-  Grid,
   Box,
   Button,
   TextField,
@@ -21,18 +17,6 @@ const serverURL = "";
 
 // --------------------------------------------------- /\ Imports
 // --------------------------------------------------- \/ Styles
-
-const useStyles = makeStyles((theme) => {
-  return {
-    page: {
-      backgroundColor: '#A8C69F',
-      backgroundSize: 'cover',
-      opacity: 0.9,
-      minHeight: '100vh',
-      padding: '120px 100px 40px 100px'
-    }
-  }
-})
 
 
 export default function QA(props) {
@@ -103,16 +87,12 @@ export default function QA(props) {
     return responseInterest;
   }
 
-  const classes = useStyles();
-
-  const [userID, setUserID] = React.useState('');
+  const userID = 1
 
   const [value, setValue] = React.useState('');
   const [post, setPost] = React.useState('');
   const [ran, setRan] = React.useState('');
   const [postList, setPostList] = React.useState([]);
-
-  const chat = ["Yi Fei", "Suiyu", "A struggling student", "Ephei Tea", "Benjamin Luo"];
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -154,21 +134,23 @@ export default function QA(props) {
   }
 
   return (
-    <div align = 'center'>
-        <Typography gutterBottom variant="h3" align="center">
-    Want to share your thoughts?
-  </Typography>
-  <hr style={{ align: 'center', width: '10%', borderColor: 'black' }} />
+    <div align='center'>
+      <Typography gutterBottom variant="h3" align="center">
+        Want to share your thoughts?
+      </Typography>
+      <hr style={{ align: 'center', width: '10%', borderColor: 'black' }} />
 
-      <Card style={{color: 'white',
-              backgroundColor: '#99A1A6',
-              marginTop: '50px',
-              height: '250px',
-              width: '900px',
-              marginBottom: '50px'}}>
+      <Card style={{
+        color: 'white',
+        backgroundColor: '#99A1A6',
+        marginTop: '50px',
+        height: '250px',
+        width: '900px',
+        marginBottom: '50px'
+      }}>
 
-  <p style={{marginTop: '75px'}}></p>
-  <Box
+        <p style={{ marginTop: '75px' }}></p>
+        <Box
           sx={{
             width: 500,
             maxWidth: '100%',
@@ -227,7 +209,7 @@ export default function QA(props) {
       </Card>
 
     </div>
-    
+
   )
 }
 
