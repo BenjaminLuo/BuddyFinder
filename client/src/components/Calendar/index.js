@@ -14,7 +14,6 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import * as React from 'react';
 
 import './calendar.css';
 
