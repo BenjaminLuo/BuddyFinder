@@ -121,14 +121,18 @@ export default function Search() {
             updateFriends(friends.concat([e]));
             updateUsers('addUser', 'friend', e);
         }
-
-
     }
 
     // Block/unblock
     const handleBlock = (e) => {
-        updateBlocked(blocked.concat([e.target.id]))
-        setQuery(search + ' ')
+        e = e.target.id.slice(6) // Processing on the ID to retrieve the user ID
+        if (blocked.includes(e)) {
+            updateBlocked(blocked.filter(item => item !== e));
+            updateUsers('removeUser', 'block', e);
+        } else {
+            updateBlocked(blocked.concat([e]));
+            updateUsers('addUser', 'block', e);
+        }
     }
 
     // Filter the list of accounts based on the search query
