@@ -14,8 +14,7 @@ import { AuthContext } from '../Authentication/AuthDetails'
 import { DropDownOptions } from './DropDownOptions';
 import { DropDownButton } from './DropDownButton';
 import { SignInModal } from './SignInModal';
-
-import Similar from '../Similar';
+import backgroundImage from '../images/nav_background.png';
 
 const useStyles = makeStyles(() => {
   return {
@@ -38,6 +37,10 @@ const useStyles = makeStyles(() => {
     },
     toolbarButtons: {
       marginLeft: 'auto'
+    },
+    appbar: {
+      backgroundImage: `url(${backgroundImage})`,
+      backgroundSize: 'cover'
     }
   }
 })
@@ -84,7 +87,7 @@ export default function NavBar() {
 
   return (
     <>
-      <AppBar position="sticky">
+      <AppBar className={classes.appbar} position="sticky">
         <Toolbar variant="dense">
 
           <NavButton redirect={"/"} linkText={"Home"} />

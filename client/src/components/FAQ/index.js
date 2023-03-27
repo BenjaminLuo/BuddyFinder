@@ -8,6 +8,7 @@ import {
     makeStyles
 } from '@material-ui/core';
 import { FAQContent } from './FAQContent';
+import backgroundImage from '../images/light_background.png';
 
 // --------------------------------------------------- /\ Imports
 // --------------------------------------------------- \/ Styles
@@ -16,8 +17,10 @@ export const useStyles = makeStyles(() => {
     return {
         page: {
             opacity: 0.9,
-            minHeight: '90vh',
-            padding: '60px 100px 40px 100px'
+            minHeight: '91vh',
+            padding: '60px 100px 40px 100px',
+            backgroundImage: `url(${backgroundImage})`,
+            backgroundSize: 'cover'
         }
     }
 })

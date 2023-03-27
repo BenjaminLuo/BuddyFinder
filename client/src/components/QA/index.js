@@ -4,13 +4,12 @@ import React, { useEffect, useContext } from 'react';
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 
+
 import { AuthContext } from '../Authentication/AuthDetails'
 
 import {
   Typography,
   makeStyles,
-  Container,
-  Grid,
   Box,
   Button,
   TextField,
@@ -24,18 +23,6 @@ const serverURL = "";
 
 // --------------------------------------------------- /\ Imports
 // --------------------------------------------------- \/ Styles
-
-const useStyles = makeStyles((theme) => {
-  return {
-    page: {
-      backgroundColor: '#A8C69F',
-      backgroundSize: 'cover',
-      opacity: 0.9,
-      minHeight: '100vh',
-      padding: '120px 100px 40px 100px'
-    }
-  }
-})
 
 
 export default function QA(props) {
@@ -106,6 +93,7 @@ export default function QA(props) {
     return responseInterest;
   }
 
+
   const classes = useStyles();
 
   const { authUser } = useContext(AuthContext);
@@ -115,6 +103,7 @@ export default function QA(props) {
   const [post, setPost] = React.useState('');
   const [ran, setRan] = React.useState('');
   const [postList, setPostList] = React.useState([]);
+
 
   const chat = ["Yi Fei", "Suiyu", "A struggling student", "Ephei Tea", "NA", "Benjamin Luo"];
 

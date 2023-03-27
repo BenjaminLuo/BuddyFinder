@@ -1,24 +1,27 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+
 import { useState, useEffect, useContext } from 'react';
 import InputLabel from '@material-ui/core/InputLabel';
+
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import Container from "@material-ui/core/Container";
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 import Card from '@material-ui/core/Card';
 import { styled } from '@material-ui/core/styles';
+
 import Stack from '@mui/material/Stack';
 import { object } from 'prop-types';
 import Box from "@material-ui/core/Box";
 import { AuthContext } from '../Authentication/AuthDetails'
+
 
 const serverURL = "";
 
@@ -123,11 +126,12 @@ export default function Matching() {
 
   const classes = useStyles();
 
+
   const { authUser } = useContext(AuthContext);
   const userID = authUser?.uid
 
+
   const [value, setvalue] = React.useState('');
-  //const [userID, setUserID] = React.useState('');
 
 
   const handleChange = (event) => {
@@ -144,16 +148,11 @@ export default function Matching() {
     setOpen(true);
   };
 
-  const [name, setName] = React.useState("");
-
 
   const [activity, setActivity] = React.useState("");
   const [place, setPlace] = React.useState("");
   const [time, setTime] = React.useState("");
-
   const [open, setOpen] = React.useState(false);
-
-  const [loc, setLoc] = React.useState(true);
 
 
 

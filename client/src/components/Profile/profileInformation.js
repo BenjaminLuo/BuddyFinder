@@ -5,15 +5,13 @@ import {
     Grid, Avatar
 } from '@material-ui/core';
 
-import { theme } from '../App/theme'
-
 // Left container: User profile information
 export function profileInformation(user) {
     return (
         <Grid item xs={3} style={{ position: 'fixed', padding: '40px 0px 0px 40px' }}>
 
             {/* Avatar icon with first 1-2 letters of the name */}
-            <Avatar style={{ height: '150px', width: '150px', fontSize: '70px', margin: '40px auto 40px auto', backgroundColor: theme.palette.primary.main }}>
+            <Avatar style={{ height: '150px', width: '150px', fontSize: '70px', margin: '40px auto 40px auto', backgroundColor: '#222222' }}>
                 {user.display_name.match(/\b(\w)/g).slice(0, 2)}
             </Avatar>
 

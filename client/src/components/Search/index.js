@@ -20,6 +20,7 @@ import { userList } from './userList';
 import { friendList } from './friendList';
 import { blockedList } from './blockedList';
 import GetFetch from '../common'
+import backgroundImage from '../images/light_background.png';
 
 
 const useStyles = makeStyles(() => {
@@ -27,6 +28,8 @@ const useStyles = makeStyles(() => {
         page: {
             opacity: 0.9,
             minHeight: '90vh',
+            backgroundImage: `url(${backgroundImage})`,
+            backgroundSize: 'cover',
             padding: '40px 100px 40px 100px'
         },
         modal: {
@@ -125,7 +128,7 @@ export default function Search() {
 
     // Block/unblock
     const handleBlock = (e) => {
-        e = e.target.id.slice(6) // Processing on the ID to retrieve the user ID
+        e = e.target.id.slice(5) // Processing on the ID to retrieve the user ID
         if (blocked.includes(e)) {
             updateBlocked(blocked.filter(item => item !== e));
             updateUsers('removeUser', 'block', e);
