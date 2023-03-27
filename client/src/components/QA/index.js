@@ -3,6 +3,7 @@
 import React, { useEffect, useContext } from 'react';
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
+import { styled } from '@material-ui/core/styles';
 
 
 import { AuthContext } from '../Authentication/AuthDetails'
@@ -16,7 +17,8 @@ import {
   MenuItem,
   Select,
   FormControl,
-  Card
+  Card, 
+  Grid
 } from '@material-ui/core';
 
 const serverURL = "";
@@ -94,7 +96,7 @@ export default function QA(props) {
   }
 
 
-  const classes = useStyles();
+  //const classes = useStyles();
 
   const { authUser } = useContext(AuthContext);
   const userID = authUser?.uid

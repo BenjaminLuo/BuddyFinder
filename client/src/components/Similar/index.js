@@ -16,7 +16,8 @@ import {
   Select,
   MenuItem,
   Slider,
-  Checkbox
+  Checkbox, 
+  Grid
 } from '@material-ui/core';
 
 const serverURL = "";
