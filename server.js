@@ -235,7 +235,7 @@ app.post('/api/removeUser', (req, res) => {
 
 app.post('/api/getUserGoals', (req, res) => {
 	let connection = mysql.createConnection(config);
-	let sql = `SELECT * from goal_tracking WHERE user_id="${req.body.userID}"`;
+	let sql = `SELECT * from goal_tracking WHERE user_settings_user_id="${req.body.userID}"`;
 
 	connection.query(sql, [], (error, results, fields) => {
 		if (error) {
@@ -254,7 +254,7 @@ app.post('/api/updateUserGoals', (req, res) => {
 	let sql = `
 		UPDATE goal_tracking
 		SET completed=1, date="${today.getFullYear()}-${today.getMonth()}-${today.getDate()}" 
-		WHERE id=${req.body.goalID}`;
+		WHERE id="${req.body.goalID}"`;
 
 	connection.query(sql, [], (error, results, fields) => {
 		if (error) {
@@ -273,9 +273,9 @@ app.post('/api/addUserGoals', (req, res) => {
 
 	let sql = `
 		INSERT into goal_tracking (
-			id, goal, user_id
+			id, goal, user_settings_user_id
 		) VALUES (
-			${req.body.id}, "${req.body.goal}", ${req.body.userID}
+			${req.body.id}, "${req.body.goal}", "${req.body.userID}"
 		) ON DUPLICATE KEY UPDATE
 			goal = "${req.body.goal}"`
 
