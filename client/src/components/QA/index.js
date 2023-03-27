@@ -1,6 +1,11 @@
 // --------------------------------------------------- \/ Imports
 
-import React, { useContext } from 'react';
+
+import React, { useEffect, useContext } from 'react';
+import Rating from '@mui/material/Rating';
+import Stack from '@mui/material/Stack';
+import { styled } from '@material-ui/core/styles';
+
 
 
 import { AuthContext } from '../Authentication/AuthDetails'
@@ -105,7 +110,7 @@ export default function QA() {
   }
 
 
-  const classes = useStyles();
+  //const classes = useStyles();
 
   const { authUser } = useContext(AuthContext);
   const userID = authUser?.uid

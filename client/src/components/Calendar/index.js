@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
-
 import Grid from "@material-ui/core/Grid";
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
@@ -15,6 +14,8 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import * as React from 'react';
+
 import './calendar.css';
 
 import { AuthContext } from '../Authentication/AuthDetails'
