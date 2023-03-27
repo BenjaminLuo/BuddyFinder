@@ -105,7 +105,7 @@ export default function QA(props) {
 
   const classes = useStyles();
 
-  const [userID, setUserID] = React.useState(1);
+  const [userID, setUserID] = React.useState('');
 
   const [value, setValue] = React.useState('');
   const [post, setPost] = React.useState('');

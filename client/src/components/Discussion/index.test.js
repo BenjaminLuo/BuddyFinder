@@ -9,6 +9,6 @@ describe ('Discussion', () => {
 
     it("should render a textfield asking to post a status update", () => {
         renderComponent();
-        expect(screen.getByText(`Post your latest feed!`)).toBeInTheDocument()
+        expect(screen.getByText(`Add your status update`)).toBeInTheDocument()
     })
 })

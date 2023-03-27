@@ -28,7 +28,7 @@ app.post('/api/addInterest', (req, res) => {
 	let user_id = req.body.userID;
 
 
-	let sql = `INSERT INTO user_activity (location, action, time, user_id)  
+	let sql = `INSERT INTO user_activity (location, action, time, user_settings_user_id)  
 	VALUES (?, ?, ?, ?)`;
 	console.log(sql);
 	let data = [user_place, user_activity, user_time, user_id];
