@@ -52,7 +52,8 @@ app.get('/api/getUsersArray', (req, res) => {
 
 	let connection = mysql.createConnection(config);
 
-	let sql = `SELECT display_name FROM user_settings`;
+	let sql = `SELECT * FROM chat c, user_settings us
+				WHERE us.user_id = c.user_settings_user_id`;
 	console.log(sql);
 	let data = [];
 

@@ -39,6 +39,9 @@ export default function QA() {
 
   const [usersList, setUsersList] = React.useState([]);
 
+  const { authUser } = useContext(AuthContext);
+  const userID = authUser?.uid
+
   React.useEffect(() => {
     loadUsers();
   }, []);
@@ -108,8 +111,7 @@ export default function QA() {
 
   //const classes = useStyles();
 
-  const { authUser } = useContext(AuthContext);
-  const userID = authUser?.uid
+
 
   const [value, setValue] = React.useState('');
   const [post, setPost] = React.useState('');
