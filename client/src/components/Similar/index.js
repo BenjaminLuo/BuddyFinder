@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../Authentication/AuthDetails'
 
-import Rating from '@mui/material/Rating';
+import { Rating } from '@material-ui/lab';
 import {
   Typography,
   FormControl,

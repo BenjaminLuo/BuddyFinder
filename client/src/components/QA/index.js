@@ -1,13 +1,7 @@
 // --------------------------------------------------- \/ Imports
 
 
-import React, { useEffect, useContext } from 'react';
-import Rating from '@mui/material/Rating';
-import Stack from '@mui/material/Stack';
-import { styled } from '@material-ui/core/styles';
-
-
-
+import React, { useContext } from 'react';
 import { AuthContext } from '../Authentication/AuthDetails'
 
 import {
@@ -260,24 +254,24 @@ export default function QA() {
 
       <Grid>
 
-<Typography>
-
-  {usersList.map((item) => {
-    return (
-      <ul>
         <Typography>
-          To:  {item.display_name}
-        </Typography>
 
-        <Typography>
-          Message:  {item.content}
-        </Typography>
+          {usersList.map((item) => {
+            return (
+              <ul>
+                <Typography>
+                  To:  {item.display_name}
+                </Typography>
 
-      </ul>
-    );
-  })}
-</Typography>
-</Grid>
+                <Typography>
+                  Message:  {item.content}
+                </Typography>
+
+              </ul>
+            );
+          })}
+        </Typography>
+      </Grid>
 
     </div>
 
