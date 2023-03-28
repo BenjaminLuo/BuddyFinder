@@ -3,7 +3,6 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import Grid from "@material-ui/core/Grid";
-import Box from '@material-ui/core/Box';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
@@ -13,14 +12,11 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import SnackbarContent from '@material-ui/core/SnackbarContent';
-
+import GetFetch from '../common'
 import './calendar.css';
 
 import { AuthContext } from '../Authentication/AuthDetails'
 
-const serverURL = "";
 
 const AddEventForm = ({ isOpen, onClose, onSubmit }) => {
   const [eventName, setEventName] = useState('');
@@ -29,45 +25,22 @@ const AddEventForm = ({ isOpen, onClose, onSubmit }) => {
   const [eventColour, setEventColour] = useState('');
   const [eventRecurrence, setEventRecurrence] = useState('none');
 
-
+  // Loading the userID of the signed-in user
   const { authUser } = useContext(AuthContext);
   const userID = authUser?.uid
 
 
-
-  const addCalendar = () => {
-    callApiAddCalendar()
-      .then(res => {
-        console.log("callApiAddCalendar returned: ", res)
-        var parsed = JSON.parse(res.express);
-        console.log("callApiAddCalendar parsed: ", parsed);
-        //    setActivitiesList(parsed);
-      })
+  // Write the user-input event to the database
+  function addCalendar() {
+    return GetFetch('addCalendar', {
+      eventName: eventName,
+      startTime: startTime,
+      endTime: endTime,
+      userID: userID
+    })
   }
 
-  const callApiAddCalendar = async () => {
-    const url = serverURL + "/api/addCalendar";
-    console.log(url);
-
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-
-      },
-      body: JSON.stringify({
-        eventName: eventName,
-        startTime: startTime,
-        endTime: endTime,
-        userID: userID
-      })
-    });
-    const responseCalendar = await response.json();
-    if (response.status !== 200) throw Error(responseCalendar.message);
-    console.log("User settings: ", responseCalendar);
-    return responseCalendar;
-  }
-
+  // Form submission of the event
   const handleSubmit = (event) => {
 
     console.log("I'm here");
@@ -79,11 +52,9 @@ const AddEventForm = ({ isOpen, onClose, onSubmit }) => {
     setEndTime('');
     addCalendar();
 
-
-
   };
 
-
+  // Form to add an event
   return isOpen ? (
     <div className="popup-form">
       <form onSubmit={handleSubmit}>
@@ -160,12 +131,16 @@ const AddEventForm = ({ isOpen, onClose, onSubmit }) => {
 
 const Calendar = () => {
 
-
-
-
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [events, setEvents] = useState([]);
 
+  // Loading the userID of the signed-in user
+  const { authUser } = useContext(AuthContext);
+
+  // Initializing user data
+  useEffect(() => {
+    GetFetch('getUsersCalendar', { userID: authUser?.uid }).then(userList => setEvents(userList))
+  }, [authUser])
 
   const addEvent = (newEvent) => {
 
@@ -216,19 +191,9 @@ const Calendar = () => {
   };
 
   const eventClick = ({ event }) => {
-    const action = (
-      event.remove()
-    );
-
-    return (
-      <Card spacing={2} sx={{ maxWidth: 600 }}>
-        <SnackbarContent message="Are you sure you want to delete this event from your calendar?" action={action} />
-      </Card>
-    );
-
-    //if (window.confirm("Are you sure you want to delete this event from your calendar?")) {
-    //event.remove();
-    // }
+    if (window.confirm("Are you sure you want to delete this event from your calendar?")) {
+      event.remove();
+    }
   };
 
   return (
