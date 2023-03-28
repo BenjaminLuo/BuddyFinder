@@ -53,9 +53,6 @@ export default function Statistics() {
   const [tabToggle, changeTabToggle] = React.useState(0);
   const handleTabber = (event, newValue) => changeTabToggle(newValue);
 
-  function getUserGoals() {
-    return GetFetch('getUserGoals', { userID: userID })
-  }
   function updateUserGoals(goalID) {
     return GetFetch('updateUserGoals', {
       goalID: goalID
@@ -71,7 +68,7 @@ export default function Statistics() {
 
   // Initializing user goals
   useEffect(() => {
-    getUserGoals().then(goals => {
+    GetFetch('getUserGoals', { userID: authUser?.uid }).then(goals => {
       updateGoalObject(goals)
       upID(goals.length !== 0 ? goals[goals.length - 1].id + 1 : 0)
     })

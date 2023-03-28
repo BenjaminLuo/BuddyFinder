@@ -87,10 +87,7 @@ export default function Search() {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    // API Calls for fetching data
-    function getUsers() { return GetFetch('getUserList') }
-    function getFriends() { return GetFetch('getFriendList', { userID: authUser?.uid }) }
-    function getBlocked() { return GetFetch('getBlockList', { userID: authUser?.uid }) }
+    // API Call for updating data
     function updateUsers(whichList, action, addressee) {
         return GetFetch(whichList, {
             action: action,
@@ -101,9 +98,9 @@ export default function Search() {
 
     // Initializing user data
     useEffect(() => {
-        getUsers().then(userList => loadAccounts(userList))
-        getFriends().then(friendList => updateFriends(friendList))
-        getBlocked().then(blockedUsers => updateBlocked(blockedUsers))
+        GetFetch('getUserList').then(userList => loadAccounts(userList))
+        GetFetch('getFriendList', { userID: authUser?.uid }).then(friendList => updateFriends(friendList))
+        GetFetch('getBlockList', { userID: authUser?.uid }).then(blockedUsers => updateBlocked(blockedUsers))
     }, [authUser])
 
     // Tabbers

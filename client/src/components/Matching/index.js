@@ -1,9 +1,5 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-
-import { useState, useEffect, useContext } from 'react';
-import InputLabel from '@material-ui/core/InputLabel';
-
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';

@@ -2,7 +2,7 @@ import React from 'react';
 import {
     Typography,
     Container,
-    Grid, Avatar
+    Avatar
 } from '@material-ui/core';
 
 // Left container: User profile information
