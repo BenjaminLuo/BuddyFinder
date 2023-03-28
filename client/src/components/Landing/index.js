@@ -108,7 +108,7 @@ export default function Profile() {
             marginLeft: '100px'
           }}
         >
-          Welcome to Buddy Finder! On this website you'll be able to find other students with similar interests and schedule times to meet them. Get started now!</Typography>
+          Welcome to Buddy Finder! Find other students with similar interests and schedule times to meet them. Get started now!</Typography>
 
         {/* // onClick={toggleOscillator}
           // data-playing={dataPlaying} */}
