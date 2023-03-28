@@ -216,19 +216,9 @@ const Calendar = () => {
   };
 
   const eventClick = ({ event }) => {
-    const action = (
-      event.remove()
-    );
-
-    return (
-      <Card spacing={2} sx={{ maxWidth: 600 }}>
-        <SnackbarContent message="Are you sure you want to delete this event from your calendar?" action={action} />
-      </Card>
-    );
-
-    //if (window.confirm("Are you sure you want to delete this event from your calendar?")) {
-    //event.remove();
-    // }
+ if (window.confirm("Are you sure you want to delete this event from your calendar?")) {
+    event.remove();
+     }
   };
 
   return (
