@@ -10,10 +10,10 @@ export function blockedList(value, query, UserCard, friends, blocked) {
                 blocked.includes(item.user_id) ?
                     <UserCard
                         key={index}
-                        name={item.display_name}
+                        name={item.display_name ? item.display_name : "Anonymous User"}
                         userID={item.user_id}
-                        year={item.term}
-                        program={item.program}
+                        year={item.term ? item.term : ""}
+                        program={item.program ? item.program : ""}
                         disabled={item.private}
                         friend={friends.includes(item.user_id)}
                         blocked={true} />

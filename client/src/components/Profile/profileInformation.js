@@ -7,7 +7,7 @@ import {
 
 // Left container: User profile information
 export function profileInformation(user, authUser) {
-    const name = (user?.hasOwnProperty('display_name')) ? user.display_name : authUser?.email.slice(0, authUser?.email.lastIndexOf('@'))
+    const name = user?.display_name ? user.display_name : authUser?.email.slice(0, authUser?.email.lastIndexOf('@'))
     return (
         <>
 
