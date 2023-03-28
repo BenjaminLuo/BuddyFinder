@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import './landing.css';
+import reactLogo from "./finder.jpeg";
+import title from "./main.png";
+
 import {
   Card,
   Typography,
@@ -46,7 +49,8 @@ export default function Profile() {
           height: '100%'
         }}
       >
-        <Typography
+        <img src={title} width={600} height={150} alt="react logo" />
+        {/* <Typography
           align="center"
           variant="h1"
           component="div"
@@ -59,7 +63,7 @@ export default function Profile() {
           }}
         >
           Buddy Finder
-        </Typography>
+        </Typography> */}
       </Card>
       <Card
         style={{
@@ -70,7 +74,7 @@ export default function Profile() {
       >
         <Typography
           align="center"
-          variant="h5"
+          variant="h4"
           component="div"
           gutterBottom
           style={{
@@ -83,7 +87,8 @@ export default function Profile() {
           Welcome to Buddy Finder! On this website you'll be able to find other students with similar interests and schedule times to meet them. Get started now!</Typography>
 
       </Card>
-
+      <br></br>
+      <img src={reactLogo} width={1200} height={800} alt="react logo" />
 
 
     </div>
