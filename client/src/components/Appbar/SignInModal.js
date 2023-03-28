@@ -9,6 +9,7 @@ export function SignInModal(open, handleModalClose, classes) {
     return (
         <Modal
             open={open}
+            data-testid={'auth-modal'}
             onClose={handleModalClose}>
             <Box className={classes.modal}>
                 <SignIn />

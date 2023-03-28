@@ -1,7 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
+import { SignInModal } from '../Appbar/SignInModal';
 import './landing.css';
 import reactLogo from "./finder.jpeg";
 import title from "./main.png";
+import { signOut } from "firebase/auth";
+import { auth } from "../Firebase/firebase";
+import history from '../Navigation/history';
+import { AuthContext } from '../Authentication/AuthDetails'
 
 import {
   Typography,
@@ -17,39 +22,75 @@ const useStyles = makeStyles(() => {
       backgroundImage: `url(${reactLogo})`,
       backgroundSize: 'cover',
       height: '100vh',
-    }
+    },
+    modal: {
+      position: 'absolute',
+      overflowY: 'auto',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: '33%',
+      backgroundColor: 'white',
+      border: '0px',
+      padding: '40px',
+      zoom: '0.8'
+    },
   }
 })
 
 
-const AudioContext = window.AudioContext || window.webkitAudioContext
+// const AudioContext = window.AudioContext || window.webkitAudioContext
 
 export default function Profile() {
   const classes = useStyles();
+  const { authUser } = useContext(AuthContext);
 
-  const [dataPlaying, setDataPlaying] = useState(false);
-  const audioContextRef = useRef();
+  // const [dataPlaying, setDataPlaying] = useState(false);
+  // const audioContextRef = useRef();
 
-  useEffect(() => {
-    const audioContext = new AudioContext();
-    const osc = audioContext.createOscillator();
-    osc.type = "sine";
-    osc.frequency.value = 880;
-    osc.connect(audioContext.destination);
-    osc.start();
-    audioContextRef.current = audioContext;
-    audioContext.suspend();
-    return () => osc.disconnect(audioContext.destination);
-  }, []);
+  // const audioContext = new (AudioContext || (window).webkitAudioContext)();
+  // const osc = audioContext.createOscillator();
 
-  const toggleOscillator = () => {
-    if (dataPlaying) {
-      audioContextRef.current.suspend();
-    } else {
-      audioContextRef.current.resume();
-    }
-    setDataPlaying((play) => !play);
+  // useEffect(() => {
+  //   osc.type = "sine";
+  //   osc.frequency.value = 880;
+  //   osc.connect(audioContext.destination);
+  //   osc.start();
+  //   audioContextRef.current = audioContext;
+  //   audioContext.suspend();
+  //   return () => osc.disconnect(audioContext.destination);
+  // }, []);
+
+  // const toggleOscillator = () => {
+  //   if (dataPlaying) {
+  //     audioContextRef.current.suspend();
+  //   } else {
+  //     audioContextRef.current.resume();
+  //   }
+  //   setDataPlaying((play) => !play);
+  // };
+
+  // Sign-in Modal triggers
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleModalClose = () => setOpen(false);
+
+  const userSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        console.log("sign out successful");
+      })
+      .catch((error) => console.log(error));
   };
+
+  const handleAuth = () => {
+    if (authUser) {
+      userSignOut();
+      history.push("/");
+    } else {
+      handleOpen();
+    }
+  }
 
   return (
 
@@ -69,13 +110,20 @@ export default function Profile() {
         >
           Welcome to Buddy Finder! On this website you'll be able to find other students with similar interests and schedule times to meet them. Get started now!</Typography>
 
+        {/* // onClick={toggleOscillator}
+          // data-playing={dataPlaying} */}
+        {/* <span>{dataPlaying ? "Pause" : "Play"}</span> */}
+
         <Button
-          onClick={toggleOscillator}
-          data-playing={dataPlaying}
+          onClick={handleAuth}
+          data-testid={'auth'}
           variant="contained"
           style={{ marginLeft: '100px', marginTop: '20px', backgroundColor: '#6ffd69' }}>
-          <span>{dataPlaying ? "Pause" : "Play"}</span>
+          {authUser ? "Sign out" : "Sign In / Register"}
         </Button>
+
+        {/* Modal and sign in / registration form */}
+        {SignInModal(open, handleModalClose, classes)}
 
       </Grid>
 
