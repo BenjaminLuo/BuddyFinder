@@ -4,14 +4,29 @@ import reactLogo from "./finder.jpeg";
 import title from "./main.png";
 
 import {
-  Card,
   Typography,
+  makeStyles,
+  Grid,
+  Button
 } from '@material-ui/core';
 
-//const AudioContext = window.AudioContext || window.webkitAudioContext
+const useStyles = makeStyles(() => {
+  return {
+    page: {
+      opacity: 0.9,
+      backgroundImage: `url(${reactLogo})`,
+      backgroundSize: 'cover',
+      height: '100vh',
+    }
+  }
+})
+
+
+const AudioContext = window.AudioContext || window.webkitAudioContext
 
 export default function Profile() {
-/*
+  const classes = useStyles();
+
   const [dataPlaying, setDataPlaying] = useState(false);
   const audioContextRef = useRef();
 
@@ -35,63 +50,37 @@ export default function Profile() {
     }
     setDataPlaying((play) => !play);
   };
-*/
+
   return (
 
-    <div align="center" style={{
-      backgroundcolor: '#5C5D8D',
-    }}>
-
-      <Card
-        style={{
-          color: 'white',
-          backgroundColor: '#5C5D8D',
-          height: '100%'
-        }}
-      >
+    <Grid container className={classes.page}>
+      <Grid item xs={6} style={{ top: '20%', left: '5%', position: 'absolute' }}>
         <img src={title} width={600} height={150} alt="react logo" />
-        {/* <Typography
-          align="center"
-          variant="h1"
-          component="div"
-          gutterBottom
-          style={{
-            fontFamily: 'Roboto',
-            color: 'white',
-            opacity: '100%',
-            align: 'center',
-          }}
-        >
-          Buddy Finder
-        </Typography> */}
-      </Card>
-      <Card
-        style={{
-          color: 'white',
-          backgroundColor: '#5C5D8D',
-          height: '100%'
-        }}
-      >
         <Typography
-          align="center"
           variant="h4"
-          component="div"
           gutterBottom
           style={{
             fontFamily: 'Roboto',
             color: 'white',
-            opacity: '100%',
-            align: 'left',
+            fontSize: '22px',
+            align: 'justify',
+            marginLeft: '100px'
           }}
         >
           Welcome to Buddy Finder! On this website you'll be able to find other students with similar interests and schedule times to meet them. Get started now!</Typography>
 
-      </Card>
-      <br></br>
-      <img src={reactLogo} width={1200} height={800} alt="react logo" />
+        <Button
+          onClick={toggleOscillator}
+          data-playing={dataPlaying}
+          variant="contained"
+          style={{ marginLeft: '100px', marginTop: '20px', backgroundColor: '#6ffd69' }}>
+          <span>{dataPlaying ? "Pause" : "Play"}</span>
+        </Button>
+
+      </Grid>
 
 
-    </div>
+    </Grid>
   )
 
 }
