@@ -104,7 +104,7 @@ const AddEventForm = ({ isOpen, onClose, onSubmit }) => {
   const handleSubmit = (event) => {
 
     event.preventDefault();
-    onSubmit( eventName, startTime, endTime, eventColour, eventRecurrence );
+    onSubmit(eventName, startTime, endTime, eventColour, eventRecurrence);
     onClose();
     setEventName();
     setStartTime('');
@@ -113,75 +113,93 @@ const AddEventForm = ({ isOpen, onClose, onSubmit }) => {
 
   };
 
+  /*  IF ANTRHING GOES WRONG/DOESN'T WORK GET RID OF THIS!!!
+*/
+  const getEvent = (event) => {
+
+    event.preventDefault();
+    {
+      postList.map((ca) => {
+        onSubmit(ca.event, ca.start, ca.end, ca.colour, ca.recurrence);
+        onClose();
+        setEventName('');
+        setStartTime('');
+        setEndTime('');
+      })
+    }
+  };
+
   return isOpen ? (
     <div className="popup-form">
-      <form onSubmit={handleSubmit}>
-        <Grid>
-          <label htmlFor="eventName">Enter your event name:</label>
-          <input
-            id="eventName"
-            type="text"
-            value={eventName}
-            onChange={(event) => setEventName(event.target.value)}
-          />
-        </Grid>
+      <form onload={getEvent}>
+        <form onSubmit={handleSubmit}>
+          <Grid>
+            <label htmlFor="eventName">Enter your event name:</label>
+            <input
+              id="eventName"
+              type="text"
+              value={eventName}
+              onChange={(event) => setEventName(event.target.value)}
+            />
+          </Grid>
 
-        <Grid>
-          <label htmlFor="startTime">Enter your start time -- YYYY-MM-DD, HH:MM AM/PM:</label>
-          <input
-            id="startTime"
-            type="datetime-local"
-            value={startTime}
-            onChange={(event) => setStartTime(event.target.value)}
-          />
-        </Grid>
+          <Grid>
+            <label htmlFor="startTime">Enter your start time -- YYYY-MM-DD, HH:MM AM/PM:</label>
+            <input
+              id="startTime"
+              type="datetime-local"
+              value={startTime}
+              onChange={(event) => setStartTime(event.target.value)}
+            />
+          </Grid>
 
-        <Grid>
-          <label htmlFor="endTime">Enter your end time -- YYYY-MM-DD, HH:MM AM/PM:</label>
-          <input
-            id="endTime"
-            type="datetime-local"
-            value={endTime}
-            onChange={(event) => setEndTime(event.target.value)}
-          />
-        </Grid>
-        <Grid>
-          <FormControl>
-            <FormLabel id="demo-radio-buttons-group-label">Event Colour</FormLabel>
-            <RadioGroup
-              row
-              aria-labelledby="demo-radio-buttons-group-label"
-              defaultValue="eventColour"
-              name="radio-buttons-group"
-              value={eventColour}
-              onChange={(event) => setEventColour(event.target.value)}
+          <Grid>
+            <label htmlFor="endTime">Enter your end time -- YYYY-MM-DD, HH:MM AM/PM:</label>
+            <input
+              id="endTime"
+              type="datetime-local"
+              value={endTime}
+              onChange={(event) => setEndTime(event.target.value)}
+            />
+          </Grid>
+          <Grid>
+            <FormControl>
+              <FormLabel id="demo-radio-buttons-group-label">Event Colour</FormLabel>
+              <RadioGroup
+                row
+                aria-labelledby="demo-radio-buttons-group-label"
+                defaultValue="eventColour"
+                name="radio-buttons-group"
+                value={eventColour}
+                onChange={(event) => setEventColour(event.target.value)}
 
-            >
-              <FormControlLabel value="red" control={<Radio />} label="Red" />
-              <FormControlLabel value="blue" control={<Radio />} label="Blue" />
-              <FormControlLabel value="green" control={<Radio />} label="Green" />
-              <FormControlLabel value="purple" control={<Radio />} label="Purple" />
-            </RadioGroup>
-          </FormControl>
-        </Grid>
-        <Grid>
-          <FormControl variant="standard" sx={{ m: 1, minWidth: 500 }}>
-            <InputLabel id="demo-simple-select-label"> Select Recurrence</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={eventRecurrence}
-              label="Age"
-              onChange={(event) => setEventRecurrence(event.target.value)}
-            >
-              <MenuItem value={"none"}>None</MenuItem>
-              <MenuItem value={"daily"}>Daily</MenuItem>
-              <MenuItem value={"weekly"}>Weekly</MenuItem>
-              <MenuItem value={"monthly"}>Monthly</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-        <Button variant="contained" type="submit">Submit</Button>
+              >
+                <FormControlLabel value="red" control={<Radio />} label="Red" />
+                <FormControlLabel value="blue" control={<Radio />} label="Blue" />
+                <FormControlLabel value="green" control={<Radio />} label="Green" />
+                <FormControlLabel value="purple" control={<Radio />} label="Purple" />
+              </RadioGroup>
+            </FormControl>
+          </Grid>
+          <Grid>
+            <FormControl variant="standard" sx={{ m: 1, minWidth: 500 }}>
+              <InputLabel id="demo-simple-select-label"> Select Recurrence</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={eventRecurrence}
+                label="Age"
+                onChange={(event) => setEventRecurrence(event.target.value)}
+              >
+                <MenuItem value={"none"}>None</MenuItem>
+                <MenuItem value={"daily"}>Daily</MenuItem>
+                <MenuItem value={"weekly"}>Weekly</MenuItem>
+                <MenuItem value={"monthly"}>Monthly</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Button variant="contained" type="submit">Submit</Button>
+        </form>
       </form>
     </div>
   ) : null;
@@ -237,20 +255,6 @@ const Calendar = () => {
     }
   }
 
-/*  IF ANTRHING GOES WRONG/DOESN'T WORK GET RID OF THIS!!!
-*/
-  const getEvent = (event) => {
-
-    event.preventDefault();
-    { postList.map((ca) => {
-    onSubmit( ca.event, ca.start, ca.end, ca.colour, ca.recurrence );
-    onClose();
-    setEventName('');
-    setStartTime('');
-    setEndTime('');
-  })}
-  };
-
 
   const closeForm = () => {
     setIsFormOpen(false);
@@ -288,21 +292,6 @@ const Calendar = () => {
         Add Event</Button>
       <AddEventForm onSubmit={addEvent} isOpen={isFormOpen} onClose={closeForm}
       />
-
-{/* !!! THIS BUTTON IS NOT TESTED!  !!! */}
-      <Button
-        variant="contained"
-        color="success"
-        size="medium"
-        onClick={() => {
-          setIsFormOpen(true);
-        }}>
-        Get Event</Button>
-      <AddEventForm onSubmit={getEvent} isOpen={isFormOpen} onClose={closeForm}
-      />
-      <p>
-
-      </p>
 
       <p>
 
