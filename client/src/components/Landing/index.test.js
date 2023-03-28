@@ -1,19 +1,27 @@
 import { render, screen, getByRole, fireEvent } from "@testing-library/react";
 import Landing from "./index.js";
+import { MemoryRouter } from "react-router-dom";
+import AuthDetails from '../Authentication/AuthDetails'
 
+jest.mock('firebase/auth', () => ({
+    getAuth: jest.fn().mockReturnValue({}),
+    onAuthStateChanged: jest.fn().mockReturnValue({})
+}));
 
-describe ('Landing', () => {
+describe('Landing', () => {
     function renderComponent() {
-        render(<Landing/>)
+        render(
+            <AuthDetails>
+                <Landing />
+            </AuthDetails>,
+            { wrapper: MemoryRouter }
+        );
     }
-
-    it("should render the home page", () => {
+    it("should render the sign-in/registration menu", () => {
         renderComponent();
-        expect(screen.getByText(`Buddy Finder`)).toBeInTheDocument()
-    })
-    it("should render the home page 2", () => {
-        renderComponent();
-        expect(screen.getByText(`Buddy Finder`)).toBeInTheDocument()
+        expect(screen.getByTestId('auth')).toBeTruthy();
+        fireEvent.click(screen.getByTestId("auth"));
+        expect(screen.getByTestId('auth-modal')).toBeTruthy();
     })
 
 })
