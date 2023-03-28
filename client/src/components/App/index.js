@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { ThemeProvider } from '@material-ui/core'
 import {
   BrowserRouter as Router
@@ -12,21 +12,19 @@ import AuthDetails from '../Authentication/AuthDetails';
 
 
 // Main routing hub: Loads Appbar on each page and sets default screen to the Landing page
-class App extends Component {
-  render() {
-    return (
-      <ThemeProvider theme={theme}>
-        <AuthDetails>
-          <Router>
-            <Appbar />
-            <div className="App">
-              <PrivateRoute exact path="/" component={Landing} />
-            </div>
-          </Router>
-        </AuthDetails>
-      </ThemeProvider>
-    );
-  }
+const App = () => {
+  return (
+    <ThemeProvider theme={theme}>
+      <AuthDetails>
+        <Router>
+          <Appbar />
+          <div className="App">
+            <PrivateRoute exact path="/" component={Landing} />
+          </div>
+        </Router>
+      </AuthDetails>
+    </ThemeProvider>
+  );
 }
 
 export default App;

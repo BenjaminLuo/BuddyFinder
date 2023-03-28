@@ -3,19 +3,18 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import Grid from "@material-ui/core/Grid";
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
-import SnackbarContent from '@mui/material/SnackbarContent';
+import Box from '@material-ui/core/Box';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
 
 import './calendar.css';
 
@@ -153,7 +152,7 @@ const AddEventForm = ({ isOpen, onClose, onSubmit }) => {
             </Select>
           </FormControl>
         </Grid>
-        <Button variant="contained" type ="submit">Submit</Button>
+        <Button variant="contained" type="submit">Submit</Button>
       </form>
     </div>
   ) : null;
@@ -222,14 +221,14 @@ const Calendar = () => {
     );
 
     return (
-      <Stack spacing={2} sx={{ maxWidth: 600 }}>
+      <Card spacing={2} sx={{ maxWidth: 600 }}>
         <SnackbarContent message="Are you sure you want to delete this event from your calendar?" action={action} />
-      </Stack>
+      </Card>
     );
 
     //if (window.confirm("Are you sure you want to delete this event from your calendar?")) {
-      //event.remove();
-   // }
+    //event.remove();
+    // }
   };
 
   return (
@@ -240,7 +239,7 @@ const Calendar = () => {
 
       <Button
         variant="contained"
-        color= "success"
+        color="success"
         size="large"
         onClick={() => {
           setIsFormOpen(true);
@@ -251,7 +250,7 @@ const Calendar = () => {
       <p>
 
       </p>
-      
+
       <p>
 
       </p>
