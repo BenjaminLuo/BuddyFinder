@@ -398,6 +398,24 @@ app.post('/api/searchPeople', (req, res) => {
 });
 
 
+app.post('/api/getUsersCalendar', (req, res) => {
+	let connection = mysql.createConnection(config);
+	let sql = `SELECT * from user_calendar WHERE user_settings_user_id="${req.body.userID}"`;
+
+	connection.query(sql, [], (error, results, fields) => {
+		if (error) {
+			return console.error(error.message);
+		}
+
+		console.log(results)
+
+		res.send(results);
+	});
+
+	connection.end();
+});
+
+
 app.post('/api/addCalendar', (req, res) => {
 	// let string = JSON.stringify(recipes);
 
@@ -409,10 +427,10 @@ app.post('/api/addCalendar', (req, res) => {
 	let user_id = req.body.userID;
 
 
-	let sql = `INSERT INTO user_calendar (event, start, end, user_id)  
-	VALUES (?, ?, ?, ?)`;
+	let sql = `INSERT INTO user_calendar (event, start, end, user_id, user_settings_user_id) 
+	VALUES (?, ?, ?, ?, ?)`;
 	console.log(sql);
-	let data = [user_eventName, user_startTime, user_endTime, user_id];
+	let data = [user_eventName, user_startTime, user_endTime, 0, user_id];
 	connection.query(sql, data, (error, results, fields) => {
 		if (error) {
 			return console.error(error.message);

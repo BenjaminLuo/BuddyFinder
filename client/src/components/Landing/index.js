@@ -21,7 +21,8 @@ const useStyles = makeStyles(() => {
       opacity: 0.9,
       backgroundImage: `url(${reactLogo})`,
       backgroundSize: 'cover',
-      height: '100vh',
+      height: '94vh',
+      overflowY: "hidden"
     },
     modal: {
       position: 'absolute',
