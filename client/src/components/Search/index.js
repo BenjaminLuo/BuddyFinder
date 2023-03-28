@@ -143,7 +143,7 @@ export default function Search() {
         if (!query || query === '') {
             return data;
         } else {
-            return data.filter((d) => d.user_id.includes(query.trim()) || d.display_name.toLowerCase().includes(query.trim().toLowerCase()));
+            return data.filter((d) => d.user_id.includes(query.trim().toLowerCase) || d.display_name.toLowerCase().includes(query.trim().toLowerCase()));
         }
     }
 
