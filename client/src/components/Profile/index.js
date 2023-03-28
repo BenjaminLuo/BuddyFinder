@@ -32,48 +32,6 @@ const useStyles = makeStyles(() => {
     }
 })
 
-const userStub = {
-    display_name: 'Ephei Tea',
-    user_id: '20890448',
-    bio: 'A struggling student',
-    interests: ['NodeJS', 'ReactJS', 'MUI', 'Mathematics', 'AWS', 'Research', 'Games', 'Hackathons', 'Sleeping'],
-    posts: [
-        {
-            postID: 132,
-            title: "Looking for friends in MGMT25"
-        },
-        {
-            postID: 136,
-            title: "Help with MSCI 342 project"
-        },
-        {
-            postID: 156,
-            title: "How do I solve this problem?"
-        },
-        {
-            postID: 137,
-            title: "Hi."
-        },
-        {
-            postID: 139,
-            title: "Why is this code breaking? What do I dooooooo"
-        }
-    ],
-    comments: [
-        {
-            commentID: 253,
-            value: "Hi"
-        },
-        {
-            commentID: 342,
-            value: "I'm a 3rd year management engineering student"
-        },
-        {
-            commentID: 554,
-            value: "I'm also looking for a project team, let's work together"
-        }
-    ]
-};
 
 export default function Profile({ userID }) {
     const classes = useStyles();
@@ -82,10 +40,6 @@ export default function Profile({ userID }) {
     // Declaring user object
     const [user, setUser] = React.useState({});
 
-    function getUserData(userID) {
-        return GetFetch('getUserSettings', { userID: userID })
-    }
-
     // Initializing user data
     useEffect(() => {
         // If an external component is referencing Profile, then load the requested user
@@ -93,7 +47,7 @@ export default function Profile({ userID }) {
             setUser(userID)
             // Load the current user
         } else if (authUser?.length !== 0) {
-            getUserData(authUser?.uid)
+            GetFetch('getUserSettings', { userID: authUser?.uid })
                 .then(user => setUser(user[0]))
         } else {
             setUser({
@@ -105,7 +59,7 @@ export default function Profile({ userID }) {
                 comments: ['None']
             })
         }
-    }, [authUser])
+    }, [authUser, userID])
 
     return (
         <Container maxWidth={false} className={classes.page}>
