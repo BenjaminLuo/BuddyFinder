@@ -156,6 +156,22 @@ app.post('/api/updateUserSettings', (req, res) => {
 	connection.end();
 });
 
+{  /* POTENTAIL ROGUE API */  }
+app.post('/api/getUsersCalendar', (req, res) => {
+	let connection = mysql.createConnection(config);
+	let sql = `SELECT * from user_calendar WHERE user_settings_user_id="${req.body.userID}"`;
+
+	connection.query(sql, [], (error, results, fields) => {
+		if (error) {
+			return console.error(error.message);
+		}
+
+		res.send(results);
+	});
+
+	connection.end();
+});
+
 
 
 app.post('/api/getUserList', (req, res) => {
@@ -397,7 +413,7 @@ app.post('/api/searchPeople', (req, res) => {
 	connection.end();
 });
 
-
+{ /* Some Changes here as well */ }
 app.post('/api/addCalendar', (req, res) => {
 	// let string = JSON.stringify(recipes);
 
@@ -409,7 +425,7 @@ app.post('/api/addCalendar', (req, res) => {
 	let user_id = req.body.userID;
 
 
-	let sql = `INSERT INTO user_calendar (event, start, end, user_id)  
+	let sql = `INSERT INTO user_calendar (event, start, end, user_settings_user_id)  
 	VALUES (?, ?, ?, ?)`;
 	console.log(sql);
 	let data = [user_eventName, user_startTime, user_endTime, user_id];

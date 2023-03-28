@@ -3,18 +3,19 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import Grid from "@material-ui/core/Grid";
-import Box from '@material-ui/core/Box';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import SnackbarContent from '@material-ui/core/SnackbarContent';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import SnackbarContent from '@mui/material/SnackbarContent';
 
 import './calendar.css';
 
@@ -33,7 +34,39 @@ const AddEventForm = ({ isOpen, onClose, onSubmit }) => {
   const { authUser } = useContext(AuthContext);
   const userID = authUser?.uid
 
+  React.useEffect(() => {
+    loadCalendar();
+  }, []);
 
+  const [eventList, setEventList] = React.useState([]);
+
+  const loadCalendar = () => {
+    callApiCalendarEvents()
+      .then(res => {
+        console.log("callApiCalendarEvents returned: ", res)
+        var parsed = JSON.parse(res.express);
+        console.log("callApiCalendarEvents parsed: ", parsed);
+
+        setEventList(parsed);
+        console.log("The List is ", eventList);
+      })
+  }
+
+  const callApiCalendarEvents = async () => {
+    const url = serverURL + "/api/getUsersCalendar";
+    console.log(url);
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
+    const calBody = await response.json();
+    if (response.status !== 200) throw Error(calBody.message);
+    console.log("User settings: ", calBody);
+    return calBody;
+  }
 
   const addCalendar = () => {
     callApiAddCalendar()
@@ -70,19 +103,15 @@ const AddEventForm = ({ isOpen, onClose, onSubmit }) => {
 
   const handleSubmit = (event) => {
 
-    console.log("I'm here");
     event.preventDefault();
-    onSubmit({ eventName, startTime, endTime, eventColour, eventRecurrence });
+    onSubmit( eventName, startTime, endTime, eventColour, eventRecurrence );
     onClose();
-    setEventName('');
+    setEventName();
     setStartTime('');
     setEndTime('');
     addCalendar();
 
-
-
   };
-
 
   return isOpen ? (
     <div className="popup-form">
@@ -208,7 +237,19 @@ const Calendar = () => {
     }
   }
 
+/*  IF ANTRHING GOES WRONG/DOESN'T WORK GET RID OF THIS!!!
+*/
+  const getEvent = (event) => {
 
+    event.preventDefault();
+    { postList.map((ca) => {
+    onSubmit( ca.event, ca.start, ca.end, ca.colour, ca.recurrence );
+    onClose();
+    setEventName('');
+    setStartTime('');
+    setEndTime('');
+  })}
+  };
 
 
   const closeForm = () => {
@@ -221,9 +262,9 @@ const Calendar = () => {
     );
 
     return (
-      <Card spacing={2} sx={{ maxWidth: 600 }}>
+      <Stack spacing={2} sx={{ maxWidth: 600 }}>
         <SnackbarContent message="Are you sure you want to delete this event from your calendar?" action={action} />
-      </Card>
+      </Stack>
     );
 
     //if (window.confirm("Are you sure you want to delete this event from your calendar?")) {
@@ -246,6 +287,18 @@ const Calendar = () => {
         }}>
         Add Event</Button>
       <AddEventForm onSubmit={addEvent} isOpen={isFormOpen} onClose={closeForm}
+      />
+
+{/* !!! THIS BUTTON IS NOT TESTED!  !!! */}
+      <Button
+        variant="contained"
+        color="success"
+        size="medium"
+        onClick={() => {
+          setIsFormOpen(true);
+        }}>
+        Get Event</Button>
+      <AddEventForm onSubmit={getEvent} isOpen={isFormOpen} onClose={closeForm}
       />
       <p>
 
