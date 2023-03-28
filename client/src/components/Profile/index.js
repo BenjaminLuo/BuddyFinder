@@ -11,23 +11,24 @@ import { userInterests } from './userInterests';
 import { userComments } from './userComments';
 import { profileInformation } from './profileInformation';
 import GetFetch from '../common'
-import backgroundImage from '../images/banner_background.png';
+import backgroundImage from '../images/nav_background.png';
 import { AuthContext } from '../Authentication/AuthDetails'
 
 const useStyles = makeStyles(() => {
     return {
         page: {
             opacity: 0.9,
-            minHeight: '120vh',
+            minHeight: '100vh',
             backgroundImage: `url(${backgroundImage})`,
-            backgroundSize: 'cover'
+            backgroundSize: 'cover',
+            overflowY: 'none'
         },
         rightSubContainer: {
             padding: '10px'
         },
         overlay: {
-            background: 'rgba(255, 255, 255, 0.4)',
-            height: '120vh'
+            background: 'rgba(255, 255, 255, 0.5)',
+            height: '100vh'
         },
     }
 })
